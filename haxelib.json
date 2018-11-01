@@ -1,0 +1,12 @@
+{
+    "name": "extype",
+    "url": "https://github.com/DenkiYagi/haxe-extype",
+    "license": "Apache",
+    "tags": ["haxe", "extern", "type"],
+    "description": "Enhanced standard types for Haxe",
+    "version": "1.0.0-rc.1",
+    "classPath": "src/",
+    "releasenote": "First release",
+    "contributors": ["terurou"],
+    "dependencies": {}
+}

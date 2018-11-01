@@ -1,0 +1,42 @@
+# Enhanced standard types for Haxe
+
+## Install
+```
+haxelib install extype
+```
+
+## API
+### extype
+#### Unit
+`Unit` is a type that indicates no value. 
+
+#### Maybe
+`Maybe<T>` is a wrapper type that can either have a value or null.
+
+#### Result
+`Result<T>` is a wrapper type that can either have a value or error.
+
+#### Tuple2 - Tuple10
+`Tuple[2-10]` can hold any values of several different types.
+
+#### ReadOnlyArray
+`ReadOnlyArray<T>` is a read-only Array<T>.
+
+#### ReadOnlyDynamic
+`ReadOnlyDynamic<T>` is a read-only Dynamic<T>.
+
+#### Error
+`Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
+
+##### NotImplementedError
+
+### extype.extern
+#### Mixed2 - Mixed10
+`Mixed[2-10]` can have a value of several different types.
+`Mixed2` is the same as `haxe.extern.EitherType`.
+
+#### ValueOrArray
+`ValueOrArray<T>` is a type that like as `haxe.extern.EitherType<T, Array<T>>`.
+
+#### ValueOrFunction
+`ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
