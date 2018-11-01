@@ -7,6 +7,6 @@
     "version": "1.0.0-rc.1",
     "classPath": "src/",
     "releasenote": "First release",
-    "contributors": ["terurou"],
+    "contributors": ["denkiyagi"],
     "dependencies": {}
 }

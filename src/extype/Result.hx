@@ -1,4 +1,4 @@
-package hxgnd;
+package extype;
 
 enum Result<T> {
     Success(value: T);
