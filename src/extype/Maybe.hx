@@ -1,13 +1,22 @@
 package extype;
 
-abstract Maybe<T>(Null<T>) from Null<T> {
-    @:extern public static inline function of<T>(x: T): Maybe<T> {
-        if (x == null) throw new Error("No value");
-        return x;
+abstract Maybe<T>(Null<T>) {
+    @:expose inline function new(x: Null<T>) {
+        this = x;
     }
 
-    @:extern public static inline function ofNullable<T>(x: Null<T>): Maybe<T> {
-        return x;
+    @:extern public static inline function of<T>(x: T): Maybe<T> {
+        if (x == null) throw new Error("No value");
+        return new Maybe(x);
+    }
+
+    @:from
+    @:extern public static inline function from<T>(x: Null<T>): Maybe<T> {
+        #if js
+        return new Maybe((x == null) ? null : x);
+        #else
+        return new Maybe(x);
+        #end
     }
 
     @:extern public static inline function empty<T>(): Maybe<T> {
@@ -32,11 +41,19 @@ abstract Maybe<T>(Null<T>) from Null<T> {
     }
 
     public inline function isEmpty(): Bool {
+        #if js
+        return untyped __strict_eq__(this, null);
+        #else
         return this == null;
+        #end
     }
 
     public inline function nonEmpty(): Bool {
+        #if js
+        return untyped __strict_neq__(this, null);
+        #else
         return this != null;
+        #end
     }
 
     public inline function forEach(fn: T -> Void): Void {

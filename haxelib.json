@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "1.0.0-rc.1",
+    "version": "1.0.0",
     "classPath": "src/",
-    "releasenote": "First release",
+    "releasenote": "First stable release",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
