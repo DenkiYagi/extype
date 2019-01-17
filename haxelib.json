@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "classPath": "src/",
-    "releasenote": "Fix Tuple2-10.",
+    "releasenote": "Fix Maybe.",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }

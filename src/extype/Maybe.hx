@@ -11,7 +11,7 @@ abstract Maybe<T>(Null<T>) {
     }
 
     @:from
-    @:extern public static inline function from<T>(x: Null<T>): Maybe<T> {
+    @:extern public static inline function ofNullable<T>(x: Null<T>): Maybe<T> {
         #if js
         return new Maybe((x == null) ? null : x);
         #else

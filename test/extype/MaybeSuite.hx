@@ -44,14 +44,14 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.from()", {
+        describe("Maybe.ofNullable()", {
             it("can convert value", {
-                Maybe.from(1).get().should.be(1);
+                Maybe.ofNullable(1).get().should.be(1);
             });
             it("can convert null", {
-                Maybe.from(null).isEmpty().should.be(true);
+                Maybe.ofNullable(null).isEmpty().should.be(true);
                 #if js
-                Maybe.from(js.Lib.undefined).isEmpty().should.be(true);
+                Maybe.ofNullable(js.Lib.undefined).isEmpty().should.be(true);
                 #end
             });
         });
