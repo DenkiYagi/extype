@@ -12,11 +12,7 @@ abstract Maybe<T>(Null<T>) {
 
     @:from
     @:extern public static inline function ofNullable<T>(x: Null<T>): Maybe<T> {
-        #if js
-        return new Maybe((x == null) ? null : x);
-        #else
         return new Maybe(x);
-        #end
     }
 
     @:extern public static inline function empty<T>(): Maybe<T> {
@@ -41,19 +37,11 @@ abstract Maybe<T>(Null<T>) {
     }
 
     public inline function isEmpty(): Bool {
-        #if js
-        return untyped __strict_eq__(this, null);
-        #else
         return this == null;
-        #end
     }
 
     public inline function nonEmpty(): Bool {
-        #if js
-        return untyped __strict_neq__(this, null);
-        #else
         return this != null;
-        #end
     }
 
     public inline function forEach(fn: T -> Void): Void {
