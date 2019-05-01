@@ -2,9 +2,6 @@
 -cp src
 -cp test
 -lib buddy
--neko dist/neko.n
+--interp
 -D buddy-colors
 -debug
-
---next
--cmd neko dist/neko.n
