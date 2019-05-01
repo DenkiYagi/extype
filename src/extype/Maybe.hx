@@ -1,25 +1,30 @@
 package extype;
 
-abstract Maybe<T>(Null<T>) {
-    @:expose inline function new(x: Null<T>) {
+import haxe.ds.Option;
+
+abstract Maybe<T>(Null<T>) from Null<T> {
+    extern inline function new(x: Null<T>) {
         this = x;
     }
 
-    @:extern public static inline function of<T>(x: T): Maybe<T> {
+    public static extern inline function of<T>(x: T): Maybe<T> {
         if (x == null) throw new Error("No value");
         return new Maybe(x);
     }
 
-    @:from
-    @:extern public static inline function ofNullable<T>(x: Null<T>): Maybe<T> {
+    public static extern inline function ofNullable<T>(x: Null<T>): Maybe<T> {
         return new Maybe(x);
     }
 
-    @:extern public static inline function empty<T>(): Maybe<T> {
+    public static extern inline function empty<T>(): Maybe<T> {
         return null;
     }
 
-    public inline function get(): Null<T> {
+    public extern inline function get(): Null<T> {
+        return this;
+    }
+
+    public extern inline function getUnsafe(): T {
         return this;
     }
 
@@ -72,11 +77,28 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function match<U>(fn: T -> U, elseFn: Void -> U): U {
+    public inline function fold<U>(ifEmpty: Void -> U, fn: T -> U): U {
         return if (nonEmpty()) {
             fn(this);
         } else {
-            elseFn();
+            ifEmpty();
         }
     }
+
+    @:to
+    public inline function toOption(): Option<T> {
+        return if (nonEmpty()) {
+            Some(this);
+        } else {
+            None;
+        }
+    }
+
+    @:from
+    public static inline function fromOption<T>(x: Option<T>): Maybe<T> {
+        return switch (x) {
+            case Some(v): Maybe.of(v);
+            case None: Maybe.empty();
+        }
+    } 
 }

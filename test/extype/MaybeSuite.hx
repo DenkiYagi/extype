@@ -1,28 +1,29 @@
 package extype;
 
+import haxe.ds.Option;
 import buddy.BuddySuite;
 using buddy.Should;
 
 class MaybeSuite extends BuddySuite {
     public function new() {
         describe("Maybe cast", {
-            it("should be some", {
-                var a: Maybe<Int> = 1;
+            it("should be any value", {
+                final a: Maybe<Int> = 1;
                 a.nonEmpty().should.be(true);
                 a.get().should.be(1);
             });
 
-            it("should be none", {
-                var a: Maybe<Int> = null;
+            it("should be empty value", {
+                final a: Maybe<Int> = null;
                 a.isEmpty().should.be(true);
             });
         });
 
         describe("Maybe operator", {
-            it("can compare", {
-                var a: Maybe<String> = "test";
-                var b: Maybe<String> = "test";
-                var c: Maybe<String> = "hoge";
+            it("should pass", {
+                final a: Maybe<String> = "test";
+                final b: Maybe<String> = "test";
+                final c: Maybe<String> = "hoge";
 
                 (a == b).should.be(true);
                 (a == c).should.be(false);
@@ -31,15 +32,27 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
+        describe("Maybe from", {
+            it("should convert to value", {
+                (1: Maybe<Int>).get().should.be(1);
+            });
+            it("should convert to null", {
+                (null: Maybe<Int>).isEmpty().should.be(true);
+                #if js
+                (js.Lib.undefined: Maybe<Int>).isEmpty().should.be(true);
+                #end
+            });
+        });
+
         describe("Maybe.of()", {
-            it("can convert value", {
-                var a = Maybe.of(1);
+            it("should convert from value", {
+                final a = Maybe.of(1);
                 a.get().should.be(1);
             });
-            it("can not convert null", {
-                function () { Maybe.of(null); }.should.throwAnything();
+            it("should not convert from null", {
+                (() -> Maybe.of(null)).should.throwAnything();
                 #if js
-                function () { Maybe.of(js.Lib.undefined); }.should.throwAnything();
+                (() -> Maybe.of(js.Lib.undefined)).should.throwAnything();
                 #end
             });
         });
@@ -62,7 +75,7 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.get()", {
+        describe("Maybe#get()", {
             it("should return value", {
                 Maybe.of(1).get().should.be(1);
             });
@@ -71,7 +84,16 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.getOrElse()", {
+        describe("Maybe#getUnsafe()", {
+            it("should return value", {
+                Maybe.of(1).getUnsafe().should.be(1);
+            });
+            it("should return null", {
+                (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(null);
+            });
+        });
+
+        describe("Maybe#getOrElse()", {
             it("should return value", {
                 Maybe.of(1).getOrElse(-5).should.be(1);
             });
@@ -80,16 +102,16 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.getOrThrow()", {
+        describe("Maybe#getOrThrow()", {
             it("should be success", {
                 Maybe.of(1).getOrThrow().should.be(1);
             });
             it("should be failure", {
-                function () { Maybe.empty().getOrThrow(); }.should.throwAnything();
+                (() -> Maybe.empty().getOrThrow()).should.throwAnything();
             });
         });
 
-        describe("Maybe.isEmpty()", {
+        describe("Maybe#isEmpty()", {
             it("should be true", {
                 Maybe.empty().isEmpty().should.be(true);
             });
@@ -98,7 +120,7 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.nonEmpty()", {
+        describe("Maybe#nonEmpty()", {
             it("should be true", {
                 Maybe.of(1).nonEmpty().should.be(true);
             });
@@ -107,103 +129,119 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.forEach()", {
+        describe("Maybe#forEach()", {
             it("should call", {
                 var count = 0;
-                Maybe.of(1).forEach(function (x) {
+                Maybe.of(1).forEach(x -> {
                     x.should.be(1);
                     count++;
                 });
                 count.should.be(1);
             });
             it("should not call", {
-                Maybe.empty().forEach(function (x) {
+                Maybe.empty().forEach(x -> {
                     fail();
                 });
             });
         });
 
-        describe("Maybe.map()", {
+        describe("Maybe#map()", {
             it("should call", {
                 var count = 0;
-                var ret = Maybe.of(1).map(function (x) {
+                final ret = Maybe.of(1).map(x -> {
                     x.should.be(1);
                     count++;
-                    return x + 1;
+                    x + 1;
                 });
                 ret.should.be(2);
                 count.should.be(1);
             });
             it("should not call", {
-                Maybe.empty().map(function (x) {
+                Maybe.empty().map(x -> {
                     fail();
-                    return x;
+                    x;
                 });
             });
         });
 
-        describe("Maybe.flatMap()", {
+        describe("Maybe#flatMap()", {
             it("should call", {
                 var count = 0;
-                var ret = Maybe.of(1).flatMap(function (x) {
+                final ret = Maybe.of(1).flatMap(x -> {
                     x.should.be(1);
                     count++;
-                    return Maybe.of(x + 1);
+                    Maybe.of(x + 1);
                 });
                 ret.should.be(2);
                 count.should.be(1);
             });
             it("should call and be empty", {
-                var ret = Maybe.of(1).flatMap(function (x) {
-                    return Maybe.empty();
-                });
+                final ret = Maybe.of(1).flatMap(x -> Maybe.empty());
                 ret.isEmpty().should.be(true);
             });
             it("should not call", {
-                Maybe.empty().flatMap(function (x) {
+                Maybe.empty().flatMap(x -> {
                     fail();
-                    return x;
+                    x;
                 });
             });
         });
 
-        describe("Maybe.filter()", {
+        describe("Maybe#filter()", {
             it("should call and be some value", {
                 var count = 0;
-                var ret = Maybe.of(1).filter(function (x) {
+                final ret = Maybe.of(1).filter(x -> {
                     x.should.be(1);
                     count++;
-                    return true;
+                    true;
                 });
                 ret.should.be(1);
                 count.should.be(1);
             });
             it("should call and be empty", {
-                var ret = Maybe.of(1).filter(function (x) {
-                    return false;
-                });
+                final ret = Maybe.of(1).filter(x -> false);
                 ret.isEmpty().should.be(true);
             });
             it("should not call", {
-                Maybe.empty().filter(function (x) {
+                Maybe.empty().filter(x -> {
                     fail();
-                    return x;
+                    x;
                 });
             });
         });
 
-        describe("Maybe.match()", {
-            it("should match some pattern", {
-                Maybe.of(1).match(
-                    function (x) return x * 3,
-                    function () return -1
+        describe("Maybe#fold()", {
+            it("should call ifEmpty", {
+                Maybe.empty().fold(
+                    () -> -1,
+                    x -> x * 3
+                ).should.be(-1);
+            });
+            it("should call fn", {
+                Maybe.of(1).fold(
+                    () -> -1,
+                    x -> x * 3
                 ).should.be(3);
             });
-            it("should match empty pattern", {
-                Maybe.empty().match(
-                    function (x) return x * 3,
-                    function () return -1
-                ).should.be(-1);
+        });
+
+        describe("Maybe#toOption()", {
+            it("should be Some(v)", {
+                Maybe.of(1).toOption().should.equal(Some(1));
+                (Maybe.of(1): Option<Int>).should.equal(Some(1));
+            });
+            it("should be None", {
+                Maybe.empty().toOption().should.equal(None);
+                (Maybe.empty(): Option<Int>).should.equal(None);
+            });
+        });
+
+        describe("Maybe.fromOption()", {
+            it("should be Maybe.of(v)", {
+                Maybe.fromOption(Some(1)).should.be(Maybe.of(1));
+            });
+            it("should be Maybe.empty()", {
+                Maybe.fromOption(None).should.be(Maybe.empty());
             });
         });
     }
