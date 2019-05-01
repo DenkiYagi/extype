@@ -4,7 +4,7 @@
 -lib buddy
 -neko dist/neko.n
 -D buddy-colors
--debug
+-dce full
 
 --next
 -cmd neko dist/neko.n

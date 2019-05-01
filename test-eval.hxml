@@ -4,4 +4,4 @@
 -lib buddy
 --interp
 -D buddy-colors
--debug
+-dce full

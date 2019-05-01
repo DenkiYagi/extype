@@ -5,7 +5,7 @@
 -js dist/node.js
 -D buddy-colors
 -D nodejs
--debug
+-dce full
 
 --next
 -cmd node dist/node.js
