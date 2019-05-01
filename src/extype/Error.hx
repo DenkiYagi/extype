@@ -6,10 +6,10 @@ typedef Error = js.Error;
 import haxe.CallStack;
 
 class Error {
-    private inline static var DEFAULT_NAME = "Error";
+    inline static var DEFAULT_NAME = "Error";
 
-    public var message(default, default): String;
-    public var name(default, default): String;
+    public var message: String;
+    public var name: String;
     public var stack(default, null): String;
 
     public function new(?message : Dynamic) {
@@ -18,8 +18,8 @@ class Error {
         this.stack = getCallStack();
     }
 
-    private static function getCallStack(): String {
-        var callStack = CallStack.callStack();
+    inline function getCallStack(): String {
+        final callStack = CallStack.callStack();
         callStack.splice(0, 3);
         return CallStack.toString(callStack);
     }

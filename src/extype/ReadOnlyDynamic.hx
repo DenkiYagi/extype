@@ -1,11 +1,29 @@
 package extype;
 
-abstract ReadOnlyDynamic<T>(Dynamic<T>) from Dynamic<T> {
-    @:arrayAccess inline function get(key: String): T {
-        #if js
-        return untyped __js__("{0}[{1}]", this, key);
-        #else
-        return Reflect.field(this, key);
-        #end
+import js.Syntax;
+
+abstract ReadOnlyDynamic<T>(Dynamic<T>) {
+    inline function new(x: Dynamic) {
+        this = x;
+    }
+
+    @:op(a.b)
+    inline function getByDotAccess(field: String): T {
+        return Reflect.field(this, field);
+    }
+
+    @:arrayAccess
+    inline function getByArrayAccess(field: String): T {
+        return Reflect.field(this, field);
+    }
+
+    @:from
+    static inline function fromDynamic<T>(x: Dynamic<T>): ReadOnlyDynamic<T> {
+        return new ReadOnlyDynamic(x);
+    }
+
+    @:from
+    static inline function fromObject<T: {}>(x: T): ReadOnlyDynamic<Dynamic> {
+        return new ReadOnlyDynamic(x);
     }
 }
