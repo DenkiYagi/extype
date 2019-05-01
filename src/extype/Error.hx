@@ -12,7 +12,7 @@ class Error {
     public var name: String;
     public var stack(default, null): String;
 
-    public function new(?message : Dynamic) {
+    public function new(?message : String) {
         this.message = Maybe.ofNullable(message).getOrElse("");
         this.name = DEFAULT_NAME;
         this.stack = getCallStack();

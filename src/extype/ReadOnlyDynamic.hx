@@ -1,7 +1,5 @@
 package extype;
 
-import js.Syntax;
-
 abstract ReadOnlyDynamic<T>(Dynamic<T>) {
     inline function new(x: Dynamic) {
         this = x;
