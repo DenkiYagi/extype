@@ -1,5 +1,11 @@
 # Enhanced standard types for Haxe
 
+## Tested platforms
+* JavaScript
+* Eval
+* NekoVM
+* CPP
+
 ## Install
 ```
 haxelib install extype
@@ -18,9 +24,6 @@ haxelib install extype
 
 #### Tuple2 - Tuple10
 `Tuple[2-10]` can hold any values of several different types.
-
-#### ReadOnlyArray
-`ReadOnlyArray<T>` is a read-only Array<T>.
 
 #### ReadOnlyDynamic
 `ReadOnlyDynamic<T>` is a read-only Dynamic<T>.

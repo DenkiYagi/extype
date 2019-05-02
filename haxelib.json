@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "1.0.4",
+    "version": "1.1.0-rc.1",
     "classPath": "src/",
-    "releasenote": "Fix extype.Error.",
+    "releasenote": "Migrate to Haxe 4.0",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
