@@ -90,7 +90,7 @@ class MaybeSuite extends BuddySuite {
                 Maybe.of(1).getUnsafe().should.be(1);
             });
             it("should return null", {
-                #if "target.static"
+                #if (flash || cpp || java || cs)
                 (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(0);
                 #else
                 (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(null);
