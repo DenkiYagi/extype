@@ -6,12 +6,12 @@ abstract ReadOnlyDynamic<T>(Dynamic<T>) {
     }
 
     @:op(a.b)
-    inline function getByDotAccess(field: String): T {
+    inline function getByDotAccess(field: String): Null<T> {
         return Reflect.field(this, field);
     }
 
     @:arrayAccess
-    inline function getByArrayAccess(field: String): T {
+    inline function getByArrayAccess(field: String): Null<T> {
         return Reflect.field(this, field);
     }
 
