@@ -12,15 +12,15 @@ class Error {
     public var name: String;
     public var stack(default, null): String;
 
-    public function new(?message : String) {
-        this.message = Maybe.ofNullable(message).getOrElse("");
+    public function new(message: String = "") {
+        this.message = message;
         this.name = DEFAULT_NAME;
         this.stack = getCallStack();
     }
 
     inline function getCallStack(): String {
         final callStack = CallStack.callStack();
-        callStack.splice(0, 3);
+        callStack.splice(0, 2);
         return CallStack.toString(callStack);
     }
 }

@@ -12,6 +12,8 @@ class ReadOnlyDynamicSuite extends BuddySuite {
                 
                 final d: ReadOnlyDynamic<Int> = src;
                 d.age.should.be(1);
+
+                throw new Error("test");
             });
 
             it("should cast from anonymous structure", {
