@@ -80,7 +80,8 @@ class MaybeSuite extends BuddySuite {
                 Maybe.of(1).get().should.be(1);
             });
             it("should return null", {
-                (Maybe.empty(): Maybe<Int>).get().should.be(null);
+                final x = (Maybe.empty(): Maybe<Int>).get();
+                (x == null).should.be(true);
             });
         });
 
@@ -89,7 +90,11 @@ class MaybeSuite extends BuddySuite {
                 Maybe.of(1).getUnsafe().should.be(1);
             });
             it("should return null", {
+                #if "target.static"
+                (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(0);
+                #else
                 (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(null);
+                #end
             });
         });
 

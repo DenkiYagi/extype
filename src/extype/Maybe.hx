@@ -7,9 +7,12 @@ abstract Maybe<T>(Null<T>) from Null<T> {
         this = x;
     }
 
-    public static extern inline function of<T>(x: T): Maybe<T> {
-        if (x == null) throw new Error("No value");
-        return new Maybe(x);
+    public static function of<T>(x: T): Maybe<T> {
+        if (x != null) {
+            return new Maybe(x);
+        } else {
+            throw new Error("No value");
+        }
     }
 
     public static extern inline function ofNullable<T>(x: Null<T>): Maybe<T> {

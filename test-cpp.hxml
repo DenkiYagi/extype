@@ -1,0 +1,10 @@
+-main Main
+-cp src
+-cp test
+-lib buddy
+-cpp dist/cpp
+-D buddy-colors
+-dce full
+
+--next
+-cmd dist/cpp/Main
