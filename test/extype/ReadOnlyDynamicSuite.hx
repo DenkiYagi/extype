@@ -1,7 +1,7 @@
 package extype;
 
 import buddy.BuddySuite;
-using buddy.Should;
+import utest.Assert;
 
 class ReadOnlyDynamicSuite extends BuddySuite {
     public function new() {
@@ -11,30 +11,30 @@ class ReadOnlyDynamicSuite extends BuddySuite {
                 src.age = 1;
                 
                 final d: ReadOnlyDynamic<Int> = src;
-                d.age.should.be(1);
-
-                throw new Error("test");
+                Assert.equals(1, d.age);
             });
 
             it("should cast from anonymous structure", {
-                final src = { age: 10 };
+                final src = { age: 2 };
                 
                 final d: ReadOnlyDynamic<Int> = src;
-                d.age.should.be(10);
+                Assert.equals(2, d.age);
             });
         });
 
         describe("ReadOnlyDynamic @:op(a.b)", {
             it("should pass", {
                 final d: ReadOnlyDynamic<Int> = { age: 11 };
-                d.age.should.be(11);
+                Assert.equals(11, d.age);
+                Assert.equals(null, d.unknown);
             });
         });
 
         describe("ReadOnlyDynamic @:arrayAccess", {
             it("should pass", {
                 final d: ReadOnlyDynamic<Int> = { age: 12 };
-                d["age"].should.be(12);
+                Assert.equals(12, d.age);
+                Assert.equals(null, d.unknown);
             });
         });
     }

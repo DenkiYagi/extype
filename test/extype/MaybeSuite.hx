@@ -2,20 +2,20 @@ package extype;
 
 import haxe.ds.Option;
 import buddy.BuddySuite;
-using buddy.Should;
+import utest.Assert;
 
 class MaybeSuite extends BuddySuite {
     public function new() {
         describe("Maybe cast", {
             it("should be any value", {
                 final a: Maybe<Int> = 1;
-                a.nonEmpty().should.be(true);
-                a.get().should.be(1);
+                Assert.isTrue(a.nonEmpty());
+                Assert.equals(1, a.get());
             });
 
             it("should be empty value", {
                 final a: Maybe<Int> = null;
-                a.isEmpty().should.be(true);
+                Assert.isTrue(a.isEmpty());
             });
         });
 
@@ -25,112 +25,110 @@ class MaybeSuite extends BuddySuite {
                 final b: Maybe<String> = "test";
                 final c: Maybe<String> = "hoge";
 
-                (a == b).should.be(true);
-                (a == c).should.be(false);
-                (a == Maybe.empty()).should.be(false);
-                (a == "test").should.be(true);
+                Assert.isTrue(a == b);
+                Assert.isFalse(a == c);
+                Assert.isFalse(a == Maybe.empty());
+                Assert.isTrue(a == "test");
             });
         });
 
         describe("Maybe from", {
             it("should convert to value", {
-                (1: Maybe<Int>).get().should.be(1);
+                Assert.equals(1, (1: Maybe<Int>).get());
             });
             it("should convert to null", {
-                (null: Maybe<Int>).isEmpty().should.be(true);
+                Assert.isTrue((null: Maybe<Int>).isEmpty());
                 #if js
-                (js.Lib.undefined: Maybe<Int>).isEmpty().should.be(true);
+                Assert.isTrue((js.Lib.undefined: Maybe<Int>).isEmpty());
                 #end
             });
         });
 
         describe("Maybe.of()", {
             it("should convert from value", {
-                final a = Maybe.of(1);
-                a.get().should.be(1);
+                Assert.equals(1, Maybe.of(1).get());
             });
             it("should not convert from null", {
-                (() -> Maybe.of(null)).should.throwAnything();
+                Assert.raises(() -> Maybe.of(null));
                 #if js
-                (() -> Maybe.of(js.Lib.undefined)).should.throwAnything();
+                Assert.raises(() -> Maybe.of(js.Lib.undefined));
                 #end
             });
         });
 
         describe("Maybe.ofNullable()", {
             it("can convert value", {
-                Maybe.ofNullable(1).get().should.be(1);
+                Assert.equals(1, Maybe.ofNullable(1).get());
             });
             it("can convert null", {
-                Maybe.ofNullable(null).isEmpty().should.be(true);
+                Assert.isTrue(Maybe.ofNullable(null).isEmpty());
                 #if js
-                Maybe.ofNullable(js.Lib.undefined).isEmpty().should.be(true);
+                Assert.isTrue(Maybe.ofNullable(js.Lib.undefined).isEmpty());
                 #end
             });
         });
 
         describe("Maybe.empty()", {
             it("should be success", {
-                Maybe.empty().isEmpty().should.be(true);
+                Assert.isTrue(Maybe.empty().isEmpty());
             });
         });
 
         describe("Maybe#get()", {
             it("should return value", {
-                Maybe.of(1).get().should.be(1);
+                Assert.equals(1, Maybe.of(1).get());
             });
             it("should return null", {
                 final x = (Maybe.empty(): Maybe<Int>).get();
-                (x == null).should.be(true);
+                Assert.isTrue(x == null);
             });
         });
 
         describe("Maybe#getUnsafe()", {
             it("should return value", {
-                Maybe.of(1).getUnsafe().should.be(1);
+                Assert.equals(1, Maybe.of(1).getUnsafe());
             });
             it("should return null", {
-                #if (flash || cpp || java || cs)
-                (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(0);
-                #else
-                (Maybe.empty(): Maybe<Int>).getUnsafe().should.be(null);
-                #end
+                Assert.equals(null, (Maybe.empty(): Maybe<Int>).getUnsafe());
             });
         });
 
         describe("Maybe#getOrElse()", {
             it("should return value", {
-                Maybe.of(1).getOrElse(-5).should.be(1);
+                Assert.equals(1, Maybe.of(1).getOrElse(-5));
             });
             it("should return alt value", {
-                Maybe.empty().getOrElse(-5).should.be(-5);
+                Assert.equals(-5, Maybe.empty().getOrElse(-5));
             });
         });
 
         describe("Maybe#getOrThrow()", {
             it("should be success", {
-                Maybe.of(1).getOrThrow().should.be(1);
+                Assert.equals(1, Maybe.of(1).getOrThrow());
             });
             it("should be failure", {
-                (() -> Maybe.empty().getOrThrow()).should.throwAnything();
+                Assert.raises(() -> {
+                    Maybe.empty().getOrThrow(); 
+                    return;
+                });
             });
         });
 
         describe("Maybe#isEmpty()", {
             it("should be true", {
-                Maybe.empty().isEmpty().should.be(true);
+                Assert.isTrue(Maybe.empty().isEmpty());
             });
             it("should be false", {
-                Maybe.of(1).isEmpty().should.be(false);
+                Assert.isFalse(Maybe.of(1).isEmpty());
             });
         });
 
         describe("Maybe#nonEmpty()", {
             it("should be true", {
-                Maybe.of(1).nonEmpty().should.be(true);
+                Assert.isTrue(Maybe.of(1).nonEmpty());
             });
             it("should be false", {
-                Maybe.empty().nonEmpty().should.be(false);
+                Assert.isFalse(Maybe.empty().nonEmpty());
             });
         });
 
@@ -138,10 +136,10 @@ class MaybeSuite extends BuddySuite {
             it("should call", {
                 var count = 0;
                 Maybe.of(1).forEach(x -> {
-                    x.should.be(1);
+                    Assert.equals(1, x);
                     count++;
                 });
-                count.should.be(1);
+                Assert.equals(1, count);
             });
             it("should not call", {
                 Maybe.empty().forEach(x -> {
@@ -154,12 +152,12 @@ class MaybeSuite extends BuddySuite {
             it("should call", {
                 var count = 0;
                 final ret = Maybe.of(1).map(x -> {
-                    x.should.be(1);
+                    Assert.equals(1, x);
                     count++;
                     x + 1;
                 });
-                ret.should.be(2);
-                count.should.be(1);
+                Assert.equals(2, ret);
+                Assert.equals(1, count);
             });
             it("should not call", {
                 Maybe.empty().map(x -> {
@@ -173,16 +171,16 @@ class MaybeSuite extends BuddySuite {
             it("should call", {
                 var count = 0;
                 final ret = Maybe.of(1).flatMap(x -> {
-                    x.should.be(1);
+                    Assert.equals(1, x);
                     count++;
                     Maybe.of(x + 1);
                 });
-                ret.should.be(2);
-                count.should.be(1);
+                Assert.equals(2, ret);
+                Assert.equals(1, count);
             });
             it("should call and be empty", {
                 final ret = Maybe.of(1).flatMap(x -> Maybe.empty());
-                ret.isEmpty().should.be(true);
+                Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
                 Maybe.empty().flatMap(x -> {
@@ -196,16 +194,16 @@ class MaybeSuite extends BuddySuite {
             it("should call and be some value", {
                 var count = 0;
                 final ret = Maybe.of(1).filter(x -> {
-                    x.should.be(1);
+                    Assert.equals(1, x);
                     count++;
                     true;
                 });
-                ret.should.be(1);
-                count.should.be(1);
+                Assert.equals(1, ret);
+                Assert.equals(1, count);
             });
             it("should call and be empty", {
                 final ret = Maybe.of(1).filter(x -> false);
-                ret.isEmpty().should.be(true);
+                Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
                 Maybe.empty().filter(x -> {
@@ -217,36 +215,38 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#fold()", {
             it("should call ifEmpty", {
-                Maybe.empty().fold(
+                final ret = Maybe.empty().fold(
                     () -> -1,
                     x -> x * 3
-                ).should.be(-1);
+                );
+                Assert.equals(-1, ret);
             });
             it("should call fn", {
-                Maybe.of(1).fold(
+                final ret = Maybe.of(1).fold(
                     () -> -1,
                     x -> x * 3
-                ).should.be(3);
+                );
+                Assert.equals(3, ret);
             });
         });
 
         describe("Maybe#toOption()", {
             it("should be Some(v)", {
-                Maybe.of(1).toOption().should.equal(Some(1));
-                (Maybe.of(1): Option<Int>).should.equal(Some(1));
+                Assert.same(Some(1), Maybe.of(1).toOption());
+                Assert.same(Some(1), (Maybe.of(1): Option<Int>));
             });
             it("should be None", {
-                Maybe.empty().toOption().should.equal(None);
-                (Maybe.empty(): Option<Int>).should.equal(None);
+                Assert.same(None, Maybe.empty().toOption());
+                Assert.same(None, (Maybe.empty(): Option<Int>));
             });
         });
 
         describe("Maybe.fromOption()", {
             it("should be Maybe.of(v)", {
-                Maybe.fromOption(Some(1)).should.be(Maybe.of(1));
+                Assert.equals(1, Maybe.fromOption(Some(1)));
             });
             it("should be Maybe.empty()", {
-                Maybe.fromOption(None).should.be(Maybe.empty());
+                Assert.equals(Maybe.empty(), Maybe.fromOption(None));
             });
         });
     }
