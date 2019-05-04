@@ -1,5 +1,8 @@
 # Enhanced standard types for Haxe
 
+## Requirement
++ Haxe 4.0+
+
 ## Tested platforms
 * JavaScript
 * Eval
