@@ -47,7 +47,7 @@ haxelib install extype
 #### ValueOrFunction
 `ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
 
-#### Extern<T>
+#### Extern&lt;T&gt;
 `Extern<T>` is a generic-build macro type that can use `@:native` metadata to the anonymous structure.
 
 ```haxe
