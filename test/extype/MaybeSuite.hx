@@ -120,18 +120,45 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe#forEach()", {
+        describe("Maybe#each()", {
             it("should call", {
                 var count = 0;
-                Maybe.of(1).forEach(x -> {
+                Maybe.of(1).each(x -> {
                     Assert.equals(1, x);
                     count++;
                 });
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().forEach(x -> {
+                Maybe.empty().each(x -> {
                     fail();
+                });
+            });
+        });
+
+        describe("Maybe#iter()", {
+            it("should pass when function returns false", {
+                var count = 0;
+                Maybe.of(1).each(x -> {
+                    Assert.equals(1, x);
+                    count++;
+                    return false;
+                });
+                Assert.equals(1, count);
+            });
+            it("should pass when function returns true", {
+                var count = 0;
+                Maybe.of(1).each(x -> {
+                    Assert.equals(1, x);
+                    count++;
+                    return true;
+                });
+                Assert.equals(1, count);
+            });
+            it("should not call", {
+                Maybe.empty().each(x -> {
+                    fail();
+                    return false;
                 });
             });
         });
