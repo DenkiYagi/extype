@@ -42,7 +42,7 @@ haxelib install extype
 `Mixed2` is the same as `haxe.extern.EitherType`.
 
 #### ValueOrArray
-`ValueOrArray<T>` is a type that like as `haxe.extern.EitherType<T, Array<T>>`.
+`ValueOrArray<T>` is a type that likes as `haxe.extern.EitherType<T, Array<T>>`.
 
 #### ValueOrFunction
 `ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
@@ -58,3 +58,6 @@ typedef PropertyOption = {
     var defaultValue;
 }
 ```
+
+#### Indexable&lt;TObject, TValue&gt;
+`Indexable<TObject, TValue>` is a type that likes as `haxe.DynamicAccess<TValue>`. But `Indexable<TObject, TValue>` is different in that can access `TObject`'s field.
