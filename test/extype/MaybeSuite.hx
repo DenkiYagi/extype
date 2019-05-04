@@ -45,25 +45,13 @@ class MaybeSuite extends BuddySuite {
         });
 
         describe("Maybe.of()", {
-            it("should convert from value", {
+            it("can convert value", {
                 Assert.equals(1, Maybe.of(1).get());
             });
-            it("should not convert from null", {
-                Assert.raises(() -> Maybe.of(null));
-                #if js
-                Assert.raises(() -> Maybe.of(js.Lib.undefined));
-                #end
-            });
-        });
-
-        describe("Maybe.ofNullable()", {
-            it("can convert value", {
-                Assert.equals(1, Maybe.ofNullable(1).get());
-            });
             it("can convert null", {
-                Assert.isTrue(Maybe.ofNullable(null).isEmpty());
+                Assert.isTrue(Maybe.of(null).isEmpty());
                 #if js
-                Assert.isTrue(Maybe.ofNullable(js.Lib.undefined).isEmpty());
+                Assert.isTrue(Maybe.of(js.Lib.undefined).isEmpty());
                 #end
             });
         });

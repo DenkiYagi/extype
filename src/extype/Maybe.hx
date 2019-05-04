@@ -2,20 +2,13 @@ package extype;
 
 import haxe.ds.Option;
 
-abstract Maybe<T>(Null<T>) from Null<T> {
+abstract Maybe<T>(Null<T>) {
     extern inline function new(x: Null<T>) {
         this = x;
     }
 
+    @:from
     public static function of<T>(x: T): Maybe<T> {
-        if (x != null) {
-            return new Maybe(x);
-        } else {
-            throw new Error("No value");
-        }
-    }
-
-    public static extern inline function ofNullable<T>(x: Null<T>): Maybe<T> {
         return new Maybe(x);
     }
 
