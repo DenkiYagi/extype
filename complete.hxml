@@ -3,8 +3,7 @@
 -cp test
 -lib buddy
 -lib utest
--js dist/dummy.js
--debug
+--interp
 --no-output
 --no-opt
 --no-inline
