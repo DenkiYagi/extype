@@ -31,7 +31,7 @@ haxelib install extype
 #### Error
 `Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
 
-##### NotImplementedError
+* `NotImplementedError`
 
 ### extype.extern
 #### Mixed2 - Mixed10
@@ -43,3 +43,15 @@ haxelib install extype
 
 #### ValueOrFunction
 `ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
+
+#### Extern<T>
+`Extern<T>` is a generic-build macro type that can use `@:native` metadata to the anonymous structure.
+
+```haxe
+extern function defineProperty(name: String, option: Extern<PropertyOption>): Void;
+
+typedef PropertyOption = {
+    @:native("default")
+    var defaultValue;
+}
+```
