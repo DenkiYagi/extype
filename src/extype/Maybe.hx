@@ -12,7 +12,7 @@ abstract Maybe<T>(Null<T>) {
         return new Maybe(x);
     }
 
-    public static extern inline function empty<T>(): Maybe<T> {
+    public static inline function empty<T>(): Maybe<T> {
         return null;
     }
 
