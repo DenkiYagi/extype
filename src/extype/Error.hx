@@ -1,7 +1,7 @@
 package extype;
 
 #if js
-typedef Error = js.Error;
+typedef Error = js.lib.Error;
 #else
 import haxe.CallStack;
 
