@@ -1,0 +1,10 @@
+{
+    "indentation": {
+        "character": "    "
+    },
+    "sameLine": {
+        "ifBody": "keep",
+        "elseIf": "keep",
+        "elseBody": "keep"
+    }
+}
