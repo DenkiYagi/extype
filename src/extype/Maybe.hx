@@ -3,28 +3,33 @@ package extype;
 import haxe.ds.Option;
 
 abstract Maybe<T>(Null<T>) {
-    extern inline function new(x: Null<T>) {
+    inline function new(x:Null<T>) {
         this = x;
     }
 
     @:from
-    public static function of<T>(x: T): Maybe<T> {
+    public static inline function of<T>(x:T):Maybe<T> {
         return new Maybe(x);
     }
 
-    public static inline function empty<T>(): Maybe<T> {
+    public static inline function empty<T>():Maybe<T> {
         return null;
     }
 
-    public extern inline function get(): Null<T> {
+    public inline function get():Null<T> {
         return this;
     }
 
-    public extern inline function getUnsafe(): T {
+    public inline function getUnsafe():T {
         return this;
     }
 
-    public inline function getOrElse(x: T): T {
+    public inline function getOrThrow():T {
+        if (isEmpty()) throw new Error("No value");
+        return this;
+    }
+
+    public inline function getOrElse(x:T):T {
         return if (nonEmpty()) {
             this;
         } else {
@@ -32,28 +37,23 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function getOrThrow(): T {
-        if (isEmpty()) throw new Error("No value");
-        return this;
-    }
-
-    public inline function isEmpty(): Bool {
+    public inline function isEmpty():Bool {
         return this == null;
     }
 
-    public inline function nonEmpty(): Bool {
+    public inline function nonEmpty():Bool {
         return this != null;
     }
 
-    public inline function each(fn: T -> Void): Void {
+    public inline function each(fn:(value:T) -> Void):Void {
         if (nonEmpty()) fn(this);
     }
 
-    public inline function iter(fn: T -> Bool): Void {
+    public inline function iter(fn:(value:T) -> Bool):Void {
         if (nonEmpty()) fn(this);
     }
 
-    public inline function map<U>(fn: T -> U): Maybe<U> {
+    public inline function map<U>(fn:(value:T) -> U):Maybe<U> {
         return if (nonEmpty()) {
             fn(this);
         } else {
@@ -61,7 +61,7 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function flatMap<U>(fn: T -> Maybe<U>): Maybe<U> {
+    public inline function flatMap<U>(fn:(value:T) -> Maybe<U>):Maybe<U> {
         return if (nonEmpty()) {
             fn(this);
         } else {
@@ -69,7 +69,7 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function filter(fn: T -> Bool): Maybe<T> {
+    public inline function filter(fn:(value:T) -> Bool):Maybe<T> {
         return if (nonEmpty() && fn(this)) {
             this;
         } else {
@@ -77,7 +77,7 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function fold<U>(ifEmpty: Void -> U, fn: T -> U): U {
+    public inline function fold<U>(ifEmpty:Void->U, fn:(value:T) -> U):U {
         return if (nonEmpty()) {
             fn(this);
         } else {
@@ -86,7 +86,7 @@ abstract Maybe<T>(Null<T>) {
     }
 
     @:to
-    public inline function toOption(): Option<T> {
+    public inline function toOption():Option<T> {
         return if (nonEmpty()) {
             Some(this);
         } else {
@@ -95,10 +95,10 @@ abstract Maybe<T>(Null<T>) {
     }
 
     @:from
-    public static inline function fromOption<T>(x: Option<T>): Maybe<T> {
+    public static inline function fromOption<T>(x:Option<T>):Maybe<T> {
         return switch (x) {
             case Some(v): Maybe.of(v);
             case None: Maybe.empty();
         }
-    } 
+    }
 }
