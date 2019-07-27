@@ -37,6 +37,14 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
+    public inline function orElse(x:Maybe<T>):Maybe<T> {
+        return if (nonEmpty()) {
+            Maybe.of(this);
+        } else {
+            x;
+        }
+    }
+
     public inline function isEmpty():Bool {
         return this == null;
     }

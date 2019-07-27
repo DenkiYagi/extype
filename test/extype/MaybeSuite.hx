@@ -81,15 +81,6 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe#getOrElse()", {
-            it("should return value", {
-                Assert.equals(1, Maybe.of(1).getOrElse(-5));
-            });
-            it("should return alt value", {
-                Assert.equals(-5, Maybe.empty().getOrElse(-5));
-            });
-        });
-
         describe("Maybe#getOrThrow()", {
             it("should be success", {
                 Assert.equals(1, Maybe.of(1).getOrThrow());
@@ -99,6 +90,24 @@ class MaybeSuite extends BuddySuite {
                     Maybe.empty().getOrThrow(); 
                     return;
                 });
+            });
+        });
+
+        describe("Maybe#getOrElse()", {
+            it("should return value", {
+                Assert.equals(1, Maybe.of(1).getOrElse(-5));
+            });
+            it("should return alt value", {
+                Assert.equals(-5, Maybe.empty().getOrElse(-5));
+            });
+        });
+
+        describe("Maybe#orElse()", {
+            it("should return value", {
+                Assert.equals(1, Maybe.of(1).orElse(Maybe.of(-5)));
+            });
+            it("should return alt value", {
+                Assert.equals(-5, Maybe.empty().orElse(Maybe.of(-5)));
             });
         });
 
