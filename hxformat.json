@@ -5,6 +5,8 @@
     "sameLine": {
         "ifBody": "keep",
         "elseIf": "keep",
-        "elseBody": "keep"
+        "elseBody": "keep",
+        "forBody": "keep",
+        "whileBody": "keep"
     }
 }
