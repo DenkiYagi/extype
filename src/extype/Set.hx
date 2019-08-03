@@ -5,8 +5,8 @@ import haxe.Constraints;
 /**
     Represents a set of values.
     You can iterate through the values of a set in insertion order.
-    
-    This is a multi-type abstract, it is instantiated as one of itsvspecialization types
+
+    This is a multi-type abstract, it is instantiated as one of its specialization types
     depending on its type parameters.
 **/
 @:multiType
@@ -14,7 +14,7 @@ import haxe.Constraints;
 abstract Set<T>(ISet<T>) {
     /**
         Creates a new Set.
-        
+
         This becomes a constructor call to one of the specialization types in the output.
         The rules for that are as follows:
 

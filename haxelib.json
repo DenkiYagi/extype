@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "2.0.0-rc.3",
+    "version": "2.0.0-rc.4",
     "classPath": "src/",
-    "releasenote": "Fix Maybe.empty()",
+    "releasenote": "Add Set<T>",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }

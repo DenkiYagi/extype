@@ -17,7 +17,7 @@ haxelib install extype
 ## API
 ### extype
 #### Unit
-`Unit` is a type that indicates no value. 
+`Unit` is a type that indicates no value.
 
 #### Maybe
 `Maybe<T>` is a wrapper type that can either have a value or null.
@@ -30,6 +30,17 @@ haxelib install extype
 
 #### ReadOnlyDynamic
 `ReadOnlyDynamic<T>` is a read-only Dynamic<T>.
+
+#### Set<T>
+`Set<T>` is a set of values. You can iterate through the values of a set in insertion order.
+This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
+
+1. if `T` is a `String`, `extype.StringSet` is used
+2. if `T` is an `Int`, `extype.IntSet` is used
+3. if `T` is an `EnumValue`, `extype.EnumValueSet` is used
+4. if `T` is an `{function hashCode():Int;}`, `extype.Hashset` is used
+5. if `T` is any other class or structure, `extype.ObjectSet` is used
+6. if `T` is any other type, it causes a compile-time error
 
 #### Error
 `Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
