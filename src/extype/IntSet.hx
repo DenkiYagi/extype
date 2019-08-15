@@ -101,7 +101,7 @@ class IntSet implements ISet<Int> {
     /**
         Reterns a new array that contains the values in this set.
     **/
-    public function toArray():Array<Int> {
+    public function array():Array<Int> {
         #if js
         return Syntax.code("Array.from({0})", set);
         #else

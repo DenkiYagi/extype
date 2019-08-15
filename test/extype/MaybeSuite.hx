@@ -87,7 +87,7 @@ class MaybeSuite extends BuddySuite {
             });
             it("should be failure", {
                 Assert.raises(() -> {
-                    Maybe.empty().getOrThrow(); 
+                    Maybe.empty().getOrThrow();
                     return;
                 });
             });
@@ -129,26 +129,26 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe#each()", {
+        describe("Maybe#iter()", {
             it("should call", {
                 var count = 0;
-                Maybe.of(1).each(x -> {
+                Maybe.of(1).iter(x -> {
                     Assert.equals(1, x);
                     count++;
                 });
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().each(x -> {
+                Maybe.empty().iter(x -> {
                     fail();
                 });
             });
         });
 
-        describe("Maybe#iter()", {
+        describe("Maybe#foreach()", {
             it("should pass when function returns false", {
                 var count = 0;
-                Maybe.of(1).each(x -> {
+                Maybe.of(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return false;
@@ -157,7 +157,7 @@ class MaybeSuite extends BuddySuite {
             });
             it("should pass when function returns true", {
                 var count = 0;
-                Maybe.of(1).each(x -> {
+                Maybe.of(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return true;
@@ -165,7 +165,7 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().each(x -> {
+                Maybe.empty().foreach(x -> {
                     fail();
                     return false;
                 });

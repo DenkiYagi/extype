@@ -116,5 +116,5 @@ interface ISet<T> {
     /**
         Reterns a new array that contains the values in this set.
     **/
-    function toArray():Array<T>;
+    function array():Array<T>;
 }

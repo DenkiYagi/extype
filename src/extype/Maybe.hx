@@ -53,11 +53,11 @@ abstract Maybe<T>(Null<T>) {
         return this != null;
     }
 
-    public inline function each(fn:(value:T) -> Void):Void {
+    public inline function iter(fn:(value:T) -> Void):Void {
         if (nonEmpty()) fn(this);
     }
 
-    public inline function iter(fn:(value:T) -> Bool):Void {
+    public inline function foreach(fn:(value:T) -> Bool):Void {
         if (nonEmpty()) fn(this);
     }
 

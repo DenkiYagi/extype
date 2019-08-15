@@ -99,7 +99,7 @@ class StringSet implements ISet<String> {
     /**
         Reterns a new array that contains the values in this set.
     **/
-    public function toArray():Array<String> {
+    public function array():Array<String> {
         #if js
         return Syntax.code("Array.from({0})", set);
         #else

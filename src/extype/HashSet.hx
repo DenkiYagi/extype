@@ -100,7 +100,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     /**
         Reterns a new array that contains the values in this set.
     **/
-    public function toArray():Array<T> {
+    public function array():Array<T> {
         #if js
         return Syntax.code("Array.from({0})", map.values());
         #else

@@ -16,7 +16,7 @@ class SetSuite extends BuddySuite {
                 Assert.equals(0, set.length);
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([], [for (x in set) x]);
-                Assert.same([], set.toArray());
+                Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
             });
 
@@ -28,7 +28,7 @@ class SetSuite extends BuddySuite {
                 Assert.isTrue(set.exists(a));
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([a], [for (x in set) x]);
-                Assert.same([a], set.toArray());
+                Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
             });
@@ -40,7 +40,7 @@ class SetSuite extends BuddySuite {
                 Assert.equals(0, set.length);
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([], [for (x in set) x]);
-                Assert.same([], set.toArray());
+                Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
             });
 
@@ -53,7 +53,7 @@ class SetSuite extends BuddySuite {
                 Assert.isTrue(set.exists(a));
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([a], [for (x in set) x]);
-                Assert.same([a], set.toArray());
+                Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
             });
@@ -68,7 +68,7 @@ class SetSuite extends BuddySuite {
                 Assert.isTrue(set.exists(b));
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([a, b], [for (x in set) x]);
-                Assert.same([a, b], set.toArray());
+                Assert.same([a, b], set.array());
                 Assert.equals(2, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
                 Assert.isTrue(set.copy().exists(b));
@@ -82,7 +82,7 @@ class SetSuite extends BuddySuite {
                 Assert.equals(0, set.length);
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([], [for (x in set) x]);
-                Assert.same([], set.toArray());
+                Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
             });
 
@@ -95,7 +95,7 @@ class SetSuite extends BuddySuite {
                 Assert.isTrue(set.exists(a));
                 Assert.isFalse(set.exists(invalid));
                 Assert.same([a], [for (x in set) x]);
-                Assert.same([a], set.toArray());
+                Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
             });

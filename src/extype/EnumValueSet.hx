@@ -71,7 +71,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
     /**
         Reterns a new array that contains the values in this set.
     **/
-    public function toArray():Array<T> {
+    public function array():Array<T> {
         return values.copy();
     }
 
