@@ -103,7 +103,7 @@ private class TypeBuilder {
     public function emitStart(name: String, nativeName: Maybe<String>): Void {
         stack.push({
             name: name,
-            nativeName: nativeName, 
+            nativeName: nativeName,
             transformers: []
         });
     }
@@ -118,7 +118,7 @@ private class TypeBuilder {
             final nativeName = current.nativeName.getUnsafe();
             exprs.push(macro Reflect.setField(o, $v{nativeName}, v));
             exprs.push(macro Reflect.deleteField(o, $v{current.name}));
-        } 
+        }
         if (current.transformers.length > 0) {
             exprs = exprs.concat(current.transformers.map(e -> macro ${e}(v)));
         }
@@ -141,7 +141,7 @@ private class TypeBuilder {
         final paths = Context.getLocalModule().split(".");
         final name = paths.pop();
         return {
-            pack: paths, 
+            pack: paths,
             name: '${name}_Extern${sequence++}'
         };
     }
@@ -149,7 +149,7 @@ private class TypeBuilder {
     public function build(orignal: Type): Type {
         return if (transformers.length > 0) {
             final typePath = generateTypePath();
-            
+
             Context.defineType({
                 kind: TypeDefKind.TDAbstract(macro: {}),
                 pack: typePath.pack,
@@ -183,7 +183,7 @@ private class TypeBuilder {
                 ],
                 pos: Context.currentPos(),
             }, null);
-            
+
             Context.getType('${typePath.pack.join(".")}.${typePath.name}');
         } else {
             orignal;
