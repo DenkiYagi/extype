@@ -107,6 +107,13 @@ class StringSet implements ISet<String> {
         #end
     }
 
+    /**
+        Returns a String representation of this set.
+    **/
+    public inline function toString():String {
+        return '{${[for (x in this) Std.string(x)].join(",")}}';
+    }
+
     inline function get_length():Int {
         #if js
         return set.size;

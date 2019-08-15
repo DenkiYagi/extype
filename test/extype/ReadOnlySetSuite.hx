@@ -18,7 +18,7 @@ class ReadOnlySetSuite extends BuddySuite {
                 Assert.isTrue(dist.exists(10));
                 Assert.same([10, 15], [ for(x in dist) x ]);
                 Assert.same([10, 15], dist.array());
-                Assert.equals("{ 10,15 }", dist.toString());
+                Assert.equals("{10,15}", dist.toString());
 
                 CompilationShould.failFor({
                     final set = (new Set<Int>() : ReadOnlySet<Int>);

@@ -32,13 +32,6 @@ abstract Set<T>(ISet<T>) {
         return cast this.copy();
     }
 
-	/**
-		Returns a String representation of this set.
-	**/
-    public inline function toString():String {
-        return '{ ${[for (x in this) Std.string(x)].join(",")} }';
-    }
-
     @:to static inline function toStringSet<T:String>(x:ISet<T>):StringSet {
         return new StringSet();
     }
@@ -115,4 +108,9 @@ interface ISet<T> {
         Reterns a new array that contains the values in this set.
     **/
     function array():Array<T>;
+
+	/**
+		Returns a String representation of this set.
+	**/
+    function toString():String;
 }

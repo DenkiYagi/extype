@@ -18,6 +18,7 @@ class SetSuite extends BuddySuite {
                 Assert.same([], [for (x in set) x]);
                 Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
+                Assert.equals("{}", set.copy().toString());
             });
 
             it("should pass : new -> add(A)", {
@@ -31,6 +32,7 @@ class SetSuite extends BuddySuite {
                 Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
+                Assert.equals('{$a}', set.toString());
             });
 
             it("should pass : new -> remove(A)", {
@@ -42,9 +44,10 @@ class SetSuite extends BuddySuite {
                 Assert.same([], [for (x in set) x]);
                 Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
+                Assert.equals("{}", set.toString());
             });
 
-            it("should pass : new -> add(A) -> add(B)", {
+            it("should pass : new -> add(A) -> add(A)", {
                 final set = create();
                 set.add(a);
                 set.add(a);
@@ -56,6 +59,7 @@ class SetSuite extends BuddySuite {
                 Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
+                Assert.equals('{$a}', set.toString());
             });
 
             it("should pass : new -> add(A) -> add(B)", {
@@ -72,9 +76,10 @@ class SetSuite extends BuddySuite {
                 Assert.equals(2, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
                 Assert.isTrue(set.copy().exists(b));
+                Assert.equals('{$a,$b}', set.toString());
             });
 
-            it("should pass : new -> add(A) -> remove(B)", {
+            it("should pass : new -> add(A) -> remove(A)", {
                 final set = create();
                 set.add(a);
                 set.remove(a);
@@ -84,6 +89,7 @@ class SetSuite extends BuddySuite {
                 Assert.same([], [for (x in set) x]);
                 Assert.same([], set.array());
                 Assert.equals(0, set.copy().length);
+                Assert.equals("{}", set.toString());
             });
 
             it("should pass : new -> add(A) -> remove(B)", {
@@ -98,6 +104,7 @@ class SetSuite extends BuddySuite {
                 Assert.same([a], set.array());
                 Assert.equals(1, set.copy().length);
                 Assert.isTrue(set.copy().exists(a));
+                Assert.equals('{$a}', set.toString());
             });
         }
 
