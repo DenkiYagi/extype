@@ -16,7 +16,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     #if js
     final map:JsMap<Int, T>;
     #else
-    final keys:HashMap<T, Int>;
+    final indexes:HashMap<T, Int>;
     final values:Array<T>;
     #end
 
@@ -29,7 +29,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         this.map = new JsMap();
         #else
-        this.keys = new HashMap();
+        this.indexes = new HashMap();
         this.values = [];
         #end
     }
@@ -41,8 +41,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         map.set(value.hashCode(), value);
         #else
-        if (!keys.exists(value)) {
-            keys.set(value, values.length);
+        if (!indexes.exists(value)) {
+            indexes.set(value, values.length);
             values.push(value);
         }
         #end
@@ -55,7 +55,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.has(value.hashCode());
         #else
-        return keys.exists(value);
+        return indexes.exists(value);
         #end
     }
 
@@ -66,9 +66,9 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.delete(value.hashCode());
         #else
-        final index = keys.get(value);
+        final index = indexes.get(value);
         return if (index != null) {
-            keys.remove(value);
+            indexes.remove(value);
             values.splice(index, 1);
             true;
         } else {

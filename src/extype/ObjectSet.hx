@@ -17,7 +17,7 @@ class ObjectSet<T:{}> implements ISet<T> {
     #if js
     final set:JsSet<T>;
     #else
-    final keys:ObjectMap<T, Int>;
+    final indexes:ObjectMap<T, Int>;
     final values:Array<T>;
     #end
 
@@ -30,7 +30,7 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         this.set = new JsSet();
         #else
-        this.keys = new ObjectMap();
+        this.indexes = new ObjectMap();
         this.values = [];
         #end
     }
@@ -42,8 +42,8 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         set.add(value);
         #else
-        if (!keys.exists(value)) {
-            keys.set(value, values.length);
+        if (!indexes.exists(value)) {
+            indexes.set(value, values.length);
             values.push(value);
         }
         #end
@@ -56,7 +56,7 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return set.has(value);
         #else
-        return keys.exists(value);
+        return indexes.exists(value);
         #end
     }
 
@@ -67,9 +67,9 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return set.delete(value);
         #else
-        final index = keys.get(value);
+        final index = indexes.get(value);
         return if (index != null) {
-            keys.remove(value);
+            indexes.remove(value);
             values.splice(index, 1);
             true;
         } else {

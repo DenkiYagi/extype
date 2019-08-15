@@ -8,7 +8,7 @@ import haxe.ds.EnumValueMap;
     You can iterate through the values of a set in insertion order.
 **/
 class EnumValueSet<T:EnumValue> implements ISet<T> {
-    final keys:EnumValueMap<T, Int>;
+    final indexes:EnumValueMap<T, Int>;
     final values:Array<T>;
 
     /**
@@ -17,7 +17,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
     public var length(get, never):Int;
 
     public function new() {
-        this.keys = new EnumValueMap();
+        this.indexes = new EnumValueMap();
         this.values = [];
     }
 
@@ -25,8 +25,8 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
         Adds a specified value to this set.
     **/
     public function add(value:T):Void {
-        if (!keys.exists(value)) {
-            keys.set(value, values.length);
+        if (!indexes.exists(value)) {
+            indexes.set(value, values.length);
             values.push(value);
         }
     }
@@ -35,16 +35,16 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
         Returns true if this set has a specified value, false otherwise.
     **/
     public function exists(value:T):Bool {
-        return keys.exists(value);
+        return indexes.exists(value);
     }
 
     /**
         Removes a specified value to this set and returns true if such a value existed, false otherwise.
     **/
     public function remove(value:T):Bool {
-        final index = keys.get(value);
+        final index = indexes.get(value);
         return if (index != null) {
-            keys.remove(value);
+            indexes.remove(value);
             values.splice(index, 1);
             true;
         } else {

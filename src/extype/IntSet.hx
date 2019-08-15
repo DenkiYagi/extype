@@ -17,7 +17,7 @@ class IntSet implements ISet<Int> {
     #if js
     final set:JsSet<Int>;
     #else
-    final keys:IntMap<Int>;
+    final indexes:IntMap<Int>;
     final values:Array<Int>;
     #end
 
@@ -30,7 +30,7 @@ class IntSet implements ISet<Int> {
         #if js
         this.set = new JsSet();
         #else
-        this.keys = new IntMap();
+        this.indexes = new IntMap();
         this.values = [];
         #end
     }
@@ -42,8 +42,8 @@ class IntSet implements ISet<Int> {
         #if js
         set.add(value);
         #else
-        if (!keys.exists(value)) {
-            keys.set(value, values.length);
+        if (!indexes.exists(value)) {
+            indexes.set(value, values.length);
             values.push(value);
         }
         #end
@@ -56,7 +56,7 @@ class IntSet implements ISet<Int> {
         #if js
         return set.has(value);
         #else
-        return keys.exists(value);
+        return indexes.exists(value);
         #end
     }
 
@@ -67,9 +67,9 @@ class IntSet implements ISet<Int> {
         #if js
         return set.delete(value);
         #else
-        final index = keys.get(value);
+        final index = indexes.get(value);
         return if (index != null) {
-            keys.remove(value);
+            indexes.remove(value);
             values.splice(index, 1);
             true;
         } else {
