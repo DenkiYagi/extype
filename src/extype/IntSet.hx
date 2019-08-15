@@ -112,7 +112,7 @@ class IntSet implements ISet<Int> {
     /**
         Returns a String representation of this set.
     **/
-    public inline function toString():String {
+    public function toString():String {
         return '{${[for (x in this) Std.string(x)].join(",")}}';
     }
 
