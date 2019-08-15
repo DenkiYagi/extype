@@ -1,7 +1,5 @@
 package extype;
 
-import haxe.Constraints;
-
 /**
     Represents a set of values.
     You can iterate through the values of a set in insertion order.
