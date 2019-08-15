@@ -64,7 +64,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
     **/
     public function copy():EnumValueSet<T> {
         final set = new EnumValueSet();
-        for (x in inline iterator()) set.add(x);
+        for (x in values) set.add(x);
         return set;
     }
 
@@ -79,7 +79,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
         Returns a String representation of this set.
     **/
     public function toString():String {
-        return '{${[for (x in this) Std.string(x)].join(",")}}';
+        return '{${[for (x in values) Std.string(x)].join(",")}}';
     }
 
     inline function get_length():Int {

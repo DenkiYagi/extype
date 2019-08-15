@@ -92,7 +92,11 @@ class StringSet implements ISet<String> {
     **/
     public function copy():StringSet {
         final copy = new StringSet();
+        #if js
         for (x in inline iterator()) copy.add(x);
+        #else
+        for (x in values) copy.add(x);
+        #end
         return copy;
     }
 
@@ -111,7 +115,11 @@ class StringSet implements ISet<String> {
         Returns a String representation of this set.
     **/
     public function toString():String {
-        return '{${[for (x in this) Std.string(x)].join(",")}}';
+        #if js
+        return '{${[for (x in inline iterator()) Std.string(x)].join(",")}}';
+        #else
+        return '{${[for (x in values) Std.string(x)].join(",")}}';
+        #end
     }
 
     inline function get_length():Int {

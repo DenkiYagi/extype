@@ -94,7 +94,11 @@ class IntSet implements ISet<Int> {
     **/
     public function copy():IntSet {
         final copy = new IntSet();
+        #if js
         for (x in inline iterator()) copy.add(x);
+        #else
+        for (x in values) copy.add(x);
+        #end
         return copy;
     }
 
@@ -113,7 +117,11 @@ class IntSet implements ISet<Int> {
         Returns a String representation of this set.
     **/
     public function toString():String {
-        return '{${[for (x in this) Std.string(x)].join(",")}}';
+        #if js
+        return '{${[for (x in inline iterator()) Std.string(x)].join(",")}}';
+        #else
+        return '{${[for (x in values) Std.string(x)].join(",")}}';
+        #end
     }
 
     inline function get_length():Int {

@@ -1,14 +1,15 @@
 package extype.js;
 
 #if js
+import js.lib.Iterator;
 /**
-    Represents a `js.lib.Iterator` adapter that can be used for Haxe's `Iterator`.
+    Represents a `js.lib.Iterator<T>` adapter that can be used for Haxe's `Iterator<T>`.
 **/
 class IteratorAdapter<T> {
-    final iterator:js.lib.Iterator<T>;
-    var current:js.lib.Iterator.IteratorStep<T>;
+    final iterator:Iterator<T>;
+    var current:IteratorStep<T>;
 
-    public inline function new(iterator:js.lib.Iterator<T>) {
+    public inline function new(iterator:Iterator<T>) {
         this.iterator = iterator;
         this.current = iterator.next();
     }
