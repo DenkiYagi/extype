@@ -1,12 +1,13 @@
 package extype;
 
-import utest.ui.Report;
 import extype.Set.ISet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
+import extype.js.IteratorAdapter;
 #else
 import haxe.ds.ObjectMap;
+import extype.LinkedNodeList;
 #end
 
 /**
@@ -17,8 +18,8 @@ class ObjectSet<T:{}> implements ISet<T> {
     #if js
     final set:JsSet<T>;
     #else
-    final indexes:ObjectMap<T, Int>;
-    final values:Array<T>;
+    final map:ObjectMap<T, LinkedNode<T>>;
+    final list:LinkedNodeList<T>;
     #end
 
     /**
@@ -30,8 +31,8 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         this.set = new JsSet();
         #else
-        this.indexes = new ObjectMap();
-        this.values = [];
+        this.map = new ObjectMap();
+        this.list = new LinkedNodeList();
         #end
     }
 
@@ -42,9 +43,8 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         set.add(value);
         #else
-        if (!indexes.exists(value)) {
-            indexes.set(value, values.length);
-            values.push(value);
+        if (!map.exists(value)) {
+            addInternal(value);
         }
         #end
     }
@@ -56,7 +56,7 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return set.has(value);
         #else
-        return indexes.exists(value);
+        return map.exists(value);
         #end
     }
 
@@ -67,10 +67,10 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return set.delete(value);
         #else
-        final index = indexes.get(value);
-        return if (index != null) {
-            indexes.remove(value);
-            values.splice(index, 1);
+        final node = Maybe.of(map.get(value));
+        return if (node.nonEmpty()) {
+            map.remove(value);
+            list.remove(node.getUnsafe());
             true;
         } else {
             false;
@@ -81,24 +81,28 @@ class ObjectSet<T:{}> implements ISet<T> {
     /**
         Returns an Iterator over the values of this set.
     **/
-    public function iterator():Iterator<T> {
-        #if js
-        return new extype.js.IteratorAdapter(set.values());
-        #else
-        return values.iterator();
-        #end
+    #if js
+    public function iterator():IteratorAdapter<T> {
+        return new IteratorAdapter(set.values());
     }
+    #else
+    public function iterator():LinkedNodeIterator<T> {
+        return list.iterator();
+    }
+    #end
 
     /**
         Returns a new shallow copy of this set.
     **/
     public function copy():ObjectSet<T> {
         final copy = new ObjectSet();
-        #if js
-        for (x in inline iterator()) copy.add(x);
-        #else
-        for (x in values) copy.add(x);
-        #end
+        for (x in inline iterator()) {
+            #if js
+            copy.add(x);
+            #else
+            copy.addInternal(x);
+            #end
+        }
         return copy;
     }
 
@@ -109,7 +113,9 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return Syntax.code("Array.from({0})", set);
         #else
-        return values.copy();
+        final array = [];
+        iter(array.push);
+        return array;
         #end
     }
 
@@ -117,10 +123,16 @@ class ObjectSet<T:{}> implements ISet<T> {
         Returns a String representation of this set.
     **/
     public function toString():String {
+        final buff = [];
+        iter(x -> buff.push(Std.string(x)));
+        return '{${buff.join(",")}}';
+    }
+
+    inline function iter(fn:(value:T) -> Void):Void {
         #if js
-        return '{${[for (x in inline iterator()) Std.string(x)].join(",")}}';
+        set.forEach((x, _, _) -> fn(x));
         #else
-        return '{${[for (x in values) Std.string(x)].join(",")}}';
+        list.iter(fn);
         #end
     }
 
@@ -128,7 +140,13 @@ class ObjectSet<T:{}> implements ISet<T> {
         #if js
         return set.size;
         #else
-        return values.length;
+        return list.length;
         #end
     }
+
+    #if !js
+    inline function addInternal(value:T):Void {
+        map.set(value, list.add(value));
+    }
+    #end
 }

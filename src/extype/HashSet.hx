@@ -4,7 +4,9 @@ import extype.Set.ISet;
 #if js
 import js.Syntax;
 import js.lib.Map in JsMap;
+import extype.js.IteratorAdapter;
 #else
+import extype.LinkedNodeList;
 import haxe.ds.HashMap;
 #end
 
@@ -16,8 +18,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     #if js
     final map:JsMap<Int, T>;
     #else
-    final indexes:HashMap<T, Int>;
-    final values:Array<T>;
+    final map:HashMap<T, LinkedNode<T>>;
+    final list:LinkedNodeList<T>;
     #end
 
     /**
@@ -29,8 +31,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         this.map = new JsMap();
         #else
-        this.indexes = new HashMap();
-        this.values = [];
+        this.map = new HashMap();
+        this.list = new LinkedNodeList();
         #end
     }
 
@@ -41,9 +43,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         map.set(value.hashCode(), value);
         #else
-        if (!indexes.exists(value)) {
-            indexes.set(value, values.length);
-            values.push(value);
+        if (!map.exists(value)) {
+            addInternal(value);
         }
         #end
     }
@@ -55,7 +56,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.has(value.hashCode());
         #else
-        return indexes.exists(value);
+        return map.exists(value);
         #end
     }
 
@@ -66,10 +67,10 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.delete(value.hashCode());
         #else
-        final index = indexes.get(value);
-        return if (index != null) {
-            indexes.remove(value);
-            values.splice(index, 1);
+        final node = Maybe.of(map.get(value));
+        return if (node.nonEmpty()) {
+            map.remove(value);
+            list.remove(node.getUnsafe());
             true;
         } else {
             false;
@@ -80,24 +81,28 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     /**
         Returns an Iterator over the values of this set.
     **/
-    public function iterator():Iterator<T> {
-        #if js
-        return new extype.js.IteratorAdapter(map.values());
-        #else
-        return values.iterator();
-        #end
+    #if js
+    public function iterator():IteratorAdapter<T> {
+        return new IteratorAdapter(map.values());
     }
+    #else
+    public function iterator():LinkedNodeIterator<T> {
+        return list.iterator();
+    }
+    #end
 
     /**
         Returns a new shallow copy of this set.
     **/
     public function copy():HashSet<T> {
         final copy = new HashSet();
-        #if js
-        for (x in inline iterator()) copy.add(x);
-        #else
-        for (x in values) copy.add(x);
-        #end
+        for (x in inline iterator()) {
+            #if js
+            copy.add(x);
+            #else
+            copy.addInternal(x);
+            #end
+        }
         return copy;
     }
 
@@ -108,7 +113,9 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return Syntax.code("Array.from({0})", map.values());
         #else
-        return values.copy();
+        final array = [];
+        iter(array.push);
+        return array;
         #end
     }
 
@@ -116,10 +123,16 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         Returns a String representation of this set.
     **/
     public function toString():String {
+        final buff = [];
+        iter(x -> buff.push(Std.string(x)));
+        return '{${buff.join(",")}}';
+    }
+
+    inline function iter(fn:(value:T) -> Void):Void {
         #if js
-        return '{${[for (x in inline iterator()) Std.string(x)].join(",")}}';
+        map.forEach((x, _, _) -> fn(x));
         #else
-        return '{${[for (x in values) Std.string(x)].join(",")}}';
+        list.iter(fn);
         #end
     }
 
@@ -127,7 +140,13 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.size;
         #else
-        return values.length;
+        return list.length;
         #end
     }
+
+    #if !js
+    inline function addInternal(value:T):Void {
+        map.set(value, list.add(value));
+    }
+    #end
 }

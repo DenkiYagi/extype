@@ -4,8 +4,10 @@ import extype.Set.ISet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
+import extype.js.IteratorAdapter;
 #else
 import haxe.ds.StringMap;
+import extype.LinkedNodeList;
 #end
 /**
     Represents a set of `String` values.
@@ -15,8 +17,8 @@ class StringSet implements ISet<String> {
     #if js
     final set:JsSet<String>;
     #else
-    final indexes:StringMap<Int>;
-    final values:Array<String>;
+    final map:StringMap<LinkedNode<String>>;
+    final list:LinkedNodeList<String>;
     #end
 
     /**
@@ -28,8 +30,8 @@ class StringSet implements ISet<String> {
         #if js
         this.set = new JsSet();
         #else
-        this.indexes = new StringMap();
-        this.values = [];
+        this.map = new StringMap();
+        this.list = new LinkedNodeList();
         #end
     }
 
@@ -40,9 +42,8 @@ class StringSet implements ISet<String> {
         #if js
         set.add(value);
         #else
-        if (!indexes.exists(value)) {
-            indexes.set(value, values.length);
-            values.push(value);
+        if (!map.exists(value)) {
+            addInternal(value);
         }
         #end
     }
@@ -54,7 +55,7 @@ class StringSet implements ISet<String> {
         #if js
         return set.has(value);
         #else
-        return indexes.exists(value);
+        return map.exists(value);
         #end
     }
 
@@ -65,10 +66,10 @@ class StringSet implements ISet<String> {
         #if js
         return set.delete(value);
         #else
-        final index = indexes.get(value);
-        return if (index != null) {
-            indexes.remove(value);
-            values.splice(index, 1);
+        final node = Maybe.of(map.get(value));
+        return if (node.nonEmpty()) {
+            map.remove(value);
+            list.remove(node.getUnsafe());
             true;
         } else {
             false;
@@ -79,24 +80,28 @@ class StringSet implements ISet<String> {
     /**
         Returns an Iterator over the values of this set.
     **/
-    public function iterator():Iterator<String> {
-        #if js
-        return new extype.js.IteratorAdapter(set.values());
-        #else
-        return values.iterator();
-        #end
+    #if js
+    public function iterator():IteratorAdapter<String> {
+        return new IteratorAdapter(set.values());
     }
+    #else
+    public function iterator():LinkedNodeIterator<String> {
+        return list.iterator();
+    }
+    #end
 
     /**
         Returns a new shallow copy of this set.
     **/
     public function copy():StringSet {
         final copy = new StringSet();
-        #if js
-        for (x in inline iterator()) copy.add(x);
-        #else
-        for (x in values) copy.add(x);
-        #end
+        for (x in inline iterator()) {
+            #if js
+            copy.add(x);
+            #else
+            copy.addInternal(x);
+            #end
+        }
         return copy;
     }
 
@@ -107,7 +112,9 @@ class StringSet implements ISet<String> {
         #if js
         return Syntax.code("Array.from({0})", set);
         #else
-        return values.copy();
+        final array = [];
+        iter(array.push);
+        return array;
         #end
     }
 
@@ -115,10 +122,14 @@ class StringSet implements ISet<String> {
         Returns a String representation of this set.
     **/
     public function toString():String {
+        return '{${array().join(",")}}';
+    }
+
+    inline function iter(fn:(value:String) -> Void):Void {
         #if js
-        return '{${[for (x in inline iterator()) Std.string(x)].join(",")}}';
+        set.forEach((x, _, _) -> fn(x));
         #else
-        return '{${[for (x in values) Std.string(x)].join(",")}}';
+        list.iter(fn);
         #end
     }
 
@@ -126,7 +137,13 @@ class StringSet implements ISet<String> {
         #if js
         return set.size;
         #else
-        return values.length;
+        return list.length;
         #end
     }
+
+    #if !js
+    inline function addInternal(value:String):Void {
+        map.set(value, list.add(value));
+    }
+    #end
 }
