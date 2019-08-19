@@ -5,6 +5,9 @@
     "codedox": {
         "commentbegin": "/**",
         "commentprefix": "    ",
-        "commentend": "**/"
+        "commentend": "**/",
+        "autoPrefixOnEnter": false
     },
+    // "haxe.executable": "C:\\HaxeToolkit\\haxe\\haxe.exe",
+    // "haxelib.executable": "C:\\HaxeToolkit\\haxe\\haxelib.exe"
 }
