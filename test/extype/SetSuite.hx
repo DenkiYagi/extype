@@ -1,6 +1,5 @@
 package extype;
 
-import haxe.ds.Option;
 import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
