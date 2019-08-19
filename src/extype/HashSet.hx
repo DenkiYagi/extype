@@ -68,9 +68,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         return map.delete(value.hashCode());
         #else
         return if (map.exists(value)) {
-            final node = map.get(value);
+            list.remove(map.get(value));
             map.remove(value);
-            list.remove(node);
             true;
         } else {
             false;

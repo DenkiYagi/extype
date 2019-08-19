@@ -42,10 +42,9 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
         Removes a specified value to this set and returns true if such a value existed, false otherwise.
     **/
     public function remove(value:T):Bool {
-        final node = Maybe.of(map.get(value));
-        return if (node.nonEmpty()) {
+        return if (map.exists(value)) {
+            list.remove(map.get(value));
             map.remove(value);
-            list.remove(node.getUnsafe());
             true;
         } else {
             false;

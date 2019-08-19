@@ -68,9 +68,8 @@ class ObjectSet<T:{}> implements ISet<T> {
         return set.delete(value);
         #else
         return if (map.exists(value)) {
-            final node = map.get(value);
+            list.remove(map.get(value));
             map.remove(value);
-            list.remove(node);
             true;
         } else {
             false;
