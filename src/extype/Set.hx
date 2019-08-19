@@ -25,13 +25,6 @@ abstract Set<T>(ISet<T>) {
     **/
     public function new();
 
-    /**
-        Returns a new shallow copy of this set.
-    **/
-    public inline function copy():Set<T> {
-        return cast this.copy();
-    }
-
     @:to static inline function toStringSet<T:String>(x:ISet<T>):StringSet {
         return new StringSet();
     }
