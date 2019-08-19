@@ -11,7 +11,7 @@ import extype.LinkedNodeList;
 #end
 /**
     Represents a set of `String` values.
-    You can iterate through the values of a set in insertion order.
+    You can iterate through the values in insertion order.
 **/
 class StringSet implements ISet<String> {
     #if js

@@ -12,7 +12,7 @@ import haxe.ds.HashMap;
 
 /**
     Represents a set of `{function hashCode():Int;}` values.
-    You can iterate through the values of a set in insertion order.
+    You can iterate through the values in insertion order.
 **/
 class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     #if js

@@ -6,7 +6,7 @@ import haxe.ds.EnumValueMap;
 
 /**
     Represents a set of `EnumValue` values.
-    You can iterate through the values of a set in insertion order.
+    You can iterate through the values in insertion order.
 **/
 class EnumValueSet<T:EnumValue> implements ISet<T> {
     final map:EnumValueMap<T, LinkedNode<T>>;

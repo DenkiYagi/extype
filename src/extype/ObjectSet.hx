@@ -12,7 +12,7 @@ import extype.LinkedNodeList;
 
 /**
     Represents a set of object values.
-    You can iterate through the values of a set in insertion order.
+    You can iterate through the values in insertion order.
 **/
 class ObjectSet<T:{}> implements ISet<T> {
     #if js
