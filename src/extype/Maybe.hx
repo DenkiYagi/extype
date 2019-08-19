@@ -12,6 +12,23 @@ abstract Maybe<T>(Null<T>) {
         return new Maybe(x);
     }
 
+    @:from
+    public static inline function fromOption<T>(x:Option<T>):Maybe<T> {
+        return switch (x) {
+            case Some(v): Maybe.of(v);
+            case None: Maybe.empty();
+        }
+    }
+
+    @:to
+    public inline function toOption():Option<T> {
+        return if (nonEmpty()) {
+            Some(this);
+        } else {
+            None;
+        }
+    }
+
     public static inline function empty<T>():Maybe<T> {
         return null;
     }
@@ -90,23 +107,6 @@ abstract Maybe<T>(Null<T>) {
             fn(this);
         } else {
             ifEmpty();
-        }
-    }
-
-    @:to
-    public inline function toOption():Option<T> {
-        return if (nonEmpty()) {
-            Some(this);
-        } else {
-            None;
-        }
-    }
-
-    @:from
-    public static inline function fromOption<T>(x:Option<T>):Maybe<T> {
-        return switch (x) {
-            case Some(v): Maybe.of(v);
-            case None: Maybe.empty();
         }
     }
 }
