@@ -1,7 +1,7 @@
 package extype;
 
 import extype.Map.IMap;
-import extype.LinkedNodeList;
+import extype.LinkedList;
 import extype.util.TransformIterator;
 import haxe.ds.HashMap in HaxeMap;
 
@@ -10,8 +10,8 @@ import haxe.ds.HashMap in HaxeMap;
     You can iterate through the keys in insertion order.
 **/
 class HashMap<K:{function hashCode():Int;}, V> implements IMap<K, V> {
-    final map:HaxeMap<K, LinkedNode<Pair<K, V>>>;
-    final list:LinkedNodeList<Pair<K, V>>;
+    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final list:LinkedList<Pair<K, V>>;
 
     /**
         Returns the number of key/value pairs in this Map object.
@@ -20,7 +20,7 @@ class HashMap<K:{function hashCode():Int;}, V> implements IMap<K, V> {
 
     public function new() {
         this.map = new HaxeMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
     }
 
     /**

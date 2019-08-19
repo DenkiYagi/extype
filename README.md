@@ -53,7 +53,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 5. if `K` is any other class or structure, `extype.ObjectMap` is used
 6. if `K` is any other type, it causes a compile-time error
 
-#### LinkedNodeList
+#### LinkedList
 TODO
 
 #### ReadOnlyArray

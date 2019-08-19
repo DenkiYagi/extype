@@ -7,7 +7,7 @@ import js.lib.Set in JsSet;
 import extype.js.IteratorAdapter;
 #else
 import haxe.ds.IntMap;
-import extype.LinkedNodeList;
+import extype.LinkedList;
 #end
 
 /**
@@ -18,8 +18,8 @@ class IntSet implements ISet<Int> {
     #if js
     final set:JsSet<Int>;
     #else
-    final map:IntMap<LinkedNode<Int>>;
-    final list:LinkedNodeList<Int>;
+    final map:IntMap<LinkedListNode<Int>>;
+    final list:LinkedList<Int>;
     #end
 
     /**
@@ -32,7 +32,7 @@ class IntSet implements ISet<Int> {
         this.set = new JsSet();
         #else
         this.map = new IntMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 
@@ -85,7 +85,7 @@ class IntSet implements ISet<Int> {
         return new IteratorAdapter(set.values());
     }
     #else
-    public function iterator():LinkedNodeIterator<Int> {
+    public function iterator():LinkedListIterator<Int> {
         return list.iterator();
     }
     #end

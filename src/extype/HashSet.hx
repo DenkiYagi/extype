@@ -6,7 +6,7 @@ import js.Syntax;
 import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
 #else
-import extype.LinkedNodeList;
+import extype.LinkedList;
 import haxe.ds.HashMap;
 #end
 
@@ -18,8 +18,8 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
     #if js
     final map:JsMap<Int, T>;
     #else
-    final map:HashMap<T, LinkedNode<T>>;
-    final list:LinkedNodeList<T>;
+    final map:HashMap<T, LinkedListNode<T>>;
+    final list:LinkedList<T>;
     #end
 
     /**
@@ -32,7 +32,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         this.map = new JsMap();
         #else
         this.map = new HashMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 
@@ -85,7 +85,7 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         return new IteratorAdapter(map.values());
     }
     #else
-    public function iterator():LinkedNodeIterator<T> {
+    public function iterator():LinkedListIterator<T> {
         return list.iterator();
     }
     #end

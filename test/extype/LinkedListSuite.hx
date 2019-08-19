@@ -4,11 +4,11 @@ import haxe.ds.Option;
 import buddy.BuddySuite;
 import utest.Assert;
 
-class LinkedNodeListSuite extends BuddySuite {
+class LinkedListSuite extends BuddySuite {
     public function new() {
-        describe("LinkedNodeList", {
+        describe("LinkedList", {
             it("should pass : new", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
 
                 Assert.equals(0, list.length);
                 Assert.same([], [for (x in list.iterator()) x]);
@@ -16,7 +16,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass: new(iterable)", {
-                final list = new LinkedNodeList([3, 2, 1]);
+                final list = new LinkedList([3, 2, 1]);
 
                 Assert.equals(3, list.length);
                 Assert.same([3, 2, 1], [for (x in list.iterator()) x]);
@@ -26,7 +26,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
 
                 Assert.equals(1, list.length);
@@ -42,7 +42,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> remove(A)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 list.remove(nodeA);
 
@@ -57,7 +57,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
 
@@ -79,7 +79,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> remove(A)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 list.remove(nodeA);
@@ -102,7 +102,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> remove(B)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 list.remove(nodeB);
@@ -125,7 +125,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> add(C)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 final nodeC = list.add(20);
@@ -153,7 +153,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> add(C) -> remove(A)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 final nodeC = list.add(20);
@@ -182,7 +182,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> add(C) -> remove(B)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 final nodeC = list.add(20);
@@ -211,7 +211,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> add(B) -> add(C) -> remove(C)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final nodeB = list.add(15);
                 final nodeC = list.add(20);
@@ -240,7 +240,7 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should pass : new -> add(A) -> remove(A) -> remove(A)", {
-                final list = new LinkedNodeList();
+                final list = new LinkedList();
                 final nodeA = list.add(10);
                 final ret1 = list.remove(nodeA);
                 final ret2 = list.remove(nodeA);
@@ -251,10 +251,10 @@ class LinkedNodeListSuite extends BuddySuite {
             });
 
             it("should not remove other list's node", {
-                final list1 = new LinkedNodeList();
+                final list1 = new LinkedList();
                 final node1 = list1.add(10);
 
-                final list2 = new LinkedNodeList();
+                final list2 = new LinkedList();
                 final node2 = list2.add(10);
 
                 final ret = list1.remove(node2);

@@ -6,7 +6,7 @@ import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
 import extype.js.KeyValueIteratorAdapter;
 #else
-import extype.LinkedNodeList;
+import extype.LinkedList;
 import extype.util.TransformIterator;
 import haxe.ds.StringMap in HaxeMap;
 #end
@@ -19,8 +19,8 @@ class StringMap<V> implements IMap<String, V> {
     #if js
     final map:JsMap<String, V>;
     #else
-    final map:HaxeMap<LinkedNode<Pair<String, V>>>;
-    final list:LinkedNodeList<Pair<String, V>>;
+    final map:HaxeMap<LinkedListNode<Pair<String, V>>>;
+    final list:LinkedList<Pair<String, V>>;
     #end
 
     /**
@@ -33,7 +33,7 @@ class StringMap<V> implements IMap<String, V> {
         this.map = new JsMap();
         #else
         this.map = new HaxeMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 

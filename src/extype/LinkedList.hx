@@ -2,9 +2,12 @@ package extype;
 
 import extype.Maybe;
 
-class LinkedNodeList<T> {
-    public var first(default, null):Maybe<LinkedNode<T>>;
-    public var last(default, null):Maybe<LinkedNode<T>>;
+/**
+    Represents a doubly linked list.
+**/
+class LinkedList<T> {
+    public var first(default, null):Maybe<LinkedListNode<T>>;
+    public var last(default, null):Maybe<LinkedListNode<T>>;
     public var length(default, null):Int;
 
     public function new(?iterable:Iterable<T>) {
@@ -17,8 +20,8 @@ class LinkedNodeList<T> {
         }
     }
 
-    public function add(value:T):LinkedNode<T> {
-        final node = new LinkedNode(this, value);
+    public function add(value:T):LinkedListNode<T> {
+        final node = new LinkedListNode(this, value);
 
         if (length == 0) {
             first = Maybe.of(node);
@@ -32,11 +35,11 @@ class LinkedNodeList<T> {
         return node;
     }
 
-    public function exists(node:LinkedNode<T>):Bool {
+    public function exists(node:LinkedListNode<T>):Bool {
         return node.list == this;
     }
 
-    public function remove(node:LinkedNode<T>):Bool {
+    public function remove(node:LinkedListNode<T>):Bool {
         return if (node.list == this) {
             if (node == first) first = first.getUnsafe().next;
             if (node == last) last = last.getUnsafe().prev;
@@ -48,8 +51,8 @@ class LinkedNodeList<T> {
         }
     }
 
-    public function iterator():LinkedNodeIterator<T> {
-        return new LinkedNodeIterator(first);
+    public function iterator():LinkedListIterator<T> {
+        return new LinkedListIterator(first);
     }
 
     public inline function iter(fn:(value:T) -> Void):Void {
@@ -62,29 +65,29 @@ class LinkedNodeList<T> {
     }
 }
 
-class LinkedNode<T> {
-    @:allow(extype.LinkedNodeList)
-    var list(default, null):Maybe<LinkedNodeList<T>>;
+class LinkedListNode<T> {
+    @:allow(extype.LinkedList)
+    var list(default, null):Maybe<LinkedList<T>>;
 
     public final value:T;
-    public var prev(default, null):Maybe<LinkedNode<T>>;
-    public var next(default, null):Maybe<LinkedNode<T>>;
+    public var prev(default, null):Maybe<LinkedListNode<T>>;
+    public var next(default, null):Maybe<LinkedListNode<T>>;
 
-    @:allow(extype.LinkedNodeList)
-    function new(list:LinkedNodeList<T>, value:T) {
+    @:allow(extype.LinkedList)
+    function new(list:LinkedList<T>, value:T) {
         this.list = Maybe.of(list);
         this.value = value;
         this.prev = Maybe.empty();
         this.next = Maybe.empty();
     }
 
-    @:allow(extype.LinkedNodeList)
-    function append(node:LinkedNode<T>):Void {
+    @:allow(extype.LinkedList)
+    function append(node:LinkedListNode<T>):Void {
         this.next = Maybe.of(node);
         node.prev = Maybe.of(this);
     }
 
-    @:allow(extype.LinkedNodeList)
+    @:allow(extype.LinkedList)
     function remove():Void {
         final prev = this.prev;
         final next = this.next;
@@ -98,10 +101,11 @@ class LinkedNode<T> {
     }
 }
 
-class LinkedNodeIterator<T> {
-    var current:Maybe<LinkedNode<T>>;
+class LinkedListIterator<T> {
+    var current:Maybe<LinkedListNode<T>>;
 
-    public function new(firstNode:Maybe<LinkedNode<T>>) {
+    @:allow(extype.LinkedList)
+    function new(firstNode:Maybe<LinkedListNode<T>>) {
         this.current = firstNode;
     }
 

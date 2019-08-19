@@ -1,7 +1,7 @@
 package extype;
 
 import extype.Set.ISet;
-import extype.LinkedNodeList;
+import extype.LinkedList;
 import haxe.ds.EnumValueMap;
 
 /**
@@ -9,8 +9,8 @@ import haxe.ds.EnumValueMap;
     You can iterate through the values in insertion order.
 **/
 class EnumValueSet<T:EnumValue> implements ISet<T> {
-    final map:EnumValueMap<T, LinkedNode<T>>;
-    final list:LinkedNodeList<T>;
+    final map:EnumValueMap<T, LinkedListNode<T>>;
+    final list:LinkedList<T>;
 
     /**
         Returns the number of values in this set.
@@ -19,7 +19,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
 
     public function new() {
         this.map = new EnumValueMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
     }
 
     /**
@@ -54,7 +54,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
     /**
         Returns an Iterator over the values of this set.
     **/
-    public function iterator():LinkedNodeIterator<T> {
+    public function iterator():LinkedListIterator<T> {
         return list.iterator();
     }
 

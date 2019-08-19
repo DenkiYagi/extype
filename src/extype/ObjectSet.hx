@@ -7,7 +7,7 @@ import js.lib.Set in JsSet;
 import extype.js.IteratorAdapter;
 #else
 import haxe.ds.ObjectMap;
-import extype.LinkedNodeList;
+import extype.LinkedList;
 #end
 
 /**
@@ -18,8 +18,8 @@ class ObjectSet<T:{}> implements ISet<T> {
     #if js
     final set:JsSet<T>;
     #else
-    final map:ObjectMap<T, LinkedNode<T>>;
-    final list:LinkedNodeList<T>;
+    final map:ObjectMap<T, LinkedListNode<T>>;
+    final list:LinkedList<T>;
     #end
 
     /**
@@ -32,7 +32,7 @@ class ObjectSet<T:{}> implements ISet<T> {
         this.set = new JsSet();
         #else
         this.map = new ObjectMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 
@@ -85,7 +85,7 @@ class ObjectSet<T:{}> implements ISet<T> {
         return new IteratorAdapter(set.values());
     }
     #else
-    public function iterator():LinkedNodeIterator<T> {
+    public function iterator():LinkedListIterator<T> {
         return list.iterator();
     }
     #end

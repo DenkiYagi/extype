@@ -7,7 +7,7 @@ import js.lib.Set in JsSet;
 import extype.js.IteratorAdapter;
 #else
 import haxe.ds.StringMap;
-import extype.LinkedNodeList;
+import extype.LinkedList;
 #end
 /**
     Represents a set of `String` values.
@@ -17,8 +17,8 @@ class StringSet implements ISet<String> {
     #if js
     final set:JsSet<String>;
     #else
-    final map:StringMap<LinkedNode<String>>;
-    final list:LinkedNodeList<String>;
+    final map:StringMap<LinkedListNode<String>>;
+    final list:LinkedList<String>;
     #end
 
     /**
@@ -31,7 +31,7 @@ class StringSet implements ISet<String> {
         this.set = new JsSet();
         #else
         this.map = new StringMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 
@@ -84,7 +84,7 @@ class StringSet implements ISet<String> {
         return new IteratorAdapter(set.values());
     }
     #else
-    public function iterator():LinkedNodeIterator<String> {
+    public function iterator():LinkedListIterator<String> {
         return list.iterator();
     }
     #end

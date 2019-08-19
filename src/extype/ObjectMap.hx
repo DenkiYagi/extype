@@ -6,7 +6,7 @@ import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
 import extype.js.KeyValueIteratorAdapter;
 #else
-import extype.LinkedNodeList;
+import extype.LinkedList;
 import extype.util.TransformIterator;
 import haxe.ds.ObjectMap in HaxeMap;
 #end
@@ -19,8 +19,8 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     #if js
     final map:JsMap<K, V>;
     #else
-    final map:HaxeMap<K, LinkedNode<Pair<K, V>>>;
-    final list:LinkedNodeList<Pair<K, V>>;
+    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final list:LinkedList<Pair<K, V>>;
     #end
 
     /**
@@ -33,7 +33,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         this.map = new JsMap();
         #else
         this.map = new HaxeMap();
-        this.list = new LinkedNodeList();
+        this.list = new LinkedList();
         #end
     }
 
