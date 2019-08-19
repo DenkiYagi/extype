@@ -22,11 +22,11 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
         This becomes a constructor call to one of the specialization types in the output.
         The rules for that are as follows:
 
-        1. if `T` is a `String`, `extype.StringSet` is used
-        2. if `T` is an `Int`, `extype.IntSet` is used
-        3. if `T` is an `EnumValue`, `extype.EnumValueSet` is used
-        4. if `T` is an `{function hashCode():Int;}`, `extype.HashSet` is used
-        5. if `T` is any other class or structure, `extype.ObjectSet` is used
+        1. if `T` is a `String`, `extype.orderedset.StringOrderedSet` is used
+        2. if `T` is an `Int`, `extype.orderedset.IntOrderedSet` is used
+        3. if `T` is an `EnumValue`, `extype.orderedset.EnumValueOrderedSet` is used
+        4. if `T` is an `{function hashCode():Int;}`, `extype.orderedset.HashOrderedSet` is used
+        5. if `T` is any other class or structure, `extype.orderedset.ObjectOrderedSet` is used
         6. if `T` is any other type, it causes a compile-time error
     **/
     public function new();
@@ -70,46 +70,15 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
     @:from static inline function fromObjectSet<T:{}>(x:ObjectOrderedSet<T>):OrderedSet<T> {
         return cast x;
     }
+
+    @:to inline function toSet():Set<T> {
+        return cast this;
+    }
 }
 
-interface IOrderedSet<T> {
-    /**
-        Returns the number of values in this set.
-    **/
-    var length(get, never):Int;
-
-    /**
-        Adds a specified value to this set.
-    **/
-    function add(value:T):Void;
-
-    /**
-        Returns true if this set has a specified value, false otherwise.
-    **/
-    function exists(value:T):Bool;
-
-    /**
-        Removes a specified value to this set and returns true if such a value existed, false otherwise.
-    **/
-    function remove(value:T):Bool;
-
-    /**
-        Returns an Iterator over the values of this set.
-    **/
-    function iterator():Iterator<T>;
-
+interface IOrderedSet<T> extends Set.ISet<T> {
     /**
         Returns a new shallow copy of this set.
     **/
     function copy():IOrderedSet<T>;
-
-    /**
-        Reterns a new array that contains the values of this set.
-    **/
-    function array():Array<T>;
-
-    /**
-        Returns a String representation of this set.
-    **/
-    function toString():String;
 }

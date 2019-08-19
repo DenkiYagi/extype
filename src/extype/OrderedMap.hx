@@ -22,11 +22,11 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
         This becomes a constructor call to one of the specialization types in the output.
         The rules for that are as follows:
 
-        1. if `K` is a `String`, `extype.StringMap` is used
-        2. if `K` is an `Int`, `extype.IntMap` is used
-        3. if `K` is an `EnumValue`, `extype.EnumValueMap` is used
-        4. if `K` is an `{function hashCode():Int;}`, `extype.HashMap` is used
-        5. if `K` is any other class or structure, `extype.ObjectMap` is used
+        1. if `K` is a `String`, `extype.orderedmap.StringOrderedMap` is used
+        2. if `K` is an `Int`, `extype.orderedmap.IntOrderedMap` is used
+        3. if `K` is an `EnumValue`, `extype.orderedmap.EnumValueOrderedMap` is used
+        4. if `K` is an `{function hashCode():Int;}`, `extype.orderedmap.HashOrderedMap` is used
+        5. if `K` is any other class or structure, `extype.orderedmap.ObjectOrderedMap` is used
         6. if `K` is any other type, it causes a compile-time error
     **/
     public function new();
