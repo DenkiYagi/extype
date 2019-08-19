@@ -98,12 +98,12 @@ interface ISet<T> {
     function copy():ISet<T>;
 
     /**
-        Reterns a new array that contains the values in this set.
+        Reterns a new array that contains the values of this set.
     **/
     function array():Array<T>;
 
-	/**
-		Returns a String representation of this set.
-	**/
+    /**
+        Returns a String representation of this set.
+    **/
     function toString():String;
 }

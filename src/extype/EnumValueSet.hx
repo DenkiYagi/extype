@@ -70,7 +70,7 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
     }
 
     /**
-        Reterns a new array that contains the values in this set.
+        Reterns a new array that contains the values of this set.
     **/
     public function array():Array<T> {
         final array = [];
