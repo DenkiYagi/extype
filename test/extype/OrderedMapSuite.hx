@@ -3,10 +3,15 @@ package extype;
 import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
+import extype.orderedmap.StringOrderedMap;
+import extype.orderedmap.IntOrderedMap;
+import extype.orderedmap.EnumValueOrderedMap;
+import extype.orderedmap.HashOrderedMap;
+import extype.orderedmap.ObjectOrderedMap;
 
-class MapSuite extends BuddySuite {
+class OrderedMapSuite extends BuddySuite {
     public function new() {
-        function test<K, V>(create: () -> Map<K, V>, is: Map<K, V> -> Bool, a:Pair<K, V>, b:Pair<K, V>, c:Pair<K, V>, invalid:Pair<K, V>) {
+        function test<K, V>(create: () -> OrderedMap<K, V>, is: OrderedMap<K, V> -> Bool, a:Pair<K, V>, b:Pair<K, V>, c:Pair<K, V>, invalid:Pair<K, V>) {
             it("should pass : new", {
                 final map = create();
 
@@ -207,46 +212,46 @@ class MapSuite extends BuddySuite {
             });
         }
 
-        describe("Map", {
-            describe("Map<String, V>", test(
-                () -> new Map<String, String>(),
-                map -> Std.is(map, StringMap),
+        describe("OrderedMap", {
+            describe("OrderedMap<String, V>", test(
+                () -> new OrderedMap<String, String>(),
+                map -> Std.is(map, StringOrderedMap),
                 new Pair("key1", "AAA"),
                 new Pair("key2", "BBB"),
                 new Pair("key3", "CCC"),
                 new Pair("あいう", "invalid")
             ));
 
-            describe("Map<Int, V>", test(
-                () -> new Map<Int, String>(),
-                map -> Std.is(map, IntMap),
+            describe("OrderedMap<Int, V>", test(
+                () -> new OrderedMap<Int, String>(),
+                map -> Std.is(map, IntOrderedMap),
                 new Pair(10, "AAA"),
                 new Pair(20, "BBB"),
                 new Pair(30, "CCC"),
                 new Pair(-1, "invalid")
             ));
 
-            describe("Map<EnumValue, V>", test(
-                () -> new Map<Option<Int>, String>(),
-                map -> Std.is(map, EnumValueMap),
+            describe("OrderedMap<EnumValue, V>", test(
+                () -> new OrderedMap<Option<Int>, String>(),
+                map -> Std.is(map, EnumValueOrderedMap),
                 new Pair(Some(10), "AAA"),
                 new Pair(Some(20), "BBB"),
                 new Pair(Some(30), "CCC"),
                 new Pair(Some(-1), "invalid")
             ));
 
-            describe("Map<{ function hashCode():Int; }, V>", test(
-                () -> new Map<{ function hashCode():Int; }, String>(),
-                map -> Std.is(map, HashMap),
+            describe("OrderedMap<{ function hashCode():Int; }, V>", test(
+                () -> new OrderedMap<{ function hashCode():Int; }, String>(),
+                map -> Std.is(map, HashOrderedMap),
                 new Pair({hashCode: () -> 1}, "AAA"),
                 new Pair({hashCode: () -> 2}, "BBB"),
                 new Pair({hashCode: () -> 3}, "CCC"),
                 new Pair({hashCode: () -> -1}, "invalid")
             ));
 
-            describe("Map<{}, V>", test(
-                () -> new Map<{value:Int}, String>(),
-                map -> Std.is(map, ObjectMap),
+            describe("OrderedMap<{}, V>", test(
+                () -> new OrderedMap<{value:Int}, String>(),
+                map -> Std.is(map, ObjectOrderedMap),
                 new Pair({value:1}, "AAA"),
                 new Pair({value:2}, "BBB"),
                 new Pair({value:3}, "CCC"),

@@ -1,6 +1,6 @@
-package extype;
+package extype.orderedmap;
 
-import extype.Map.IMap;
+import extype.OrderedMap.IOrderedMap;
 #if js
 import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
@@ -15,7 +15,7 @@ import haxe.ds.IntMap in HaxeMap;
     Represents a Map object of `Int` keys.
     You can iterate through the keys in insertion order.
 **/
-class IntMap<V> implements IMap<Int, V> {
+class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     #if js
     final map:JsMap<Int, V>;
     #else
@@ -135,8 +135,8 @@ class IntMap<V> implements IMap<Int, V> {
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():IntMap<V> {
-        final newMap = new IntMap();
+    public function copy():IntOrderedMap<V> {
+        final newMap = new IntOrderedMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
         #else

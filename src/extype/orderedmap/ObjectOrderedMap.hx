@@ -1,6 +1,6 @@
-package extype;
+package extype.orderedmap;
 
-import extype.Map.IMap;
+import extype.OrderedMap.IOrderedMap;
 #if js
 import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
@@ -8,19 +8,19 @@ import extype.js.KeyValueIteratorAdapter;
 #else
 import extype.LinkedList;
 import extype.util.TransformIterator;
-import haxe.ds.StringMap in HaxeMap;
+import haxe.ds.ObjectMap in HaxeMap;
 #end
 
 /**
-    Represents a Map object of `String` keys.
+    Represents a Map object of the object keys.
     You can iterate through the keys in insertion order.
 **/
-class StringMap<V> implements IMap<String, V> {
+class ObjectOrderedMap<K:{}, V> implements IOrderedMap<K, V> {
     #if js
-    final map:JsMap<String, V>;
+    final map:JsMap<K, V>;
     #else
-    final map:HaxeMap<LinkedListNode<Pair<String, V>>>;
-    final list:LinkedList<Pair<String, V>>;
+    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final list:LinkedList<Pair<K, V>>;
     #end
 
     /**
@@ -40,7 +40,7 @@ class StringMap<V> implements IMap<String, V> {
     /**
         Returns the current mapping of `key`.
     **/
-    public function get(key:String):Null<V> {
+    public function get(key:K):Null<V> {
         #if js
         return map.get(key);
         #else
@@ -56,7 +56,7 @@ class StringMap<V> implements IMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function set(key:String, value:V):Void {
+    public function set(key:K, value:V):Void {
         #if js
         map.set(key, value);
         #else
@@ -72,7 +72,7 @@ class StringMap<V> implements IMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function exists(key:String):Bool {
+    public function exists(key:K):Bool {
         #if js
         return map.has(key);
         #else
@@ -85,7 +85,7 @@ class StringMap<V> implements IMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function remove(key:String):Bool {
+    public function remove(key:K):Bool {
         #if js
         return map.delete(key);
         #else
@@ -102,7 +102,7 @@ class StringMap<V> implements IMap<String, V> {
     /**
         Returns an Iterator over the keys of this Map.
     **/
-    public function keys():Iterator<String> {
+    public function keys():Iterator<K> {
         #if js
         return new IteratorAdapter(map.keys());
         #else
@@ -124,19 +124,19 @@ class StringMap<V> implements IMap<String, V> {
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
-    public function keyValueIterator():KeyValueIterator<String, V> {
+    public function keyValueIterator():KeyValueIterator<K, V> {
         #if js
         return new KeyValueIteratorAdapter(map.entries());
         #else
-        return new TransformIterator(list.iterator(), pair -> new StringMapEntry(pair.value1, pair.value2));
+        return new TransformIterator(list.iterator(), pair -> new ObjectMapEntry(pair.value1, pair.value2));
         #end
     }
 
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():StringMap<V> {
-        final newMap = new StringMap();
+    public function copy():ObjectOrderedMap<K, V> {
+        final newMap = new ObjectOrderedMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
         #else
@@ -167,11 +167,11 @@ class StringMap<V> implements IMap<String, V> {
     }
 }
 
-private class StringMapEntry<V> {
-    public var key:String;
+private class ObjectMapEntry<K:{}, V> {
+    public var key:K;
     public var value:V;
 
-    public function new(key:String, value:V) {
+    public function new(key:K, value:V) {
         this.key = key;
         this.value = value;
     }

@@ -1,27 +1,17 @@
-package extype;
+package extype.orderedmap;
 
-import extype.Map.IMap;
-#if js
-import js.lib.Map in JsMap;
-import extype.js.IteratorAdapter;
-import extype.js.KeyValueIteratorAdapter;
-#else
+import extype.OrderedMap.IOrderedMap;
 import extype.LinkedList;
 import extype.util.TransformIterator;
-import haxe.ds.ObjectMap in HaxeMap;
-#end
+import haxe.ds.HashMap in HaxeMap;
 
 /**
-    Represents a Map object of the object keys.
+    Represents a Map object of `{function hashCode():Int;}` keys.
     You can iterate through the keys in insertion order.
 **/
-class ObjectMap<K:{}, V> implements IMap<K, V> {
-    #if js
-    final map:JsMap<K, V>;
-    #else
+class HashOrderedMap<K:{function hashCode():Int;}, V> implements IOrderedMap<K, V> {
     final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
     final list:LinkedList<Pair<K, V>>;
-    #end
 
     /**
         Returns the number of key/value pairs in this Map object.
@@ -29,24 +19,16 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     public var length(get, never):Int;
 
     public function new() {
-        #if js
-        this.map = new JsMap();
-        #else
         this.map = new HaxeMap();
         this.list = new LinkedList();
-        #end
     }
 
     /**
         Returns the current mapping of `key`.
     **/
     public function get(key:K):Null<V> {
-        #if js
-        return map.get(key);
-        #else
         final node = Maybe.of(map.get(key));
         return node.map(x -> x.value.value2).get();
-        #end
     }
 
     /**
@@ -57,14 +39,10 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         If `key` is `null`, the result is unspecified.
     **/
     public function set(key:K, value:V):Void {
-        #if js
-        map.set(key, value);
-        #else
         if (map.exists(key)) {
             list.remove(map.get(key));
         }
         map.set(key, list.add(new Pair(key, value)));
-        #end
     }
 
     /**
@@ -73,11 +51,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         If `key` is `null`, the result is unspecified.
     **/
     public function exists(key:K):Bool {
-        #if js
-        return map.has(key);
-        #else
         return map.exists(key);
-        #end
     }
 
     /**
@@ -86,9 +60,6 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         If `key` is `null`, the result is unspecified.
     **/
     public function remove(key:K):Bool {
-        #if js
-        return map.delete(key);
-        #else
         return if (map.exists(key)) {
             list.remove(map.get(key));
             map.remove(key);
@@ -96,52 +67,35 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         } else {
             false;
         }
-        #end
     }
 
     /**
         Returns an Iterator over the keys of this Map.
     **/
     public function keys():Iterator<K> {
-        #if js
-        return new IteratorAdapter(map.keys());
-        #else
         return new TransformIterator(list.iterator(), pair -> pair.value1);
-        #end
     }
 
     /**
         Returns an Iterator over the values of this Map.
     **/
     public function iterator():Iterator<V> {
-        #if js
-        return new IteratorAdapter(map.values());
-        #else
         return new TransformIterator(list.iterator(), pair -> pair.value2);
-        #end
     }
 
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
     public function keyValueIterator():KeyValueIterator<K, V> {
-        #if js
-        return new KeyValueIteratorAdapter(map.entries());
-        #else
-        return new TransformIterator(list.iterator(), pair -> new ObjectMapEntry(pair.value1, pair.value2));
-        #end
+        return new TransformIterator(list.iterator(), pair -> new HashMapEntry(pair.value1, pair.value2));
     }
 
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():ObjectMap<K, V> {
-        final newMap = new ObjectMap();
-        #if js
-        map.forEach((v, k, _) -> newMap.set(k, v));
-        #else
+    public function copy():HashOrderedMap<K, V> {
+        final newMap = new HashOrderedMap();
         list.iter(pair -> newMap.set(pair.value1, pair.value2));
-        #end
         return newMap;
     }
 
@@ -150,24 +104,16 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     **/
     public function toString():String {
         final buff = [];
-        #if js
-        map.forEach((v, k, _) -> buff.push('${k}=>${v}'));
-        #else
         list.iter(pair -> buff.push('${pair.value1}=>${pair.value2}'));
-        #end
         return '{${buff.join(",")}}';
     }
 
     inline function get_length():Int {
-        #if js
-        return map.size;
-        #else
         return list.length;
-        #end
     }
 }
 
-private class ObjectMapEntry<K:{}, V> {
+private class HashMapEntry<K:{function hashCode():Int;}, V> {
     public var key:K;
     public var value:V;
 

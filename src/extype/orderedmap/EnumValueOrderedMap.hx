@@ -1,15 +1,15 @@
-package extype;
+package extype.orderedmap;
 
-import extype.Map.IMap;
+import extype.OrderedMap.IOrderedMap;
 import extype.LinkedList;
 import extype.util.TransformIterator;
-import haxe.ds.HashMap in HaxeMap;
+import haxe.ds.EnumValueMap in HaxeMap;
 
 /**
-    Represents a Map object of `{function hashCode():Int;}` keys.
+    Represents a Map object of `EnumValue` keys.
     You can iterate through the keys in insertion order.
 **/
-class HashMap<K:{function hashCode():Int;}, V> implements IMap<K, V> {
+class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
     final list:LinkedList<Pair<K, V>>;
 
@@ -87,14 +87,14 @@ class HashMap<K:{function hashCode():Int;}, V> implements IMap<K, V> {
         Returns an Iterator over the keys and values of this Map.
     **/
     public function keyValueIterator():KeyValueIterator<K, V> {
-        return new TransformIterator(list.iterator(), pair -> new HashMapEntry(pair.value1, pair.value2));
+        return new TransformIterator(list.iterator(), pair -> new EnumValueMapEntry(pair.value1, pair.value2));
     }
 
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():HashMap<K, V> {
-        final newMap = new HashMap();
+    public function copy():EnumValueOrderedMap<K, V> {
+        final newMap = new EnumValueOrderedMap();
         list.iter(pair -> newMap.set(pair.value1, pair.value2));
         return newMap;
     }
@@ -113,7 +113,7 @@ class HashMap<K:{function hashCode():Int;}, V> implements IMap<K, V> {
     }
 }
 
-private class HashMapEntry<K:{function hashCode():Int;}, V> {
+private class EnumValueMapEntry<K:EnumValue, V> {
     public var key:K;
     public var value:V;
 
