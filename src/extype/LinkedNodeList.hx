@@ -7,10 +7,14 @@ class LinkedNodeList<T> {
     public var last(default, null):Maybe<LinkedNode<T>>;
     public var length(default, null):Int;
 
-    public function new() {
+    public function new(?iterable:Iterable<T>) {
         this.first = Maybe.empty();
         this.last = Maybe.empty();
         this.length = 0;
+
+        if (iterable != null) {
+            for (x in iterable) add(x);
+        }
     }
 
     public function add(value:T):LinkedNode<T> {
