@@ -8,7 +8,7 @@ class ReadOnlySetSuite extends BuddySuite {
     public function new() {
         describe("ReadOnlySet", {
             it("should pass", {
-                final src = new Set();
+                final src = new OrderedSet();
                 src.add(10);
                 src.add(15);
 
@@ -21,7 +21,7 @@ class ReadOnlySetSuite extends BuddySuite {
                 Assert.equals("{10,15}", dist.toString());
 
                 CompilationShould.failFor({
-                    final set = (new Set<Int>() : ReadOnlySet<Int>);
+                    final set = (new OrderedSet<Int>() : ReadOnlySet<Int>);
                     set.add(10);
                 });
             });

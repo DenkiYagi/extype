@@ -1,6 +1,6 @@
 package extype;
 
-import extype.Set.ISet;
+import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
@@ -14,7 +14,7 @@ import extype.LinkedList;
     Represents a set of `Int` values.
     You can iterate through the values in insertion order.
 **/
-class IntSet implements ISet<Int> {
+class IntSet implements IOrderedSet<Int> {
     #if js
     final set:JsSet<Int>;
     #else

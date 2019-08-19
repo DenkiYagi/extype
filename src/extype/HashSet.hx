@@ -1,6 +1,6 @@
 package extype;
 
-import extype.Set.ISet;
+import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
 import js.lib.Map in JsMap;
@@ -14,7 +14,7 @@ import haxe.ds.HashMap;
     Represents a set of `{function hashCode():Int;}` values.
     You can iterate through the values in insertion order.
 **/
-class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
+class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     #if js
     final map:JsMap<Int, T>;
     #else

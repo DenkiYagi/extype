@@ -9,7 +9,7 @@ package extype;
 **/
 @:multiType
 @:forward
-abstract Set<T>(ISet<T>) {
+abstract OrderedSet<T>(IOrderedSet<T>) {
     /**
         Creates a new Set.
 
@@ -25,48 +25,48 @@ abstract Set<T>(ISet<T>) {
     **/
     public function new();
 
-    @:to static inline function toStringSet<T:String>(x:ISet<T>):StringSet {
+    @:to static inline function toStringSet<T:String>(x:IOrderedSet<T>):StringSet {
         return new StringSet();
     }
 
-    @:to static inline function toIntSet<T:Int>(x:ISet<T>):IntSet {
+    @:to static inline function toIntSet<T:Int>(x:IOrderedSet<T>):IntSet {
         return new IntSet();
     }
 
-    @:to static inline function toEnumValueSet<T:EnumValue>(x:ISet<T>):EnumValueSet<T> {
+    @:to static inline function toEnumValueSet<T:EnumValue>(x:IOrderedSet<T>):EnumValueSet<T> {
         return new EnumValueSet();
     }
 
-    @:to static inline function toHashSet<T:{function hashCode():Int;}>(x:ISet<T>):HashSet<T> {
+    @:to static inline function toHashSet<T:{function hashCode():Int;}>(x:IOrderedSet<T>):HashSet<T> {
         return new HashSet();
     }
 
-    @:to static inline function toObjectSet<T:{}>(x:ISet<T>):ObjectSet<T> {
+    @:to static inline function toObjectSet<T:{}>(x:IOrderedSet<T>):ObjectSet<T> {
         return new ObjectSet();
     }
 
-    @:from static inline function fromIntSet(x:IntSet):Set<Int> {
+    @:from static inline function fromIntSet(x:IntSet):OrderedSet<Int> {
         return cast x;
     }
 
-    @:from static inline function fromStringSet(x:StringSet):Set<String> {
+    @:from static inline function fromStringSet(x:StringSet):OrderedSet<String> {
         return cast x;
     }
 
-    @:from static inline function fromEnumValueSet<T:EnumValue>(x:EnumValueSet<T>):Set<T> {
+    @:from static inline function fromEnumValueSet<T:EnumValue>(x:EnumValueSet<T>):OrderedSet<T> {
         return cast x;
     }
 
-    @:from static inline function fromHashSet<T:{function hashCode():Int;}>(x:HashSet<T>):Set<T> {
+    @:from static inline function fromHashSet<T:{function hashCode():Int;}>(x:HashSet<T>):OrderedSet<T> {
         return cast x;
     }
 
-    @:from static inline function fromObjectSet<T:{}>(x:ObjectSet<T>):Set<T> {
+    @:from static inline function fromObjectSet<T:{}>(x:ObjectSet<T>):OrderedSet<T> {
         return cast x;
     }
 }
 
-interface ISet<T> {
+interface IOrderedSet<T> {
     /**
         Returns the number of values in this set.
     **/
@@ -95,7 +95,7 @@ interface ISet<T> {
     /**
         Returns a new shallow copy of this set.
     **/
-    function copy():ISet<T>;
+    function copy():IOrderedSet<T>;
 
     /**
         Reterns a new array that contains the values of this set.

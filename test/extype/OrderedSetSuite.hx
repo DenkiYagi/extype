@@ -4,9 +4,9 @@ import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
 
-class SetSuite extends BuddySuite {
+class OrderedSetSuite extends BuddySuite {
     public function new() {
-        function test<T>(create:() -> Set<T>, is:Set<T>->Bool, a:T, b:T, c:T, invalid:T) {
+        function test<T>(create:() -> OrderedSet<T>, is:OrderedSet<T>->Bool, a:T, b:T, c:T, invalid:T) {
             it("should pass : new", {
                 final set = create();
 
@@ -186,9 +186,9 @@ class SetSuite extends BuddySuite {
             });
         }
 
-        describe("Set", {
-            describe("Set<String>", test(
-                () -> new Set<String>(),
+        describe("OrderedSet", {
+            describe("OrderedSet<String>", test(
+                () -> new OrderedSet<String>(),
                 Std.is.bind(_, StringSet),
                 "abc",
                 "def",
@@ -196,8 +196,8 @@ class SetSuite extends BuddySuite {
                 "X"
             ));
 
-            describe("Set<Int>", test(
-                () -> new Set<Int>(),
+            describe("OrderedSet<Int>", test(
+                () -> new OrderedSet<Int>(),
                 Std.is.bind(_, IntSet),
                 1,
                 2,
@@ -205,8 +205,8 @@ class SetSuite extends BuddySuite {
                 -1
             ));
 
-            describe("Set<EnumValue>", test(
-                () -> new Set<Option<Int>>(),
+            describe("OrderedSet<EnumValue>", test(
+                () -> new OrderedSet<Option<Int>>(),
                 Std.is.bind(_, EnumValueSet),
                 Some(1),
                 Some(2),
@@ -214,8 +214,8 @@ class SetSuite extends BuddySuite {
                 None
             ));
 
-            describe("Set<{ function hashCode():Int; }>", test(
-                () -> new Set<{function hashCode():Int;}>(),
+            describe("OrderedSet<{ function hashCode():Int; }>", test(
+                () -> new OrderedSet<{function hashCode():Int;}>(),
                 Std.is.bind(_, HashSet),
                 {hashCode: () -> 1},
                 {hashCode: () -> 2},
@@ -223,8 +223,8 @@ class SetSuite extends BuddySuite {
                 {hashCode: () -> -1}
             ));
 
-            describe("Set<{}>", test(
-                () -> new Set<{value:Int}>(),
+            describe("OrderedSet<{}>", test(
+                () -> new OrderedSet<{value:Int}>(),
                 Std.is.bind(_, ObjectSet),
                 {value:1},
                 {value:2},

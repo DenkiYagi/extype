@@ -1,6 +1,6 @@
 package extype;
 
-import extype.Set.ISet;
+import extype.OrderedSet.IOrderedSet;
 import extype.LinkedList;
 import haxe.ds.EnumValueMap;
 
@@ -8,7 +8,7 @@ import haxe.ds.EnumValueMap;
     Represents a set of `EnumValue` values.
     You can iterate through the values in insertion order.
 **/
-class EnumValueSet<T:EnumValue> implements ISet<T> {
+class EnumValueSet<T:EnumValue> implements IOrderedSet<T> {
     final map:EnumValueMap<T, LinkedListNode<T>>;
     final list:LinkedList<T>;
 
