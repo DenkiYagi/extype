@@ -11,7 +11,7 @@ import extype.LinkedNodeList;
 #end
 
 /**
-    Represents a set of object values.
+    Represents a set of the object values.
     You can iterate through the values in insertion order.
 **/
 class ObjectSet<T:{}> implements ISet<T> {
