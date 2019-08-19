@@ -78,18 +78,18 @@ interface IOrderedMap<K, V> {
     **/
     var length(get, never):Int;
 
-	function get(k:K):Null<V>;
-	function set(k:K, v:V):Void;
-	function exists(k:K):Bool;
-	function remove(k:K):Bool;
-	function keys():Iterator<K>;
-	function iterator():Iterator<V>;
-	function keyValueIterator():KeyValueIterator<K, V>;
+    function get(k:K):Null<V>;
+    function set(k:K, v:V):Void;
+    function exists(k:K):Bool;
+    function remove(k:K):Bool;
+    function keys():Iterator<K>;
+    function iterator():Iterator<V>;
+    function keyValueIterator():KeyValueIterator<K, V>;
 
     /**
         Returns a shallow copy of this Map.
     **/
     function copy():IOrderedMap<K, V>;
 
-	function toString():String;
+    function toString():String;
 }
