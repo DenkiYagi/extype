@@ -15,6 +15,16 @@ class LinkedNodeListSuite extends BuddySuite {
                 list.iter(_ -> Assert.fail());
             });
 
+            it("should pass: new(iterable)", {
+                final list = new LinkedNodeList([3, 2, 1]);
+
+                Assert.equals(3, list.length);
+                Assert.same([3, 2, 1], [for (x in list.iterator()) x]);
+                final array = [];
+                list.iter(array.push);
+                Assert.same([3, 2, 1], array);
+            });
+
             it("should pass : new -> add(A)", {
                 final list = new LinkedNodeList();
                 final nodeA = list.add(10);
