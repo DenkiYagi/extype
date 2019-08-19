@@ -67,10 +67,10 @@ class HashSet<T:{function hashCode():Int;}> implements ISet<T> {
         #if js
         return map.delete(value.hashCode());
         #else
-        final node = Maybe.of(map.get(value));
-        return if (node.nonEmpty()) {
+        return if (map.exists(value)) {
+            final node = map.get(value);
             map.remove(value);
-            list.remove(node.getUnsafe());
+            list.remove(node);
             true;
         } else {
             false;
