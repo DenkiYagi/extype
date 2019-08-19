@@ -1,4 +1,4 @@
-package extype;
+package extype.orderedset;
 
 import extype.OrderedSet.IOrderedSet;
 #if js
@@ -6,20 +6,20 @@ import js.Syntax;
 import js.lib.Set in JsSet;
 import extype.js.IteratorAdapter;
 #else
-import haxe.ds.IntMap;
+import haxe.ds.ObjectMap;
 import extype.LinkedList;
 #end
 
 /**
-    Represents a set of `Int` values.
+    Represents a set of the object values.
     You can iterate through the values in insertion order.
 **/
-class IntSet implements IOrderedSet<Int> {
+class ObjectOrderedSet<T:{}> implements IOrderedSet<T> {
     #if js
-    final set:JsSet<Int>;
+    final set:JsSet<T>;
     #else
-    final map:IntMap<LinkedListNode<Int>>;
-    final list:LinkedList<Int>;
+    final map:ObjectMap<T, LinkedListNode<T>>;
+    final list:LinkedList<T>;
     #end
 
     /**
@@ -31,7 +31,7 @@ class IntSet implements IOrderedSet<Int> {
         #if js
         this.set = new JsSet();
         #else
-        this.map = new IntMap();
+        this.map = new ObjectMap();
         this.list = new LinkedList();
         #end
     }
@@ -39,7 +39,7 @@ class IntSet implements IOrderedSet<Int> {
     /**
         Adds a specified value to this set.
     **/
-    public function add(value:Int):Void {
+    public function add(value:T):Void {
         #if js
         set.add(value);
         #else
@@ -52,7 +52,7 @@ class IntSet implements IOrderedSet<Int> {
     /**
         Returns true if this set has a specified value, false otherwise.
     **/
-    public function exists(value:Int):Bool {
+    public function exists(value:T):Bool {
         #if js
         return set.has(value);
         #else
@@ -63,7 +63,7 @@ class IntSet implements IOrderedSet<Int> {
     /**
         Removes a specified value to this set and returns true if such a value existed, false otherwise.
     **/
-    public function remove(value:Int):Bool {
+    public function remove(value:T):Bool {
         #if js
         return set.delete(value);
         #else
@@ -81,11 +81,11 @@ class IntSet implements IOrderedSet<Int> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public function iterator():IteratorAdapter<Int> {
+    public function iterator():IteratorAdapter<T> {
         return new IteratorAdapter(set.values());
     }
     #else
-    public function iterator():LinkedListIterator<Int> {
+    public function iterator():LinkedListIterator<T> {
         return list.iterator();
     }
     #end
@@ -93,8 +93,8 @@ class IntSet implements IOrderedSet<Int> {
     /**
         Returns a new shallow copy of this set.
     **/
-    public function copy():IntSet {
-        final copy = new IntSet();
+    public function copy():ObjectOrderedSet<T> {
+        final copy = new ObjectOrderedSet();
         for (x in inline iterator()) {
             #if js
             copy.add(x);
@@ -108,7 +108,7 @@ class IntSet implements IOrderedSet<Int> {
     /**
         Reterns a new array that contains the values of this set.
     **/
-    public function array():Array<Int> {
+    public function array():Array<T> {
         #if js
         return Syntax.code("Array.from({0})", set);
         #else
@@ -122,10 +122,12 @@ class IntSet implements IOrderedSet<Int> {
         Returns a String representation of this set.
     **/
     public function toString():String {
-        return '{${array().join(",")}}';
+        final buff = [];
+        iter(x -> buff.push(Std.string(x)));
+        return '{${buff.join(",")}}';
     }
 
-    inline function iter(fn:(value:Int) -> Void):Void {
+    inline function iter(fn:(value:T) -> Void):Void {
         #if js
         set.forEach((x, _, _) -> fn(x));
         #else
@@ -142,7 +144,7 @@ class IntSet implements IOrderedSet<Int> {
     }
 
     #if !js
-    inline function addInternal(value:Int):Void {
+    inline function addInternal(value:T):Void {
         map.set(value, list.add(value));
     }
     #end

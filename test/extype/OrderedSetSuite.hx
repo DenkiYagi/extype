@@ -3,6 +3,11 @@ package extype;
 import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
+import extype.orderedset.StringOrderedSet;
+import extype.orderedset.IntOrderedSet;
+import extype.orderedset.EnumValueOrderedSet;
+import extype.orderedset.HashOrderedSet;
+import extype.orderedset.ObjectOrderedSet;
 
 class OrderedSetSuite extends BuddySuite {
     public function new() {
@@ -189,7 +194,7 @@ class OrderedSetSuite extends BuddySuite {
         describe("OrderedSet", {
             describe("OrderedSet<String>", test(
                 () -> new OrderedSet<String>(),
-                Std.is.bind(_, StringSet),
+                Std.is.bind(_, StringOrderedSet),
                 "abc",
                 "def",
                 "ghi",
@@ -198,7 +203,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<Int>", test(
                 () -> new OrderedSet<Int>(),
-                Std.is.bind(_, IntSet),
+                Std.is.bind(_, IntOrderedSet),
                 1,
                 2,
                 3,
@@ -207,7 +212,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<EnumValue>", test(
                 () -> new OrderedSet<Option<Int>>(),
-                Std.is.bind(_, EnumValueSet),
+                Std.is.bind(_, EnumValueOrderedSet),
                 Some(1),
                 Some(2),
                 Some(3),
@@ -216,7 +221,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<{ function hashCode():Int; }>", test(
                 () -> new OrderedSet<{function hashCode():Int;}>(),
-                Std.is.bind(_, HashSet),
+                Std.is.bind(_, HashOrderedSet),
                 {hashCode: () -> 1},
                 {hashCode: () -> 2},
                 {hashCode: () -> 3},
@@ -225,7 +230,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<{}>", test(
                 () -> new OrderedSet<{value:Int}>(),
-                Std.is.bind(_, ObjectSet),
+                Std.is.bind(_, ObjectOrderedSet),
                 {value:1},
                 {value:2},
                 {value:3},

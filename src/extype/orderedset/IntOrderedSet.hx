@@ -1,25 +1,25 @@
-package extype;
+package extype.orderedset;
 
 import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
-import js.lib.Map in JsMap;
+import js.lib.Set in JsSet;
 import extype.js.IteratorAdapter;
 #else
+import haxe.ds.IntMap;
 import extype.LinkedList;
-import haxe.ds.HashMap;
 #end
 
 /**
-    Represents a set of `{function hashCode():Int;}` values.
+    Represents a set of `Int` values.
     You can iterate through the values in insertion order.
 **/
-class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
+class IntOrderedSet implements IOrderedSet<Int> {
     #if js
-    final map:JsMap<Int, T>;
+    final set:JsSet<Int>;
     #else
-    final map:HashMap<T, LinkedListNode<T>>;
-    final list:LinkedList<T>;
+    final map:IntMap<LinkedListNode<Int>>;
+    final list:LinkedList<Int>;
     #end
 
     /**
@@ -29,9 +29,9 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
 
     public function new() {
         #if js
-        this.map = new JsMap();
+        this.set = new JsSet();
         #else
-        this.map = new HashMap();
+        this.map = new IntMap();
         this.list = new LinkedList();
         #end
     }
@@ -39,9 +39,9 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     /**
         Adds a specified value to this set.
     **/
-    public function add(value:T):Void {
+    public function add(value:Int):Void {
         #if js
-        map.set(value.hashCode(), value);
+        set.add(value);
         #else
         if (!map.exists(value)) {
             addInternal(value);
@@ -52,9 +52,9 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     /**
         Returns true if this set has a specified value, false otherwise.
     **/
-    public function exists(value:T):Bool {
+    public function exists(value:Int):Bool {
         #if js
-        return map.has(value.hashCode());
+        return set.has(value);
         #else
         return map.exists(value);
         #end
@@ -63,9 +63,9 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     /**
         Removes a specified value to this set and returns true if such a value existed, false otherwise.
     **/
-    public function remove(value:T):Bool {
+    public function remove(value:Int):Bool {
         #if js
-        return map.delete(value.hashCode());
+        return set.delete(value);
         #else
         return if (map.exists(value)) {
             list.remove(map.get(value));
@@ -81,11 +81,11 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public function iterator():IteratorAdapter<T> {
-        return new IteratorAdapter(map.values());
+    public function iterator():IteratorAdapter<Int> {
+        return new IteratorAdapter(set.values());
     }
     #else
-    public function iterator():LinkedListIterator<T> {
+    public function iterator():LinkedListIterator<Int> {
         return list.iterator();
     }
     #end
@@ -93,8 +93,8 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     /**
         Returns a new shallow copy of this set.
     **/
-    public function copy():HashSet<T> {
-        final copy = new HashSet();
+    public function copy():IntOrderedSet {
+        final copy = new IntOrderedSet();
         for (x in inline iterator()) {
             #if js
             copy.add(x);
@@ -108,9 +108,9 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
     /**
         Reterns a new array that contains the values of this set.
     **/
-    public function array():Array<T> {
+    public function array():Array<Int> {
         #if js
-        return Syntax.code("Array.from({0})", map.values());
+        return Syntax.code("Array.from({0})", set);
         #else
         final array = [];
         iter(array.push);
@@ -122,14 +122,12 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
         Returns a String representation of this set.
     **/
     public function toString():String {
-        final buff = [];
-        iter(x -> buff.push(Std.string(x)));
-        return '{${buff.join(",")}}';
+        return '{${array().join(",")}}';
     }
 
-    inline function iter(fn:(value:T) -> Void):Void {
+    inline function iter(fn:(value:Int) -> Void):Void {
         #if js
-        map.forEach((x, _, _) -> fn(x));
+        set.forEach((x, _, _) -> fn(x));
         #else
         list.iter(fn);
         #end
@@ -137,14 +135,14 @@ class HashSet<T:{function hashCode():Int;}> implements IOrderedSet<T> {
 
     inline function get_length():Int {
         #if js
-        return map.size;
+        return set.size;
         #else
         return list.length;
         #end
     }
 
     #if !js
-    inline function addInternal(value:T):Void {
+    inline function addInternal(value:Int):Void {
         map.set(value, list.add(value));
     }
     #end
