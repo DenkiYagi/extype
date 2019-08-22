@@ -12,7 +12,7 @@ class ReadOnlySetSuite extends BuddySuite {
                 src.add(10);
                 src.add(15);
 
-                final dist: ReadOnlySet<Int> = src;
+                final dist = (src : ReadOnlySet<Int>);
                 Assert.equals(src, dist);
                 Assert.equals(2, dist.length);
                 Assert.isTrue(dist.exists(10));

@@ -5,8 +5,10 @@ import buddy.*;
 class Main implements Buddy<[
     extype.MaybeSuite,
     extype.LinkedListSuite,
-    extype.OrderedSetSuite,
+    extype.MapSuite,
+    extype.SetSuite,
     extype.OrderedMapSuite,
+    extype.OrderedSetSuite,
     extype.ReadOnlyDynamicSuite,
     extype.ReadOnlySetSuite,
     extype.extern.ExternSuite,

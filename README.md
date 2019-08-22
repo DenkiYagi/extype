@@ -73,7 +73,7 @@ TODO
 
 * `NotImplementedError`
 
-### extype.util
+### extype.iterator
 #### TransformIterator
 TODO
 

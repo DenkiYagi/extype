@@ -1,26 +1,28 @@
-package extype.orderedmap;
+package extype.map;
 
-import extype.OrderedMap.IOrderedMap;
+import extype.Map.IMap;
 #if js
 import js.lib.Map in JsMap;
 import extype.js.IteratorAdapter;
 import extype.js.KeyValueIteratorAdapter;
-#else
-import extype.LinkedList;
+#elseif neko
+import extype.Pair;
 import extype.iterator.TransformIterator;
+#else
 import haxe.ds.IntMap in StdMap;
 #end
 
 /**
     Represents a Map object of `Int` keys.
-    You can iterate through the keys in insertion order.
 **/
-class IntOrderedMap<V> implements IOrderedMap<Int, V> {
+class IntMap<V> implements IMap<Int, V> {
     #if js
     final map:JsMap<Int, V>;
+    #elseif neko
+    final hash:Dynamic;
     #else
-    final map:StdMap<LinkedListNode<Pair<Int, V>>>;
-    final list:LinkedList<Pair<Int, V>>;
+    final map:StdMap<V>;
+    var _length:Int;
     #end
 
     /**
@@ -28,24 +30,25 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     **/
     public var length(get, never):Int;
 
-    public function new() {
+    public inline function new() {
         #if js
         this.map = new JsMap();
+        #elseif neko
+        this.hash = untyped __dollar__hnew(0);
         #else
         this.map = new StdMap();
-        this.list = new LinkedList();
+        this._length = 0;
         #end
     }
 
     /**
         Returns the current mapping of `key`.
     **/
-    public function get(key:Int):Null<V> {
-        #if js
-        return map.get(key);
+    public inline function get(key:Int):Null<V> {
+        #if neko
+        return untyped __dollar__hget(hash, key, null);
         #else
-        final node = Maybe.of(map.get(key));
-        return node.map(x -> x.value.value2).get();
+        return map.get(key);
         #end
     }
 
@@ -56,14 +59,14 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function set(key:Int, value:V):Void {
+    public inline function set(key:Int, value:V):Void {
         #if js
         map.set(key, value);
+        #elseif neko
+        untyped __dollar__hset(hash, key, value, null);
         #else
-        if (map.exists(key)) {
-            list.remove(map.get(key));
-        }
-        map.set(key, list.add(new Pair(key, value)));
+        if (!map.exists(key)) _length++;
+        map.set(key, value);
         #end
     }
 
@@ -72,9 +75,11 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function exists(key:Int):Bool {
+    public inline function exists(key:Int):Bool {
         #if js
         return map.has(key);
+        #elseif neko
+        return untyped __dollar__hmem(hash, key, null);
         #else
         return map.exists(key);
         #end
@@ -85,62 +90,80 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function remove(key:Int):Bool {
+    public inline function remove(key:Int):Bool {
         #if js
         return map.delete(key);
+        #elseif neko
+        return untyped __dollar__hremove(hash, key, null);
         #else
-        return if (map.exists(key)) {
-            list.remove(map.get(key));
-            map.remove(key);
-            true;
-        } else {
-            false;
-        }
+        final ret = map.remove(key);
+        if (ret) _length--;
+        return ret;
         #end
     }
 
     /**
         Returns an Iterator over the keys of this Map.
     **/
-    public function keys():Iterator<Int> {
+    public inline function keys():Iterator<Int> {
         #if js
         return new IteratorAdapter(map.keys());
+        #elseif neko
+        final list = new List<Int>();
+        untyped __dollar__hiter(hash, (k, _) -> {
+            list.push(k);
+        });
+        return list.iterator();
         #else
-        return new TransformIterator(list.iterator(), pair -> pair.value1);
+        return map.keys();
         #end
     }
 
     /**
         Returns an Iterator over the values of this Map.
     **/
-    public function iterator():Iterator<V> {
+    public inline function iterator():Iterator<V> {
         #if js
         return new IteratorAdapter(map.values());
+        #elseif neko
+        final list = new List<V>();
+        untyped __dollar__hiter(hash, (_, v) -> {
+            list.push(v);
+        });
+        return list.iterator();
         #else
-        return new TransformIterator(list.iterator(), pair -> pair.value2);
+        return map.iterator();
         #end
     }
 
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
-    public function keyValueIterator():KeyValueIterator<Int, V> {
+    public inline function keyValueIterator():KeyValueIterator<Int, V> {
         #if js
         return new KeyValueIteratorAdapter(map.entries());
+        #elseif neko
+        final list = new List<IntMapEntry<V>>();
+        untyped __dollar__hiter(hash, (k, v) -> {
+            list.push(new IntMapEntry(k, v));
+        });
+        return list.iterator();
         #else
-        return new TransformIterator(list.iterator(), pair -> new IntMapEntry(pair.value1, pair.value2));
+        return map.keyValueIterator();
         #end
     }
 
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():IntOrderedMap<V> {
-        final newMap = new IntOrderedMap();
+    public inline function copy():IntMap<V> {
+        final newMap = new IntMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
+        #elseif neko
+        for (k => v in this) newMap.set(k, v);
         #else
-        list.iter(pair -> newMap.set(pair.value1, pair.value2));
+        for (k => v in map) newMap.set(k, v);
         #end
         return newMap;
     }
@@ -148,12 +171,14 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns a String representation of this Map.
     **/
-    public function toString():String {
+    public inline function toString():String {
         final buff = [];
         #if js
         map.forEach((v, k, _) -> buff.push('${k}=>${v}'));
+        #elseif neko
+        for (k => v in this) buff.push('${k}=>${v}');
         #else
-        list.iter(pair -> buff.push('${pair.value1}=>${pair.value2}'));
+        for (k => v in map) buff.push('${k}=>${v}');
         #end
         return '{${buff.join(",")}}';
     }
@@ -161,12 +186,15 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     inline function get_length():Int {
         #if js
         return map.size;
+        #elseif neko
+        return untyped __dollar__hcount(hash);
         #else
-        return list.length;
+        return _length;
         #end
     }
 }
 
+#if neko
 private class IntMapEntry<V> {
     public var key:Int;
     public var value:V;
@@ -176,3 +204,4 @@ private class IntMapEntry<V> {
         this.value = value;
     }
 }
+#end

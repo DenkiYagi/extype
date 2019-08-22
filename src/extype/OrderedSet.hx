@@ -72,13 +72,10 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
     }
 
     @:to inline function toSet():Set<T> {
-        return cast this;
+        return cast (this : Set.ISet<T>);
     }
 }
 
 interface IOrderedSet<T> extends Set.ISet<T> {
-    /**
-        Returns a new shallow copy of this set.
-    **/
     function copy():IOrderedSet<T>;
 }

@@ -2,15 +2,15 @@ package extype.orderedmap;
 
 import extype.OrderedMap.IOrderedMap;
 import extype.LinkedList;
-import extype.util.TransformIterator;
-import haxe.ds.HashMap in HaxeMap;
+import extype.iterator.TransformIterator;
+import haxe.ds.HashMap in StdMap;
 
 /**
     Represents a Map object of `{function hashCode():Int;}` keys.
     You can iterate through the keys in insertion order.
 **/
 class HashOrderedMap<K:{function hashCode():Int;}, V> implements IOrderedMap<K, V> {
-    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final map:StdMap<K, LinkedListNode<Pair<K, V>>>;
     final list:LinkedList<Pair<K, V>>;
 
     /**
@@ -19,7 +19,7 @@ class HashOrderedMap<K:{function hashCode():Int;}, V> implements IOrderedMap<K, 
     public var length(get, never):Int;
 
     public function new() {
-        this.map = new HaxeMap();
+        this.map = new StdMap();
         this.list = new LinkedList();
     }
 

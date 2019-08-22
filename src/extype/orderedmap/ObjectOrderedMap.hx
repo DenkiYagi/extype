@@ -7,8 +7,8 @@ import extype.js.IteratorAdapter;
 import extype.js.KeyValueIteratorAdapter;
 #else
 import extype.LinkedList;
-import extype.util.TransformIterator;
-import haxe.ds.ObjectMap in HaxeMap;
+import extype.iterator.TransformIterator;
+import haxe.ds.ObjectMap in StdMap;
 #end
 
 /**
@@ -19,7 +19,7 @@ class ObjectOrderedMap<K:{}, V> implements IOrderedMap<K, V> {
     #if js
     final map:JsMap<K, V>;
     #else
-    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final map:StdMap<K, LinkedListNode<Pair<K, V>>>;
     final list:LinkedList<Pair<K, V>>;
     #end
 
@@ -32,7 +32,7 @@ class ObjectOrderedMap<K:{}, V> implements IOrderedMap<K, V> {
         #if js
         this.map = new JsMap();
         #else
-        this.map = new HaxeMap();
+        this.map = new StdMap();
         this.list = new LinkedList();
         #end
     }

@@ -1,10 +1,10 @@
-package extype.util;
+package extype.iterator;
 
 class TransformIterator<T, U> {
     final iterator:Iterator<T>;
     final transform:(value:T) -> U;
 
-    public function new(iterator:Iterator<T>, transform:(value:T) -> U) {
+    public inline function new(iterator:Iterator<T>, transform:(value:T) -> U) {
         this.iterator = iterator;
         this.transform = transform;
     }

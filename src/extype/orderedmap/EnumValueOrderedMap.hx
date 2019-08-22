@@ -2,15 +2,15 @@ package extype.orderedmap;
 
 import extype.OrderedMap.IOrderedMap;
 import extype.LinkedList;
-import extype.util.TransformIterator;
-import haxe.ds.EnumValueMap in HaxeMap;
+import extype.iterator.TransformIterator;
+import haxe.ds.EnumValueMap in StdMap;
 
 /**
     Represents a Map object of `EnumValue` keys.
     You can iterate through the keys in insertion order.
 **/
 class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
-    final map:HaxeMap<K, LinkedListNode<Pair<K, V>>>;
+    final map:StdMap<K, LinkedListNode<Pair<K, V>>>;
     final list:LinkedList<Pair<K, V>>;
 
     /**
@@ -19,7 +19,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     public var length(get, never):Int;
 
     public function new() {
-        this.map = new HaxeMap();
+        this.map = new StdMap();
         this.list = new LinkedList();
     }
 
