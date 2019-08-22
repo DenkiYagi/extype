@@ -149,7 +149,7 @@ abstract Map<K, V>(IMap<K, V>) {
         return switch (expr.expr) {
             case EArrayDecl(elements):
                 macro $b{
-                    [macro final map = new Map()].concat(elements.map(elem -> {
+                    [macro final map = new extype.Map()].concat(elements.map(elem -> {
                         return switch (elem.expr) {
                             case EBinop(OpArrow, eKey, eVal):
                                 macro map.set(${eKey}, ${eVal});

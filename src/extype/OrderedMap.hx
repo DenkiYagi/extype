@@ -150,7 +150,7 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
         return switch (expr.expr) {
             case EArrayDecl(elements):
                 macro $b{
-                    [macro final map = new OrderedMap()].concat(elements.map(elem -> {
+                    [macro final map = new extype.OrderedMap()].concat(elements.map(elem -> {
                         return switch (elem.expr) {
                             case EBinop(OpArrow, eKey, eVal):
                                 macro map.set(${eKey}, ${eVal});
