@@ -4,7 +4,8 @@
 -lib buddy
 -lib utest
 #--interp
--js dist/dummy.js
+#-js dist/dummy.js
+-neko dist/dummy.n
 --no-output
 --no-opt
 --no-inline
