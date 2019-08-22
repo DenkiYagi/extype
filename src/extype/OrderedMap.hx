@@ -3,7 +3,6 @@ package extype;
 import extype.orderedmap.StringOrderedMap;
 import extype.orderedmap.IntOrderedMap;
 import extype.orderedmap.EnumValueOrderedMap;
-import extype.orderedmap.HashOrderedMap;
 import extype.orderedmap.ObjectOrderedMap;
 
 /**
@@ -14,7 +13,6 @@ import extype.orderedmap.ObjectOrderedMap;
     depending on its type parameters.
 **/
 @:multiType
-@:forward
 abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
     /**
         Creates a new forward.
@@ -31,6 +29,86 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
     **/
     public function new();
 
+    /**
+        Returns the number of key/value pairs in this Map object.
+    **/
+    public var length(get, never):Int;
+
+    inline function get_length():Int {
+        return this.length;
+    }
+
+    /**
+        Returns the current mapping of `key`.
+    **/
+    public inline function get(key:K):V {
+        return this.get(key);
+    }
+
+    /**
+        Maps key to value.
+
+        If `key` already has a mapping, the previous value disappears.
+
+        If `key` is `null`, the result is unspecified.
+    **/
+    public inline function set(key:K, value:V):Void {
+        this.set(key, value);
+    }
+
+    /**
+        Returns true if key `has` a mapping, false otherwise.
+
+        If `key` is `null`, the result is unspecified.
+    **/
+    public inline function exists(key:K):Bool {
+        return this.exists(key);
+    }
+
+    /**
+        Removes the mapping of key and returns true if such a mapping existed, false otherwise.
+
+        If `key` is `null`, the result is unspecified.
+    **/
+    public inline function remove(key:K):Bool {
+        return this.remove(key);
+    }
+
+    /**
+        Returns an Iterator over the keys of this Map.
+    **/
+    public inline function keys():Iterator<K> {
+        return this.keys();
+    }
+
+    /**
+        Returns an Iterator over the values of this Map.
+    **/
+    public inline function iterator():Iterator<V> {
+        return this.iterator();
+    }
+
+    /**
+        Returns an Iterator over the keys and values of this Map.
+    **/
+    public inline function keyValueIterator():KeyValueIterator<K, V> {
+        return this.keyValueIterator();
+    }
+
+    /**
+        Returns a shallow copy of this Map.
+    **/
+    public inline function copy():OrderedMap<K, V> {
+        return cast this.copy();
+    }
+
+    /**
+        Returns a String representation of this Map.
+    **/
+    public inline function toString():String {
+        return this.toString();
+    }
+
     @:to static inline function toStringMap<K:String, V>(t:IOrderedMap<K, V>):StringOrderedMap<V> {
         return new StringOrderedMap<V>();
     }
@@ -41,10 +119,6 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
 
     @:to static inline function toEnumValueMapMap<K:EnumValue, V>(t:IOrderedMap<K, V>):EnumValueOrderedMap<K, V> {
         return new EnumValueOrderedMap<K, V>();
-    }
-
-    @:to static inline function toHashMap<K:{function hashCode():Int;}, V>(t:IOrderedMap<K, V>):HashOrderedMap<K, V> {
-        return new HashOrderedMap<K, V>();
     }
 
     @:to static inline function toObjectMap<K:{}, V>(t:IOrderedMap<K, V>):ObjectOrderedMap<K, V> {
@@ -60,10 +134,6 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
     }
 
     @:from static inline function fromEnumValueMap<K:EnumValue, V>(map:EnumValueOrderedMap<K, V>):OrderedMap<K, V> {
-        return cast map;
-    }
-
-    @:from static inline function fromHashMap<K:{function hashCode():Int;}, V>(map:HashOrderedMap<K, V>):OrderedMap<Int, V> {
         return cast map;
     }
 

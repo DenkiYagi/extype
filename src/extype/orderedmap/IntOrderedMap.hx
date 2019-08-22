@@ -28,7 +28,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     **/
     public var length(get, never):Int;
 
-    public function new() {
+    public inline function new() {
         #if js
         this.map = new JsMap();
         #else
@@ -40,7 +40,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns the current mapping of `key`.
     **/
-    public function get(key:Int):Null<V> {
+    public inline function get(key:Int):Null<V> {
         #if js
         return map.get(key);
         #else
@@ -56,7 +56,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function set(key:Int, value:V):Void {
+    public inline function set(key:Int, value:V):Void {
         #if js
         map.set(key, value);
         #else
@@ -72,7 +72,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function exists(key:Int):Bool {
+    public inline function exists(key:Int):Bool {
         #if js
         return map.has(key);
         #else
@@ -85,7 +85,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function remove(key:Int):Bool {
+    public inline function remove(key:Int):Bool {
         #if js
         return map.delete(key);
         #else
@@ -102,7 +102,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns an Iterator over the keys of this Map.
     **/
-    public function keys():Iterator<Int> {
+    public inline function keys():Iterator<Int> {
         #if js
         return new IteratorAdapter(map.keys());
         #else
@@ -113,7 +113,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns an Iterator over the values of this Map.
     **/
-    public function iterator():Iterator<V> {
+    public inline function iterator():Iterator<V> {
         #if js
         return new IteratorAdapter(map.values());
         #else
@@ -124,7 +124,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
-    public function keyValueIterator():KeyValueIterator<Int, V> {
+    public inline function keyValueIterator():KeyValueIterator<Int, V> {
         #if js
         return new KeyValueIteratorAdapter(map.entries());
         #else
@@ -135,7 +135,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():IntOrderedMap<V> {
+    public inline function copy():IntOrderedMap<V> {
         final newMap = new IntOrderedMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
@@ -148,7 +148,7 @@ class IntOrderedMap<V> implements IOrderedMap<Int, V> {
     /**
         Returns a String representation of this Map.
     **/
-    public function toString():String {
+    public inline function toString():String {
         final buff = [];
         #if js
         map.forEach((v, k, _) -> buff.push('${k}=>${v}'));

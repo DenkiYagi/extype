@@ -4,7 +4,7 @@ import extype.Map.IMap;
 import haxe.ds.EnumValueMap in StdMap;
 
 /**
-    Represents a Map object of `{}` keys.
+    Represents a Map object of `EnumValue` keys.
 **/
 class EnumValueMap<K:EnumValue, V> implements IMap<K, V> {
     final map:StdMap<K, V>;

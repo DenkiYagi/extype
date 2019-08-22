@@ -28,7 +28,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     **/
     public var length(get, never):Int;
 
-    public function new() {
+    public inline function new() {
         #if js
         this.map = new JsMap();
         #else
@@ -40,7 +40,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns the current mapping of `key`.
     **/
-    public function get(key:String):Null<V> {
+    public inline function get(key:String):Null<V> {
         #if js
         return map.get(key);
         #else
@@ -56,7 +56,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function set(key:String, value:V):Void {
+    public inline function set(key:String, value:V):Void {
         #if js
         map.set(key, value);
         #else
@@ -72,7 +72,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function exists(key:String):Bool {
+    public inline function exists(key:String):Bool {
         #if js
         return map.has(key);
         #else
@@ -85,7 +85,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function remove(key:String):Bool {
+    public inline function remove(key:String):Bool {
         #if js
         return map.delete(key);
         #else
@@ -102,7 +102,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns an Iterator over the keys of this Map.
     **/
-    public function keys():Iterator<String> {
+    public inline function keys():Iterator<String> {
         #if js
         return new IteratorAdapter(map.keys());
         #else
@@ -113,7 +113,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns an Iterator over the values of this Map.
     **/
-    public function iterator():Iterator<V> {
+    public inline function iterator():Iterator<V> {
         #if js
         return new IteratorAdapter(map.values());
         #else
@@ -124,7 +124,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
-    public function keyValueIterator():KeyValueIterator<String, V> {
+    public inline function keyValueIterator():KeyValueIterator<String, V> {
         #if js
         return new KeyValueIteratorAdapter(map.entries());
         #else
@@ -135,7 +135,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():StringOrderedMap<V> {
+    public inline function copy():StringOrderedMap<V> {
         final newMap = new StringOrderedMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
@@ -148,7 +148,7 @@ class StringOrderedMap<V> implements IOrderedMap<String, V> {
     /**
         Returns a String representation of this Map.
     **/
-    public function toString():String {
+    public inline function toString():String {
         final buff = [];
         #if js
         map.forEach((v, k, _) -> buff.push('${k}=>${v}'));

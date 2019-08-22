@@ -10,11 +10,9 @@ package extype;
 import extype.orderedset.StringOrderedSet;
 import extype.orderedset.IntOrderedSet;
 import extype.orderedset.EnumValueOrderedSet;
-import extype.orderedset.HashOrderedSet;
 import extype.orderedset.ObjectOrderedSet;
 
 @:multiType
-@:forward
 abstract OrderedSet<T>(IOrderedSet<T>) {
     /**
         Creates a new Set.
@@ -31,6 +29,64 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
     **/
     public function new();
 
+    /**
+        Returns the number of values in this set.
+    **/
+    public var length(get, never):Int;
+
+    inline function get_length():Int {
+        return this.length;
+    }
+
+    /**
+        Adds a specified value to this set.
+    **/
+    public inline function add(value:T):Void {
+        this.add(value);
+    }
+
+    /**
+        Returns true if this set has a specified value, false otherwise.
+    **/
+    public inline function exists(value:T):Bool {
+        return this.exists(value);
+    }
+
+    /**
+        Removes a specified value to this set and returns true if such a value existed, false otherwise.
+    **/
+    public inline function remove(value:T):Bool {
+        return this.remove(value);
+    }
+
+    /**
+        Returns an Iterator over the values of this set.
+    **/
+    public inline function iterator():Iterator<T> {
+        return this.iterator();
+    }
+
+    /**
+        Returns a new shallow copy of this set.
+    **/
+    public inline function copy():OrderedSet<T> {
+        return cast this.copy();
+    }
+
+    /**
+        Reterns a new array that contains the values of this set.
+    **/
+    public inline function array():Array<T> {
+        return this.array();
+    }
+
+    /**
+        Returns a String representation of this set.
+    **/
+    public inline function toString():String {
+        return this.toString();
+    }
+
     @:to static inline function toStringSet<T:String>(x:IOrderedSet<T>):StringOrderedSet {
         return new StringOrderedSet();
     }
@@ -41,10 +97,6 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
 
     @:to static inline function toEnumValueSet<T:EnumValue>(x:IOrderedSet<T>):EnumValueOrderedSet<T> {
         return new EnumValueOrderedSet();
-    }
-
-    @:to static inline function toHashSet<T:{function hashCode():Int;}>(x:IOrderedSet<T>):HashOrderedSet<T> {
-        return new HashOrderedSet();
     }
 
     @:to static inline function toObjectSet<T:{}>(x:IOrderedSet<T>):ObjectOrderedSet<T> {
@@ -60,10 +112,6 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
     }
 
     @:from static inline function fromEnumValueSet<T:EnumValue>(x:EnumValueOrderedSet<T>):OrderedSet<T> {
-        return cast x;
-    }
-
-    @:from static inline function fromHashSet<T:{function hashCode():Int;}>(x:HashOrderedSet<T>):OrderedSet<T> {
         return cast x;
     }
 

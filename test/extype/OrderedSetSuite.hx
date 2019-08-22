@@ -6,12 +6,11 @@ import haxe.ds.Option;
 import extype.orderedset.StringOrderedSet;
 import extype.orderedset.IntOrderedSet;
 import extype.orderedset.EnumValueOrderedSet;
-import extype.orderedset.HashOrderedSet;
 import extype.orderedset.ObjectOrderedSet;
 
 class OrderedSetSuite extends BuddySuite {
     public function new() {
-        function test<T>(create:() -> OrderedSet<T>, is:OrderedSet<T>->Bool, a:T, b:T, c:T, invalid:T) {
+        inline function test<T>(create:() -> OrderedSet<T>, is:OrderedSet<T>->Bool, a:T, b:T, c:T, invalid:T) {
             it("should pass : new", {
                 final set = create();
 
@@ -217,15 +216,6 @@ class OrderedSetSuite extends BuddySuite {
                 Some(2),
                 Some(3),
                 None
-            ));
-
-            describe("OrderedSet<{ function hashCode():Int; }>", test(
-                () -> new OrderedSet<{function hashCode():Int;}>(),
-                Std.is.bind(_, HashOrderedSet),
-                {hashCode: () -> 1},
-                {hashCode: () -> 2},
-                {hashCode: () -> 3},
-                {hashCode: () -> -1}
             ));
 
             describe("OrderedSet<{}>", test(

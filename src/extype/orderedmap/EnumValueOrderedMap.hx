@@ -18,7 +18,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     **/
     public var length(get, never):Int;
 
-    public function new() {
+    public inline function new() {
         this.map = new StdMap();
         this.list = new LinkedList();
     }
@@ -26,7 +26,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     /**
         Returns the current mapping of `key`.
     **/
-    public function get(key:K):Null<V> {
+    public inline function get(key:K):Null<V> {
         final node = Maybe.of(map.get(key));
         return node.map(x -> x.value.value2).get();
     }
@@ -38,7 +38,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function set(key:K, value:V):Void {
+    public inline function set(key:K, value:V):Void {
         if (map.exists(key)) {
             list.remove(map.get(key));
         }
@@ -50,7 +50,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function exists(key:K):Bool {
+    public inline function exists(key:K):Bool {
         return map.exists(key);
     }
 
@@ -59,7 +59,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
 
         If `key` is `null`, the result is unspecified.
     **/
-    public function remove(key:K):Bool {
+    public inline function remove(key:K):Bool {
         return if (map.exists(key)) {
             list.remove(map.get(key));
             map.remove(key);
@@ -72,28 +72,28 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     /**
         Returns an Iterator over the keys of this Map.
     **/
-    public function keys():Iterator<K> {
+    public inline function keys():Iterator<K> {
         return new TransformIterator(list.iterator(), pair -> pair.value1);
     }
 
     /**
         Returns an Iterator over the values of this Map.
     **/
-    public function iterator():Iterator<V> {
+    public inline function iterator():Iterator<V> {
         return new TransformIterator(list.iterator(), pair -> pair.value2);
     }
 
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
-    public function keyValueIterator():KeyValueIterator<K, V> {
+    public inline function keyValueIterator():KeyValueIterator<K, V> {
         return new TransformIterator(list.iterator(), pair -> new EnumValueMapEntry(pair.value1, pair.value2));
     }
 
     /**
         Returns a shallow copy of this Map.
     **/
-    public function copy():EnumValueOrderedMap<K, V> {
+    public inline function copy():EnumValueOrderedMap<K, V> {
         final newMap = new EnumValueOrderedMap();
         list.iter(pair -> newMap.set(pair.value1, pair.value2));
         return newMap;
@@ -102,7 +102,7 @@ class EnumValueOrderedMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     /**
         Returns a String representation of this Map.
     **/
-    public function toString():String {
+    public inline function toString():String {
         final buff = [];
         list.iter(pair -> buff.push('${pair.value1}=>${pair.value2}'));
         return '{${buff.join(",")}}';

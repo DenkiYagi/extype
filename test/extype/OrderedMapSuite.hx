@@ -6,12 +6,11 @@ import haxe.ds.Option;
 import extype.orderedmap.StringOrderedMap;
 import extype.orderedmap.IntOrderedMap;
 import extype.orderedmap.EnumValueOrderedMap;
-import extype.orderedmap.HashOrderedMap;
 import extype.orderedmap.ObjectOrderedMap;
 
 class OrderedMapSuite extends BuddySuite {
     public function new() {
-        function test<K, V>(create: () -> OrderedMap<K, V>, is: OrderedMap<K, V> -> Bool, a:Pair<K, V>, b:Pair<K, V>, c:Pair<K, V>, invalid:Pair<K, V>) {
+        inline function test<K, V>(create: () -> OrderedMap<K, V>, is: OrderedMap<K, V> -> Bool, a:Pair<K, V>, b:Pair<K, V>, c:Pair<K, V>, invalid:Pair<K, V>) {
             it("should pass : new", {
                 final map = create();
 
@@ -238,15 +237,6 @@ class OrderedMapSuite extends BuddySuite {
                 new Pair(Some(20), "BBB"),
                 new Pair(Some(30), "CCC"),
                 new Pair(Some(-1), "invalid")
-            ));
-
-            describe("OrderedMap<{ function hashCode():Int; }, V>", test(
-                () -> new OrderedMap<{ function hashCode():Int; }, String>(),
-                map -> Std.is(map, HashOrderedMap),
-                new Pair({hashCode: () -> 1}, "AAA"),
-                new Pair({hashCode: () -> 2}, "BBB"),
-                new Pair({hashCode: () -> 3}, "CCC"),
-                new Pair({hashCode: () -> -1}, "invalid")
             ));
 
             describe("OrderedMap<{}, V>", test(

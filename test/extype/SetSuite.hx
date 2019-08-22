@@ -6,7 +6,6 @@ import haxe.ds.Option;
 import extype.set.StringSet;
 import extype.set.IntSet;
 import extype.set.EnumValueSet;
-import extype.set.HashSet;
 import extype.set.ObjectSet;
 using buddy.Should;
 
@@ -232,14 +231,14 @@ class SetSuite extends BuddySuite {
                 None
             ));
 
-            describe("Set<{ function hashCode():Int; }>", test(
-                () -> new Set<{function hashCode():Int;}>(),
-                Std.is.bind(_, HashSet),
-                {hashCode: () -> 1},
-                {hashCode: () -> 2},
-                {hashCode: () -> 3},
-                {hashCode: () -> -1}
-            ));
+            // describe("Set<{ function hashCode():Int; }>", test(
+            //     () -> new Set<{function hashCode():Int;}>(),
+            //     Std.is.bind(_, HashSet),
+            //     {hashCode: () -> 1},
+            //     {hashCode: () -> 2},
+            //     {hashCode: () -> 3},
+            //     {hashCode: () -> -1}
+            // ));
 
             describe("Set<{}>", test(
                 () -> new Set<{value:Int}>(),

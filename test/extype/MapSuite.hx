@@ -6,7 +6,6 @@ import haxe.ds.Option;
 import extype.map.StringMap;
 import extype.map.IntMap;
 import extype.map.EnumValueMap;
-import extype.map.HashMap;
 import extype.map.ObjectMap;
 using buddy.Should;
 
@@ -224,8 +223,8 @@ class MapSuite extends BuddySuite {
             });
         }
 
-        describe("OrderedMap", {
-            describe("OrderedMap<String, V>", test(
+        describe("Map", {
+            describe("Map<String, V>", test(
                 () -> new Map<String, String>(),
                 map -> Std.is(map, StringMap),
                 new Pair("key1", "AAA"),
@@ -250,15 +249,6 @@ class MapSuite extends BuddySuite {
                 new Pair(Some(20), "BBB"),
                 new Pair(Some(30), "CCC"),
                 new Pair(Some(-1), "invalid")
-            ));
-
-            describe("Map<{ function hashCode():Int; }, V>", test(
-                () -> new Map<{ function hashCode():Int; }, String>(),
-                map -> Std.is(map, HashMap),
-                new Pair({hashCode: () -> 1}, "AAA"),
-                new Pair({hashCode: () -> 2}, "BBB"),
-                new Pair({hashCode: () -> 3}, "CCC"),
-                new Pair({hashCode: () -> -1}, "invalid")
             ));
 
             describe("Map<{}, V>", test(
