@@ -1,16 +1,18 @@
 package extype;
 
+import extype.set.StringSet;
+import extype.set.IntSet;
+import extype.set.EnumValueSet;
+import extype.set.ObjectSet;
+import haxe.macro.Context;
+import haxe.macro.Expr;
+
 /**
     Represents a set of values.
 
     This is a multi-type abstract, it is instantiated as one of its specialization types
     depending on its type parameters.
 **/
-import extype.set.StringSet;
-import extype.set.IntSet;
-import extype.set.EnumValueSet;
-import extype.set.ObjectSet;
-
 @:multiType
 abstract Set<T>(ISet<T>) {
     /**
@@ -115,6 +117,22 @@ abstract Set<T>(ISet<T>) {
 
     @:from static inline function fromObjectSet<T:{}>(x:ObjectSet<T>):Set<T> {
         return cast x;
+    }
+
+    /**
+        Creates a Set object from the array literal.
+    **/
+    public static macro function of(expr:Expr):Expr {
+        return switch (expr.expr) {
+            case EArrayDecl(elements):
+                macro $b{
+                    [macro final set = new extype.Set()].concat(elements.map(elem -> {
+                        return macro set.add(${elem});
+                    })).concat([macro set])
+                };
+            case _:
+                Context.error("Invalid syntax: array literal required", expr.pos);
+        }
     }
 }
 

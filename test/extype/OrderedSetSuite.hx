@@ -226,6 +226,46 @@ class OrderedSetSuite extends BuddySuite {
                 {value:3},
                 {value:-1}
             ));
+
+            describe("OrderedSet.of()", {
+                it("should create OrderedIntSet", {
+                    final set = OrderedSet.of([1, 2]);
+                    Assert.is(set, OrderedIntSet);
+                    Assert.equals(2, set.length);
+                    Assert.isTrue(set.exists(1));
+                    Assert.isTrue(set.exists(2));
+                    Assert.same([1, 2], [for (k in set) k]);
+                });
+
+                it("should create OrderedStringSet", {
+                    final set = OrderedSet.of(["key1", "key2"]);
+                    Assert.is(set, OrderedStringSet);
+                    Assert.equals(2, set.length);
+                    Assert.isTrue(set.exists("key1"));
+                    Assert.isTrue(set.exists("key1"));
+                    Assert.same(["key1", "key2"], [for (k in set) k]);
+                });
+
+                it("should create OrderedEnumValueSet", {
+                    final set = OrderedSet.of([Some(1), Some(2)]);
+                    Assert.is(set, OrderedEnumValueSet);
+                    Assert.equals(2, set.length);
+                    Assert.isTrue(set.exists(Some(1)));
+                    Assert.isTrue(set.exists(Some(2)));
+                    Assert.same([Some(1), Some(2)], [for (k in set) k]);
+                });
+
+                it("should create OrderedObjectSet", {
+                    final key1 = {key: 1};
+                    final key2 = {key: 2};
+                    final set = OrderedSet.of([key1, key2]);
+                    Assert.is(set, OrderedObjectSet);
+                    Assert.equals(2, set.length);
+                    Assert.isTrue(set.exists(key1));
+                    Assert.isTrue(set.exists(key2));
+                    Assert.same([key1, key2], [for (k in set) k]);
+                });
+            });
         });
     }
 }

@@ -1,5 +1,12 @@
 package extype;
 
+import extype.orderedset.OrderedStringSet;
+import extype.orderedset.OrderedIntSet;
+import extype.orderedset.OrderedEnumValueSet;
+import extype.orderedset.OrderedObjectSet;
+import haxe.macro.Context;
+import haxe.macro.Expr;
+
 /**
     Represents a set of values.
     You can iterate through the values in insertion order.
@@ -7,11 +14,6 @@ package extype;
     This is a multi-type abstract, it is instantiated as one of its specialization types
     depending on its type parameters.
 **/
-import extype.orderedset.OrderedStringSet;
-import extype.orderedset.OrderedIntSet;
-import extype.orderedset.OrderedEnumValueSet;
-import extype.orderedset.OrderedObjectSet;
-
 @:multiType
 abstract OrderedSet<T>(IOrderedSet<T>) {
     /**
@@ -121,6 +123,22 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
 
     @:to inline function toSet():Set<T> {
         return cast (this : Set.ISet<T>);
+    }
+
+    /**
+        Creates a Set object from the array literal.
+    **/
+    public static macro function of(expr:Expr):Expr {
+        return switch (expr.expr) {
+            case EArrayDecl(elements):
+                macro $b{
+                    [macro final set = new extype.OrderedSet()].concat(elements.map(elem -> {
+                        return macro set.add(${elem});
+                    })).concat([macro set])
+                };
+            case _:
+                Context.error("Invalid syntax: array literal required", expr.pos);
+        }
     }
 }
 
