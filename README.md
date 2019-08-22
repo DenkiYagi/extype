@@ -31,27 +31,45 @@ haxelib install extype
 #### Pair
 `Pair<T1, T2>` is alias of `Tuple2<T1, T2>`.
 
+#### Map
+`Map<K, V>` is a collection of key/value pairs.
+This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
+
+1. if `K` is a `String`, `extype.map.StringMap` is used
+2. if `K` is an `Int`, `extype.map.IntMap` is used
+3. if `K` is an `EnumValue`, `extype.map.EnumValueMap` is used
+5. if `K` is any other class or structure, `extype.map.ObjectMap` is used
+6. if `K` is any other type, it causes a compile-time error
+
+#### OrderedMap
+`Map<K, V>` is a collection of key/value pairs. You can iterate through the keys in insertion order.
+This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
+
+1. if `K` is a `String`, `extype.orderedmap.OrderedStringMap` is used
+2. if `K` is an `Int`, `extype.orderedmap.OrderedIntMap` is used
+3. if `K` is an `EnumValue`, `extype.orderedmap.OrderedEnumValueMap` is used
+5. if `K` is any other class or structure, `extype.orderedmap.OrderedObjectMap` is used
+6. if `K` is any other type, it causes a compile-time error
+
 #### Set
 `Set<T>` is a set of values. You can iterate through the values in insertion order.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
-1. if `T` is a `String`, `extype.StringSet` is used
-2. if `T` is an `Int`, `extype.IntSet` is used
-3. if `T` is an `EnumValue`, `extype.EnumValueSet` is used
-4. if `T` is an `{function hashCode():Int;}`, `extype.HashSet` is used
-5. if `T` is any other class or structure, `extype.ObjectSet` is used
+1. if `T` is a `String`, `extype.set.StringSet` is used
+2. if `T` is an `Int`, `extype.set.IntSet` is used
+3. if `T` is an `EnumValue`, `extype.set.EnumValueSet` is used
+5. if `T` is any other class or structure, `extype.set.ObjectSet` is used
 6. if `T` is any other type, it causes a compile-time error
 
-#### Map
-`Map<K, V>` is a collection of key/value pairs. You can iterate through the keys in insertion order.
+#### OrderedSet
+`OrderedSet<T>` is a set of values.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
-1. if `K` is a `String`, `extype.StringMap` is used
-2. if `K` is an `Int`, `extype.IntMap` is used
-3. if `K` is an `EnumValue`, `extype.EnumValueMap` is used
-4. if `K` is an `{function hashCode():Int;}`, `extype.HashMap` is used
-5. if `K` is any other class or structure, `extype.ObjectMap` is used
-6. if `K` is any other type, it causes a compile-time error
+1. if `T` is a `String`, `extype.orderedset.OrderedStringSet` is used
+2. if `T` is an `Int`, `extype.orderedset.OrderedIntSet` is used
+3. if `T` is an `EnumValue`, `extype.orderedset.OrderedEnumValueSet` is used
+5. if `T` is any other class or structure, `extype.orderedset.OrderedObjectSet` is used
+6. if `T` is any other type, it causes a compile-time error
 
 #### LinkedList
 TODO
