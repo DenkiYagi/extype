@@ -10,6 +10,7 @@ class Main implements Buddy<[
     extype.OrderedMapSuite,
     extype.OrderedSetSuite,
     extype.ReadOnlyDynamicSuite,
+    extype.ReadOnlyMapSuite,
     extype.ReadOnlySetSuite,
     extype.extern.ExternSuite,
     extype.extern.IndexableSuite,
