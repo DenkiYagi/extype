@@ -15,7 +15,7 @@ import haxe.ds.ObjectMap in StdMap;
     Represents a Map object of the `{}` keys.
     You can iterate through the keys in insertion order.
 **/
-class ObjectOrderedMap<K:{}, V> implements IOrderedMap<K, V> {
+class OrderedObjectMap<K:{}, V> implements IOrderedMap<K, V> {
     #if js
     final map:JsMap<K, V>;
     #else
@@ -135,8 +135,8 @@ class ObjectOrderedMap<K:{}, V> implements IOrderedMap<K, V> {
     /**
         Returns a shallow copy of this Map.
     **/
-    public inline function copy():ObjectOrderedMap<K, V> {
-        final newMap = new ObjectOrderedMap();
+    public inline function copy():OrderedObjectMap<K, V> {
+        final newMap = new OrderedObjectMap();
         #if js
         map.forEach((v, k, _) -> newMap.set(k, v));
         #else

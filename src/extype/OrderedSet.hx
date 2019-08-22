@@ -7,10 +7,10 @@ package extype;
     This is a multi-type abstract, it is instantiated as one of its specialization types
     depending on its type parameters.
 **/
-import extype.orderedset.StringOrderedSet;
-import extype.orderedset.IntOrderedSet;
-import extype.orderedset.EnumValueOrderedSet;
-import extype.orderedset.ObjectOrderedSet;
+import extype.orderedset.OrderedStringSet;
+import extype.orderedset.OrderedIntSet;
+import extype.orderedset.OrderedEnumValueSet;
+import extype.orderedset.OrderedObjectSet;
 
 @:multiType
 abstract OrderedSet<T>(IOrderedSet<T>) {
@@ -20,11 +20,11 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
         This becomes a constructor call to one of the specialization types in the output.
         The rules for that are as follows:
 
-        1. if `T` is a `String`, `extype.orderedset.StringOrderedSet` is used
-        2. if `T` is an `Int`, `extype.orderedset.IntOrderedSet` is used
-        3. if `T` is an `EnumValue`, `extype.orderedset.EnumValueOrderedSet` is used
+        1. if `T` is a `String`, `extype.orderedset.OrderedStringSet` is used
+        2. if `T` is an `Int`, `extype.orderedset.OrderedIntSet` is used
+        3. if `T` is an `EnumValue`, `extype.orderedset.OrderedEnumValueSet` is used
         4. if `T` is an `{function hashCode():Int;}`, `extype.orderedset.HashOrderedSet` is used
-        5. if `T` is any other class or structure, `extype.orderedset.ObjectOrderedSet` is used
+        5. if `T` is any other class or structure, `extype.orderedset.OrderedObjectSet` is used
         6. if `T` is any other type, it causes a compile-time error
     **/
     public function new();
@@ -87,35 +87,35 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
         return this.toString();
     }
 
-    @:to static inline function toStringSet<T:String>(x:IOrderedSet<T>):StringOrderedSet {
-        return new StringOrderedSet();
+    @:to static inline function toStringSet<T:String>(x:IOrderedSet<T>):OrderedStringSet {
+        return new OrderedStringSet();
     }
 
-    @:to static inline function toIntSet<T:Int>(x:IOrderedSet<T>):IntOrderedSet {
-        return new IntOrderedSet();
+    @:to static inline function toIntSet<T:Int>(x:IOrderedSet<T>):OrderedIntSet {
+        return new OrderedIntSet();
     }
 
-    @:to static inline function toEnumValueSet<T:EnumValue>(x:IOrderedSet<T>):EnumValueOrderedSet<T> {
-        return new EnumValueOrderedSet();
+    @:to static inline function toEnumValueSet<T:EnumValue>(x:IOrderedSet<T>):OrderedEnumValueSet<T> {
+        return new OrderedEnumValueSet();
     }
 
-    @:to static inline function toObjectSet<T:{}>(x:IOrderedSet<T>):ObjectOrderedSet<T> {
-        return new ObjectOrderedSet();
+    @:to static inline function toObjectSet<T:{}>(x:IOrderedSet<T>):OrderedObjectSet<T> {
+        return new OrderedObjectSet();
     }
 
-    @:from static inline function fromIntSet(x:IntOrderedSet):OrderedSet<Int> {
+    @:from static inline function fromIntSet(x:OrderedIntSet):OrderedSet<Int> {
         return cast x;
     }
 
-    @:from static inline function fromStringSet(x:StringOrderedSet):OrderedSet<String> {
+    @:from static inline function fromStringSet(x:OrderedStringSet):OrderedSet<String> {
         return cast x;
     }
 
-    @:from static inline function fromEnumValueSet<T:EnumValue>(x:EnumValueOrderedSet<T>):OrderedSet<T> {
+    @:from static inline function fromEnumValueSet<T:EnumValue>(x:OrderedEnumValueSet<T>):OrderedSet<T> {
         return cast x;
     }
 
-    @:from static inline function fromObjectSet<T:{}>(x:ObjectOrderedSet<T>):OrderedSet<T> {
+    @:from static inline function fromObjectSet<T:{}>(x:OrderedObjectSet<T>):OrderedSet<T> {
         return cast x;
     }
 

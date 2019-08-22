@@ -6,6 +6,4 @@
 -neko dist/neko.n
 -D buddy-colors
 -dce full
-
---next
 -cmd neko dist/neko.n

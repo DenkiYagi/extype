@@ -7,6 +7,4 @@
 -D buddy-colors
 -D nodejs
 -dce full
-
---next
 -cmd node dist/node.js

@@ -3,10 +3,10 @@ package extype;
 import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
-import extype.orderedmap.StringOrderedMap;
-import extype.orderedmap.IntOrderedMap;
-import extype.orderedmap.EnumValueOrderedMap;
-import extype.orderedmap.ObjectOrderedMap;
+import extype.orderedmap.OrderedStringMap;
+import extype.orderedmap.OrderedIntMap;
+import extype.orderedmap.OrderedEnumValueMap;
+import extype.orderedmap.OrderedObjectMap;
 
 class OrderedMapSuite extends BuddySuite {
     public function new() {
@@ -214,7 +214,7 @@ class OrderedMapSuite extends BuddySuite {
         describe("OrderedMap", {
             describe("OrderedMap<String, V>", test(
                 () -> new OrderedMap<String, String>(),
-                map -> Std.is(map, StringOrderedMap),
+                map -> Std.is(map, OrderedStringMap),
                 new Pair("key1", "AAA"),
                 new Pair("key2", "BBB"),
                 new Pair("key3", "CCC"),
@@ -223,7 +223,7 @@ class OrderedMapSuite extends BuddySuite {
 
             describe("OrderedMap<Int, V>", test(
                 () -> new OrderedMap<Int, String>(),
-                map -> Std.is(map, IntOrderedMap),
+                map -> Std.is(map, OrderedIntMap),
                 new Pair(10, "AAA"),
                 new Pair(20, "BBB"),
                 new Pair(30, "CCC"),
@@ -232,7 +232,7 @@ class OrderedMapSuite extends BuddySuite {
 
             describe("OrderedMap<EnumValue, V>", test(
                 () -> new OrderedMap<Option<Int>, String>(),
-                map -> Std.is(map, EnumValueOrderedMap),
+                map -> Std.is(map, OrderedEnumValueMap),
                 new Pair(Some(10), "AAA"),
                 new Pair(Some(20), "BBB"),
                 new Pair(Some(30), "CCC"),
@@ -241,7 +241,7 @@ class OrderedMapSuite extends BuddySuite {
 
             describe("OrderedMap<{}, V>", test(
                 () -> new OrderedMap<{value:Int}, String>(),
-                map -> Std.is(map, ObjectOrderedMap),
+                map -> Std.is(map, OrderedObjectMap),
                 new Pair({value:1}, "AAA"),
                 new Pair({value:2}, "BBB"),
                 new Pair({value:3}, "CCC"),

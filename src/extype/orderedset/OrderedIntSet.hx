@@ -14,7 +14,7 @@ import extype.LinkedList;
     Represents a set of `Int` values.
     You can iterate through the values in insertion order.
 **/
-class IntOrderedSet implements IOrderedSet<Int> {
+class OrderedIntSet implements IOrderedSet<Int> {
     #if js
     final set:JsSet<Int>;
     #else
@@ -93,8 +93,8 @@ class IntOrderedSet implements IOrderedSet<Int> {
     /**
         Returns a new shallow copy of this set.
     **/
-    public function copy():IntOrderedSet {
-        final copy = new IntOrderedSet();
+    public function copy():OrderedIntSet {
+        final copy = new OrderedIntSet();
         for (x in inline iterator()) {
             #if js
             copy.add(x);

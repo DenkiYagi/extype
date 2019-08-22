@@ -3,10 +3,10 @@ package extype;
 import buddy.BuddySuite;
 import utest.Assert;
 import haxe.ds.Option;
-import extype.orderedset.StringOrderedSet;
-import extype.orderedset.IntOrderedSet;
-import extype.orderedset.EnumValueOrderedSet;
-import extype.orderedset.ObjectOrderedSet;
+import extype.orderedset.OrderedStringSet;
+import extype.orderedset.OrderedIntSet;
+import extype.orderedset.OrderedEnumValueSet;
+import extype.orderedset.OrderedObjectSet;
 
 class OrderedSetSuite extends BuddySuite {
     public function new() {
@@ -193,7 +193,7 @@ class OrderedSetSuite extends BuddySuite {
         describe("OrderedSet", {
             describe("OrderedSet<String>", test(
                 () -> new OrderedSet<String>(),
-                Std.is.bind(_, StringOrderedSet),
+                Std.is.bind(_, OrderedStringSet),
                 "abc",
                 "def",
                 "ghi",
@@ -202,7 +202,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<Int>", test(
                 () -> new OrderedSet<Int>(),
-                Std.is.bind(_, IntOrderedSet),
+                Std.is.bind(_, OrderedIntSet),
                 1,
                 2,
                 3,
@@ -211,7 +211,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<EnumValue>", test(
                 () -> new OrderedSet<Option<Int>>(),
-                Std.is.bind(_, EnumValueOrderedSet),
+                Std.is.bind(_, OrderedEnumValueSet),
                 Some(1),
                 Some(2),
                 Some(3),
@@ -220,7 +220,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<{}>", test(
                 () -> new OrderedSet<{value:Int}>(),
-                Std.is.bind(_, ObjectOrderedSet),
+                Std.is.bind(_, OrderedObjectSet),
                 {value:1},
                 {value:2},
                 {value:3},
