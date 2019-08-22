@@ -29,7 +29,7 @@ haxelib install extype
 `Tuple[2-10]` can hold any values of several different types.
 
 #### Pair
-`Pair<T1, T2>` is alias of `Tuple2<T1, T2>`.
+`Pair<T1, T2>` is an alias of `Tuple2<T1, T2>`.
 
 #### Map
 `Map<K, V>` is a collection of key/value pairs.
@@ -75,7 +75,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 TODO
 
 #### ReadOnlyArray
-`ReadOnlyDynamic<T>` is a read-only `Array<T>`, and it is alias of `haxe.ds.ReadOnlyArray<T>`.
+`ReadOnlyDynamic<T>` is a read-only `Array<T>`, and it is an alias of `haxe.ds.ReadOnlyArray<T>`.
 
 #### ReadOnlyDynamic
 `ReadOnlyDynamic<T>` is a read-only `Dynamic<T>`.
