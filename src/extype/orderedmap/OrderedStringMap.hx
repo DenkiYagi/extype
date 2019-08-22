@@ -155,7 +155,7 @@ class OrderedStringMap<V> implements IOrderedMap<String, V> {
         #else
         list.iter(pair -> buff.push('${pair.value1}=>${pair.value2}'));
         #end
-        return '{${buff.join(",")}}';
+        return '[${buff.join(",")}]';
     }
 
     inline function get_length():Int {

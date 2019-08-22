@@ -181,7 +181,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         #else
         for (k => v in map) buff.push('${k}=>${v}');
         #end
-        return '{${buff.join(",")}}';
+        return '[${buff.join(",")}]';
     }
 
     inline function get_length():Int {

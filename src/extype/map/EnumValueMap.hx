@@ -95,7 +95,7 @@ class EnumValueMap<K:EnumValue, V> implements IMap<K, V> {
     public inline function toString():String {
         final buff = [];
         for (k => v in map) buff.push('${k}=>${v}');
-        return '{${buff.join(",")}}';
+        return '[${buff.join(",")}]';
     }
 
     inline function get_length():Int {

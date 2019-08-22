@@ -105,7 +105,7 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     public inline function toString():String {
         final buff = [];
         list.iter(pair -> buff.push('${pair.value1}=>${pair.value2}'));
-        return '{${buff.join(",")}}';
+        return '[${buff.join(",")}]';
     }
 
     inline function get_length():Int {

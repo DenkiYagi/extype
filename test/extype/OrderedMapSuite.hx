@@ -23,7 +23,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([], [for (k => v in map) k]);
                 Assert.same([], [for (k => v in map) v]);
                 Assert.equals(0, map.copy().length);
-                Assert.equals("{}", map.copy().toString());
+                Assert.equals("[]", map.copy().toString());
             });
 
             it("should pass : new -> set(A)", {
@@ -39,7 +39,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([a.value2], [for (k => v in map) v]);
                 Assert.equals(1, map.copy().length);
                 Assert.isTrue(map.copy().exists(a.value1));
-                Assert.equals('{${a.value1}=>${a.value2}}', map.toString());
+                Assert.equals('[${a.value1}=>${a.value2}]', map.toString());
             });
 
             it("should pass : new -> remove(A)", {
@@ -53,7 +53,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([], [for (k => v in map) k]);
                 Assert.same([], [for (k => v in map) v]);
                 Assert.equals(0, map.copy().length);
-                Assert.equals("{}", map.toString());
+                Assert.equals("[]", map.toString());
             });
 
             it("should pass : new -> set(A) -> set(A)", {
@@ -70,7 +70,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([a.value2], [for (k => v in map) v]);
                 Assert.equals(1, map.copy().length);
                 Assert.isTrue(map.copy().exists(a.value1));
-                Assert.equals('{${a.value1}=>${a.value2}}', map.toString());
+                Assert.equals('[${a.value1}=>${a.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> set(B)", {
@@ -89,7 +89,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.equals(2, map.copy().length);
                 Assert.isTrue(map.copy().exists(a.value1));
                 Assert.isTrue(map.copy().exists(b.value1));
-                Assert.equals('{${a.value1}=>${a.value2},${b.value1}=>${b.value2}}', map.toString());
+                Assert.equals('[${a.value1}=>${a.value2},${b.value1}=>${b.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> remove(A)", {
@@ -104,7 +104,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([], [for (k => v in map) k]);
                 Assert.same([], [for (k => v in map) v]);
                 Assert.equals(0, map.copy().length);
-                Assert.equals("{}", map.toString());
+                Assert.equals("[]", map.toString());
             });
 
             it("should pass : new -> set(A) -> remove(B)", {
@@ -121,7 +121,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([a.value2], [for (k => v in map) v]);
                 Assert.equals(1, map.copy().length);
                 Assert.isTrue(map.copy().exists(a.value1));
-                Assert.equals('{${a.value1}=>${a.value2}}', map.toString());
+                Assert.equals('[${a.value1}=>${a.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> set(B) -> set(C)", {
@@ -143,7 +143,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.isTrue(map.copy().exists(a.value1));
                 Assert.isTrue(map.copy().exists(b.value1));
                 Assert.isTrue(map.copy().exists(c.value1));
-                Assert.equals('{${a.value1}=>${a.value2},${b.value1}=>${b.value2},${c.value1}=>${c.value2}}', map.toString());
+                Assert.equals('[${a.value1}=>${a.value2},${b.value1}=>${b.value2},${c.value1}=>${c.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> remove(A) -> set(B)", {
@@ -162,7 +162,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([b.value2], [for (k => v in map) v]);
                 Assert.equals(1, map.copy().length);
                 Assert.isTrue(map.copy().exists(b.value1));
-                Assert.equals('{${b.value1}=>${b.value2}}', map.toString());
+                Assert.equals('[${b.value1}=>${b.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> set(B) -> set(C) -> remove(A) -> remove(B)", {
@@ -186,7 +186,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.isFalse(map.copy().exists(a.value1));
                 Assert.isFalse(map.copy().exists(b.value1));
                 Assert.isTrue(map.copy().exists(c.value1));
-                Assert.equals('{${c.value1}=>${c.value2}}', map.toString());
+                Assert.equals('[${c.value1}=>${c.value2}]', map.toString());
             });
 
             it("should pass : new -> set(A) -> remove(A) -> remove(A)", {
@@ -204,7 +204,7 @@ class OrderedMapSuite extends BuddySuite {
                 Assert.same([], [for (k => v in map) v]);
                 Assert.equals(0, map.copy().length);
                 Assert.isFalse(map.copy().exists(a.value1));
-                Assert.equals('{}', map.toString());
+                Assert.equals('[]', map.toString());
 
                 Assert.isTrue(ret1);
                 Assert.isFalse(ret2);
