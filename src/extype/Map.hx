@@ -4,6 +4,8 @@ import extype.map.StringMap;
 import extype.map.IntMap;
 import extype.map.EnumValueMap;
 import extype.map.ObjectMap;
+import haxe.macro.Context;
+import haxe.macro.Expr;
 
 /**
     Represents a collection of keys and values.
@@ -138,6 +140,27 @@ abstract Map<K, V>(IMap<K, V>) {
 
     @:from static inline function fromObjectMap<K:{}, V>(map:ObjectMap<K, V>):Map<Int, V> {
         return cast map;
+    }
+
+    /**
+        Creates a Map object from the map literal.
+    **/
+    public static macro function of(expr:Expr):Expr {
+        return switch (expr.expr) {
+            case EArrayDecl(elements):
+                macro $b{
+                    [macro final map = new Map()].concat(elements.map(elem -> {
+                        return switch (elem.expr) {
+                            case EBinop(OpArrow, eKey, eVal):
+                                macro map.set(${eKey}, ${eVal});
+                            case _:
+                                Context.error("Invalid syntax: expected a => b", elem.pos);
+                        }
+                    })).concat([macro map])
+                };
+            case _:
+                Context.error("Invalid syntax: map literal required", expr.pos);
+        }
     }
 }
 

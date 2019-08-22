@@ -4,6 +4,8 @@ import extype.orderedmap.OrderedStringMap;
 import extype.orderedmap.OrderedIntMap;
 import extype.orderedmap.OrderedEnumValueMap;
 import extype.orderedmap.OrderedObjectMap;
+import haxe.macro.Context;
+import haxe.macro.Expr;
 
 /**
     Represents a collection of keys and values.
@@ -139,6 +141,27 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
 
     @:from static inline function fromObjectMap<K:{}, V>(map:OrderedObjectMap<K, V>):OrderedMap<Int, V> {
         return cast map;
+    }
+
+    /**
+        Creates a OrderedMap object from the map literal.
+    **/
+    public static macro function of(expr:Expr):Expr {
+        return switch (expr.expr) {
+            case EArrayDecl(elements):
+                macro $b{
+                    [macro final map = new OrderedMap()].concat(elements.map(elem -> {
+                        return switch (elem.expr) {
+                            case EBinop(OpArrow, eKey, eVal):
+                                macro map.set(${eKey}, ${eVal});
+                            case _:
+                                Context.error("Invalid syntax: expected a => b", elem.pos);
+                        }
+                    })).concat([macro map])
+                };
+            case _:
+                Context.error("Invalid syntax: map literal required", expr.pos);
+        }
     }
 }
 

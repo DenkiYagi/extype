@@ -259,6 +259,50 @@ class MapSuite extends BuddySuite {
                 new Pair({value:3}, "CCC"),
                 new Pair({value:-1}, "invalid")
             ));
+
+            describe("Map.of()", {
+                it("should create IntMap", {
+                    final map = Map.of([1 => "abc", 2 => "xyz"]);
+                    Assert.is(map, IntMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(1));
+                    Assert.equals("abc", map.get(1));
+                    Assert.isTrue(map.exists(2));
+                    Assert.equals("xyz", map.get(2));
+                });
+
+                it("should create StringMap", {
+                    final map = Map.of(["key1" => "abc", "key2" => "xyz"]);
+                    Assert.is(map, StringMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists("key1"));
+                    Assert.equals("abc", map.get("key1"));
+                    Assert.isTrue(map.exists("key1"));
+                    Assert.equals("xyz", map.get("key2"));
+                });
+
+                it("should create EnumValueMap", {
+                    final map = Map.of([Some(1) => "abc", Some(2) => "xyz"]);
+                    Assert.is(map, EnumValueMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(Some(1)));
+                    Assert.equals("abc", map.get(Some(1)));
+                    Assert.isTrue(map.exists(Some(2)));
+                    Assert.equals("xyz", map.get(Some(2)));
+                });
+
+                it("should create ObjectMap", {
+                    final key1 = {key: 1};
+                    final key2 = {key: 2};
+                    final map = Map.of([key1 => "abc", key2 => "xyz"]);
+                    Assert.is(map, ObjectMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(key1));
+                    Assert.equals("abc", map.get(key1));
+                    Assert.isTrue(map.exists(key2));
+                    Assert.equals("xyz", map.get(key2));
+                });
+            });
         });
     }
 }

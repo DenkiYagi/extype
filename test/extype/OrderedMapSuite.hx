@@ -247,6 +247,54 @@ class OrderedMapSuite extends BuddySuite {
                 new Pair({value:3}, "CCC"),
                 new Pair({value:-1}, "invalid")
             ));
+
+            describe("OrderedMap.of()", {
+                it("should create OrderedIntMap", {
+                    final map = OrderedMap.of([1 => "abc", 2 => "xyz"]);
+                    Assert.is(map, OrderedIntMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(1));
+                    Assert.equals("abc", map.get(1));
+                    Assert.isTrue(map.exists(2));
+                    Assert.equals("xyz", map.get(2));
+                    Assert.same([1, 2], [for (k in map.keys()) k]);
+                });
+
+                it("should create OrderedStringMap", {
+                    final map = OrderedMap.of(["key1" => "abc", "key2" => "xyz"]);
+                    Assert.is(map, OrderedStringMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists("key1"));
+                    Assert.equals("abc", map.get("key1"));
+                    Assert.isTrue(map.exists("key1"));
+                    Assert.equals("xyz", map.get("key2"));
+                    Assert.same(["key1", "key2"], [for (k in map.keys()) k]);
+                });
+
+                it("should create OrderedEnumValueMap", {
+                    final map = OrderedMap.of([Some(1) => "abc", Some(2) => "xyz"]);
+                    Assert.is(map, OrderedEnumValueMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(Some(1)));
+                    Assert.equals("abc", map.get(Some(1)));
+                    Assert.isTrue(map.exists(Some(2)));
+                    Assert.equals("xyz", map.get(Some(2)));
+                    Assert.same([Some(1), Some(2)], [for (k in map.keys()) k]);
+                });
+
+                it("should create OrderedObjectMap", {
+                    final key1 = {key: 1};
+                    final key2 = {key: 2};
+                    final map = OrderedMap.of([key1 => "abc", key2 => "xyz"]);
+                    Assert.is(map, OrderedObjectMap);
+                    Assert.equals(2, map.length);
+                    Assert.isTrue(map.exists(key1));
+                    Assert.equals("abc", map.get(key1));
+                    Assert.isTrue(map.exists(key2));
+                    Assert.equals("xyz", map.get(key2));
+                    Assert.same([key1, key2], [for (k in map.keys()) k]);
+                });
+            });
         });
     }
 }
