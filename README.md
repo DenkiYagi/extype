@@ -95,7 +95,7 @@ TODO
 #### TransformIterator
 TODO
 
-### extype.js
+### extype.iterator.js
 #### IteratorAdapter
 TODO
 
