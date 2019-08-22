@@ -6,6 +6,4 @@
 -cpp dist/cpp
 -D buddy-colors
 -dce full
-
---next
 -cmd dist/cpp/Main
