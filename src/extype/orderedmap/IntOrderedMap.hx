@@ -3,8 +3,8 @@ package extype.orderedmap;
 import extype.OrderedMap.IOrderedMap;
 #if js
 import js.lib.Map in JsMap;
-import extype.js.IteratorAdapter;
-import extype.js.KeyValueIteratorAdapter;
+import extype.iterator.js.IteratorAdapter;
+import extype.iterator.js.KeyValueIteratorAdapter;
 #else
 import extype.LinkedList;
 import extype.iterator.TransformIterator;

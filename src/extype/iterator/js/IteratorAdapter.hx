@@ -1,4 +1,4 @@
-package extype.js;
+package extype.iterator.js;
 
 #if js
 import js.lib.Iterator;

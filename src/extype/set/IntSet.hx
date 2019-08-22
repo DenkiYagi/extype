@@ -4,7 +4,7 @@ import extype.Set.ISet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
-import extype.js.IteratorAdapter;
+import extype.iterator.js.IteratorAdapter;
 #else
 import extype.Unit;
 import extype.map.IntMap;

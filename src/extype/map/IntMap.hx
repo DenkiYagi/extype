@@ -3,8 +3,8 @@ package extype.map;
 import extype.Map.IMap;
 #if js
 import js.lib.Map in JsMap;
-import extype.js.IteratorAdapter;
-import extype.js.KeyValueIteratorAdapter;
+import extype.iterator.js.IteratorAdapter;
+import extype.iterator.js.KeyValueIteratorAdapter;
 #elseif neko
 import extype.Pair;
 import extype.iterator.TransformIterator;

@@ -4,7 +4,7 @@ import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
-import extype.js.IteratorAdapter;
+import extype.iterator.js.IteratorAdapter;
 #else
 import haxe.ds.StringMap;
 import extype.LinkedList;
