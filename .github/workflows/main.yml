@@ -3,15 +3,14 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  install:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
+        wget https://github.com/HaxeFoundation/neko/releases/download/v2-3-0/neko-2.3.0-linux64.tar.gz
+        tar xzf neko-2.3.0-linux64.tar.gz        
         echo test, and deploy your project.
