@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
     - name: Install Neko
       run: |
         wget https://github.com/HaxeFoundation/neko/releases/download/v${NEKO_VERSION//./-}/neko-${NEKO_VERSION}-linux64.tar.gz
@@ -26,3 +25,11 @@ jobs:
         echo "::add-path::$HOME/haxe"
       env:
         HAXE_VERSION: 4.0.5
+    - name: Install Haxelib
+      run: |
+        mkir .haxelib && haxelib setup .haxelib
+        haxelib install buddy
+    - uses: actions/checkout@v2
+    - name: Run test - Neko
+      run: haxe test-neko.hxml
+    
