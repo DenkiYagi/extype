@@ -30,7 +30,7 @@ jobs:
     - name: Install Haxelib
       run: |
         mkdir $HOME/haxelib && haxelib setup $HOME/haxelib
-        haxelib install buddy
+        haxelib install all
     - uses: actions/checkout@v2
     - name: Run test - Neko
       run: haxe test-neko.hxml
