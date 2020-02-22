@@ -29,7 +29,7 @@ jobs:
         HAXE_VERSION: 4.0.5
     - name: Install Haxelib
       run: |
-        mkdir .haxelib && haxelib setup .haxelib
+        mkdir $HOME/.haxelib && haxelib setup $HOME/.haxelib
         haxelib install buddy
     - uses: actions/checkout@v2
     - name: Run test - Neko
