@@ -27,11 +27,11 @@ jobs:
         echo "::set-env name=HAXE_STD_PATH::$HOME/haxe/std"
       env:
         HAXE_VERSION: 4.0.5
+    - uses: actions/checkout@v2
     - name: Install Haxelib
       run: |
         mkdir $HOME/haxelib && haxelib setup $HOME/haxelib
         haxelib install all
-    - uses: actions/checkout@v2
     - name: Run test - Neko
       run: haxe test-neko.hxml
     
