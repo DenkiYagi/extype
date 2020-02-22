@@ -23,6 +23,7 @@ jobs:
         rm haxe-${HAXE_VERSION}-linux64.tar.gz
         mv haxe $HOME/haxe
         echo "::add-path::$HOME/haxe"
+        echo "::set-env name=HAXE_STD_PATH::$HOME/haxe/std"
       env:
         HAXE_VERSION: 4.0.5
     - name: Install Haxelib
