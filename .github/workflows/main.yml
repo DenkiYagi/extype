@@ -14,8 +14,7 @@ jobs:
         rm neko-2.3.0-linux64.tar.gz
         mv neko-2.3.0-linux64 neko-2.3.0
         echo "::add-path::$GITHUB_WORKSPACE/neko-2.3.0"
-        pwd
-        echo $PATH
+        echo `pwd`
 
   test:
     runs-on: ubuntu-latest
