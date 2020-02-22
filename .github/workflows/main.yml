@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 jobs:
-  test:
+  Test on Linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,6 +33,12 @@ jobs:
         mkdir $HOME/haxelib && haxelib setup $HOME/haxelib
         haxelib install buddy
         haxelib install utest
+    - name: Run test - JS
+      run: haxe test-js.hxml
+    - name: Run test - eval
+      run: haxe test-eval.hxml
     - name: Run test - Neko
       run: haxe test-neko.hxml
+    - name: Run test - C++
+      run: haxe test-cpp.hxml
     
