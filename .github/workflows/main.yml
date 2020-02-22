@@ -31,7 +31,7 @@ jobs:
     - name: Install Haxelib
       run: |
         mkdir $HOME/haxelib && haxelib setup $HOME/haxelib
-        haxelib install all
+        expect -c "spawn haxelib install all ; expect \"Continue?\" ; expect $ ; exit" 
     - name: Run test - Neko
       run: haxe test-neko.hxml
     
