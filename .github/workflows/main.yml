@@ -14,6 +14,7 @@ jobs:
         rm neko-${NEKO_VERSION}-linux64.tar.gz
         mv neko-${NEKO_VERSION}-linux64 $HOME/neko
         echo "::add-path::$HOME/neko"
+        echo "::set-env name=LD_LIBRARY_PATH::$LD_LIBRARY_PATH:$HOME/neko"
       env:
         NEKO_VERSION: 2.3.0
     - name: Install Haxe
