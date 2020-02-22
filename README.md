@@ -2,38 +2,38 @@
 
 ![Test](https://github.com/DenkiYagi/haxe-extype/workflows/Test/badge.svg)
 
-## Requirement
+# Requirement
 + Haxe 4.0+
 
-## Tested platforms
+# Tested platforms
 * JavaScript
 * Eval
 * NekoVM
 * CPP
 
-## Install
+# Install
 ```
 haxelib install extype
 ```
 
-## API
-### extype
-#### Unit
+# API
+## extype
+### Unit
 `Unit` is a type that indicates no value.
 
-#### Maybe
+### Maybe
 `Maybe<T>` is a wrapper type that can either have a value or null.
 
-#### Result
+### Result
 `Result<T>` is a wrapper type that can either have a value or error.
 
-#### Tuple2 - Tuple10
+### Tuple2 - Tuple10
 `Tuple[2-10]` can hold any values of several different types.
 
-#### Pair
+### Pair
 `Pair<T1, T2>` is an alias of `Tuple2<T1, T2>`.
 
-#### Map
+### Map
 `Map<K, V>` is a collection of key/value pairs.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
@@ -43,7 +43,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 5. if `K` is any other class or structure, `extype.map.ObjectMap` is used
 6. if `K` is any other type, it causes a compile-time error
 
-#### OrderedMap
+### OrderedMap
 `Map<K, V>` is a collection of key/value pairs. You can iterate through the keys in insertion order.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
@@ -53,7 +53,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 5. if `K` is any other class or structure, `extype.orderedmap.OrderedObjectMap` is used
 6. if `K` is any other type, it causes a compile-time error
 
-#### Set
+### Set
 `Set<T>` is a set of values. You can iterate through the values in insertion order.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
@@ -63,7 +63,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 5. if `T` is any other class or structure, `extype.set.ObjectSet` is used
 6. if `T` is any other type, it causes a compile-time error
 
-#### OrderedSet
+### OrderedSet
 `OrderedSet<T>` is a set of values.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
@@ -73,49 +73,49 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 5. if `T` is any other class or structure, `extype.orderedset.OrderedObjectSet` is used
 6. if `T` is any other type, it causes a compile-time error
 
-#### LinkedList
+### LinkedList
 TODO
 
-#### ReadOnlyArray
+### ReadOnlyArray
 `ReadOnlyDynamic<T>` is a read-only `Array<T>`, and it is an alias of `haxe.ds.ReadOnlyArray<T>`.
 
-#### ReadOnlyDynamic
+### ReadOnlyDynamic
 `ReadOnlyDynamic<T>` is a read-only `Dynamic<T>`.
 
-#### ReadOnlySet
+### ReadOnlySet
 `ReadOnlySet<T>` is a read-only `Set<T>`.
 
-#### ReadOnlyMap
+### ReadOnlyMap
 `ReadOnlyMap<K, V>` is a read-only `Map<K, V>`.
 
-#### Error
+### Error
 `Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
 
 * `NotImplementedError`
 
-### extype.iterator
-#### TransformIterator
+## extype.iterator
+### TransformIterator
 TODO
 
-### extype.iterator.js
-#### IteratorAdapter
+## extype.iterator.js
+### IteratorAdapter
 TODO
 
-#### KeyValueIteratorAdapter
+### KeyValueIteratorAdapter
 TODO
 
-### extype.extern
-#### Mixed2 - Mixed10
+## extype.extern
+### Mixed2 - Mixed10
 `Mixed[2-10]` can have a value of several different types.
 `Mixed2` is the same as `haxe.extern.EitherType`.
 
-#### ValueOrArray
+### ValueOrArray
 `ValueOrArray<T>` is a type that likes as `haxe.extern.EitherType<T, Array<T>>`.
 
-#### ValueOrFunction
+### ValueOrFunction
 `ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
 
-#### **{{ Experimental }}** Extern&lt;T&gt;
+### **{{ Experimental }}** Extern&lt;T&gt;
 `Extern<T>` is a generic-build macro type that can use `@:native` metadata to the anonymous structure.
 
 ```haxe
@@ -127,5 +127,5 @@ typedef PropertyOption = {
 }
 ```
 
-#### **{{ Experimental }}** Indexable&lt;TObject, TValue&gt;
+### **{{ Experimental }}** Indexable&lt;TObject, TValue&gt;
 `Indexable<TObject, TValue>` is a type that likes as `haxe.DynamicAccess<TValue>`. But `Indexable<TObject, TValue>` is different in that can access `TObject`'s field.
