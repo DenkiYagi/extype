@@ -1,7 +1,7 @@
-![Test](https://github.com/DenkiYagi/haxe-extype/workflows/Test/badge.svg)
-
 # extype
 **Enhanced standard types for Haxe**
+
+![Test](https://github.com/DenkiYagi/haxe-extype/workflows/Test/badge.svg)
 
 ## Requirement
 + Haxe 4.0+
