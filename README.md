@@ -1,7 +1,9 @@
 # Enhanced standard types for Haxe
 
+![Test](https://github.com/DenkiYagi/haxe-extype/workflows/Test/badge.svg)
+
 ## Requirement
-+ Haxe 4.0.0-rc.3+
++ Haxe 4.0+
 
 ## Tested platforms
 * JavaScript
