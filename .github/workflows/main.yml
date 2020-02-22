@@ -3,24 +3,17 @@ name: CI
 on: [push]
 
 jobs:
-  install:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Run a multi-line script
+    - uses: actions/checkout@v2
+    - name: Install Neko 2.3.0
       run: |
         wget https://github.com/HaxeFoundation/neko/releases/download/v2-3-0/neko-2.3.0-linux64.tar.gz
         tar xzf neko-2.3.0-linux64.tar.gz
         rm neko-2.3.0-linux64.tar.gz
         mv neko-2.3.0-linux64 $GITHUB_WORKSPACE/neko-2.3.0
         echo "::add-path::$GITHUB_WORKSPACE/neko-2.3.0"
-
-  test:
-    runs-on: ubuntu-latest
-
-    needs: install
-
-    steps:
-    - uses: actions/checkout@v2
     - name: Run neko
       run: neko
