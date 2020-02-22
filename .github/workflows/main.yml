@@ -13,7 +13,14 @@ jobs:
         wget https://github.com/HaxeFoundation/neko/releases/download/v2-3-0/neko-2.3.0-linux64.tar.gz
         tar xzf neko-2.3.0-linux64.tar.gz
         rm neko-2.3.0-linux64.tar.gz
-        mv neko-2.3.0-linux64 $GITHUB_WORKSPACE/neko-2.3.0
-        echo "::add-path::$GITHUB_WORKSPACE/neko-2.3.0"
-    - name: Run neko
-      run: neko
+        mv neko-2.3.0-linux64 $HOME/neko
+        echo "::add-path::$HOME/neko"
+    - name: Install Haxe ${HAXE_VERSION}
+      run: |
+        wget https://haxe.org/download/file/${HAXE_VERSION}/haxe-${HAXE_VERSION}-linux64.tar.gz
+        tar xzf haxe-${HAXE_VERSION}-linux64.tar.gz
+        rm haxe-${HAXE_VERSION}-linux64.tar.gz
+        mv haxe-${HAXE_VERSION}-linux64 $HOME/haxe
+        echo "::add-path::$HOME/haxe"
+      env:
+        HAXE_VERSION: 4.0.5
