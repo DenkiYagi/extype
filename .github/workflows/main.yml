@@ -12,9 +12,8 @@ jobs:
         wget https://github.com/HaxeFoundation/neko/releases/download/v2-3-0/neko-2.3.0-linux64.tar.gz
         tar xzf neko-2.3.0-linux64.tar.gz
         rm neko-2.3.0-linux64.tar.gz
-        mv neko-2.3.0-linux64 neko-2.3.0
+        mv neko-2.3.0-linux64 $GITHUB_WORKSPACE/neko-2.3.0
         echo "::add-path::$GITHUB_WORKSPACE/neko-2.3.0"
-        echo `pwd`
 
   test:
     runs-on: ubuntu-latest
