@@ -55,7 +55,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 6. if `K` is any other type, it causes a compile-time error
 
 ### Set
-`Set<T>` is a set of values. You can iterate through the values in insertion order.
+`Set<T>` is a set of values.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
 1. if `T` is a `String`, `extype.set.StringSet` is used
@@ -65,7 +65,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 6. if `T` is any other type, it causes a compile-time error
 
 ### OrderedSet
-`OrderedSet<T>` is a set of values.
+`OrderedSet<T>` is a set of values. You can iterate through the values in insertion order.
 This is a multi-type abstract, it is instantiated as one of its specialization types depending on its type parameters.
 
 1. if `T` is a `String`, `extype.orderedset.OrderedStringSet` is used
@@ -98,12 +98,11 @@ TODO
 ### TransformIterator
 TODO
 
-## extype.iterator.js
-### IteratorAdapter
-TODO
+Decorates an iterator such that each element returned is transformed.
 
-### KeyValueIteratorAdapter
-TODO
+## extype.iterator.js
+### IteratorAdapter and KeyValueIteratorAdapter
+`IteratorAdapter` and `KeyValueIteratorAdapter` can wrap `js.lib.Iterator` as Haxe's iterator.
 
 ## extype.extern
 ### Mixed2 - Mixed10
