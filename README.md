@@ -75,7 +75,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 6. if `T` is any other type, it causes a compile-time error
 
 ### LinkedList
-TODO
+`LinkedList<T>` is doubly linked list implementation.
 
 ### ReadOnlyArray
 `ReadOnlyDynamic<T>` is a read-only `Array<T>`, and it is an alias of `haxe.ds.ReadOnlyArray<T>`.
@@ -96,9 +96,7 @@ TODO
 
 ## extype.iterator
 ### TransformIterator
-TODO
-
-Decorates an iterator such that each element returned is transformed.
+`TransformIterator` wraps another iterator and can iterate over elements these are applied transform function.
 
 ## extype.iterator.js
 ### IteratorAdapter and KeyValueIteratorAdapter
