@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "classPath": "src/",
-    "releasenote": "stable release for Haxe 4.0",
+    "releasenote": "Add NoDataError and change `Maybe#getOrThrow()` to throw NoDataError",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }

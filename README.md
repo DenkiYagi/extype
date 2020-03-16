@@ -92,6 +92,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 ### Error
 `Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
 
+* `NoDataError`
 * `NotImplementedError`
 
 ## extype.iterator
