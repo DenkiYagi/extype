@@ -84,7 +84,7 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#getOrThrow()", {
             it("should be success", {
                 Assert.equals(1, Maybe.of(1).getOrThrow());
-                Assert.equals(2, Maybe.of(2).getOrThrow(() -> new MyError()));
+                Assert.equals(2, Maybe.of(2).getOrThrow(new MyError()));
             });
             it("should be failure", {
                 Assert.raises(() -> {
@@ -92,7 +92,7 @@ class MaybeSuite extends BuddySuite {
                     return;
                 }, NoDataError);
                 Assert.raises(() -> {
-                    Maybe.empty().getOrThrow(() -> new MyError());
+                    Maybe.empty().getOrThrow(new MyError());
                     return;
                 }, MyError);
             });
