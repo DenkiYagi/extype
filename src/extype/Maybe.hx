@@ -41,9 +41,9 @@ abstract Maybe<T>(Null<T>) {
         return this;
     }
 
-    public inline function getOrThrow(?error:Error):T {
+    public inline function getOrThrow(?errorFn:() -> Error):T {
         if (isEmpty()) {
-            throw (error == null) ? new NoDataError() : error;
+            throw (errorFn == null) ? new NoDataError() : errorFn();
         }
         return this;
     }

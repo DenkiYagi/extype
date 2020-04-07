@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "classPath": "src/",
-    "releasenote": "Breaking change `Maybe#getOrThrow()`",
+    "releasenote": "Revert changing `Maybe#getOrThrow()`",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
