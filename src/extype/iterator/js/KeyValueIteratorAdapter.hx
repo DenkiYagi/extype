@@ -2,16 +2,16 @@ package extype.iterator.js;
 
 #if js
 import js.lib.Iterator;
-import js.lib.Map.MapEntry;
+import js.lib.KeyValue;
 
 /**
     Represents a `js.lib.Iterator<js.lib.Map.MapEntry<K, V>>` adapter that can be used for Haxe's `KeyValueIterator<K, V>`.
 **/
 class KeyValueIteratorAdapter<K, V> {
-    final iterator:Iterator<MapEntry<K, V>>;
-    var current:IteratorStep<MapEntry<K, V>>;
+    final iterator:Iterator<KeyValue<K, V>>;
+    var current:IteratorStep<KeyValue<K, V>>;
 
-    public inline function new(iterator:Iterator<MapEntry<K, V>>) {
+    public inline function new(iterator:Iterator<KeyValue<K, V>>) {
         this.iterator = iterator;
         this.current = iterator.next();
     }

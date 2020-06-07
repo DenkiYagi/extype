@@ -3,6 +3,7 @@
 -cp test
 -lib buddy
 -lib utest
+-lib hxnodejs
 -js dist/node.js
 -D buddy-colors
 -D nodejs
