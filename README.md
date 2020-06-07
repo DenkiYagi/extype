@@ -4,7 +4,7 @@
 ![Test](https://github.com/DenkiYagi/haxe-extype/workflows/Test/badge.svg)
 
 ## Requirement
-+ Haxe 4.0+
++ Haxe 4.1+
 
 ## Tested platforms
 * JavaScript
