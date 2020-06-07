@@ -33,6 +33,7 @@ jobs:
         mkdir $HOME/haxelib && haxelib setup $HOME/haxelib
         haxelib install buddy
         haxelib install utest
+        haxelib install hxnodejs
         haxelib install hxcpp
     - name: Run test - JS
       run: haxe test-js.hxml
