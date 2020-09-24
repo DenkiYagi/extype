@@ -78,7 +78,7 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 `LinkedList<T>` is doubly linked list implementation.
 
 ### ReadOnlyArray
-`ReadOnlyDynamic<T>` is a read-only `Array<T>`, and it is an alias of `haxe.ds.ReadOnlyArray<T>`.
+`ReadOnlyArray<T>` is a read-only `Array<T>`, and it is an alias of `haxe.ds.ReadOnlyArray<T>`.
 
 ### ReadOnlyDynamic
 `ReadOnlyDynamic<T>` is a read-only `Dynamic<T>`.
