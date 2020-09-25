@@ -1,6 +1,7 @@
 package extype;
 
-enum Result<T> {
+@:using(extype.tools.ResultTools)
+enum Result<T, E> {
     Success(value:T);
-    Failure(error:Dynamic);
+    Failure(error:E);
 }
