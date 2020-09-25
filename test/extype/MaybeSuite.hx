@@ -259,6 +259,24 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
+        describe("Maybe#match()", {
+            it("should call fn", done ->{
+                Maybe.of(10).match(
+                    x -> {
+                        Assert.equals(10, x);
+                        done();
+                    },
+                    () -> fail()
+                );
+            });
+            it("should call ifEmpty", done -> {
+                Maybe.empty().match(
+                    x -> fail(),
+                    () -> done()
+                );
+            });
+        });
+
         describe("Maybe#toOption()", {
             it("should be Some(v)", {
                 Assert.same(Some(1), Maybe.of(1).toOption());

@@ -115,4 +115,12 @@ abstract Maybe<T>(Null<T>) {
             ifEmpty();
         }
     }
+
+    public inline function match(fn:T->Void, ifEmpty:Void->Void):Void {
+        if (nonEmpty()) {
+            fn(this);
+        } else {
+            ifEmpty();
+        }
+    }
 }
