@@ -1,5 +1,6 @@
 package extype;
 
+import haxe.ds.Option;
 import haxe.Exception;
 import extype.Maybe;
 
@@ -16,6 +17,35 @@ class MaybeSuite extends BuddySuite {
             it("should return empty", {
                 final x = None.toNullable();
                 x.isEmpty().should.be(true);
+            });
+        });
+
+        describe("Maybe.toOption()", {
+            it("should convert `Maybe.Some -> Option.Some`", {
+                Some(1).toOption().should.equal(Option.Some(1));
+            });
+            it("should convert `Maybe.None -> Option.None`", {
+                None.toOption().should.equal(Option.None);
+            });
+        });
+
+        describe("Maybe.isEmpty()", {
+            it("should be false", {
+                Some(1).isEmpty().should.be(false);
+            });
+
+            it("should be true", {
+                None.isEmpty().should.be(true);
+            });
+        });
+
+        describe("Maybe.nonEmpty()", {
+            it("should be true", {
+                Some(1).nonEmpty().should.be(true);
+            });
+
+            it("should be false", {
+                None.nonEmpty().should.be(false);
             });
         });
 
@@ -76,26 +106,6 @@ class MaybeSuite extends BuddySuite {
             });
             it("should return alt value", {
                 None.orElse(Some(-5)).should.equal(Some(-5));
-            });
-        });
-
-        describe("Maybe.isEmpty()", {
-            it("should be false", {
-                Some(1).isEmpty().should.be(false);
-            });
-
-            it("should be true", {
-                None.isEmpty().should.be(true);
-            });
-        });
-
-        describe("Maybe.nonEmpty()", {
-            it("should be true", {
-                Some(1).nonEmpty().should.be(true);
-            });
-
-            it("should be false", {
-                None.nonEmpty().should.be(false);
             });
         });
 

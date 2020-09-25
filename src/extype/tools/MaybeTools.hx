@@ -20,6 +20,20 @@ class MaybeTools {
         }
     }
 
+    public static inline function isEmpty<T>(maybe:Maybe<T>):Bool {
+        return switch (maybe) {
+            case Some(_): false;
+            case None: true;
+        }
+    }
+
+    public static inline function nonEmpty<T>(maybe:Maybe<T>):Bool {
+        return switch (maybe) {
+            case Some(_): true;
+            case None: false;
+        }
+    }
+
     public static inline function get<T>(maybe:Maybe<T>):Null<T> {
         return switch (maybe) {
             case Some(v): v;
@@ -54,20 +68,6 @@ class MaybeTools {
         return switch (maybe) {
             case Some(v): maybe;
             case None: x;
-        }
-    }
-
-    public static inline function isEmpty<T>(maybe:Maybe<T>):Bool {
-        return switch (maybe) {
-            case Some(_): false;
-            case None: true;
-        }
-    }
-
-    public static inline function nonEmpty<T>(maybe:Maybe<T>):Bool {
-        return switch (maybe) {
-            case Some(_): true;
-            case None: false;
         }
     }
 
