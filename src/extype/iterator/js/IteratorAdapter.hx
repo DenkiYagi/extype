@@ -5,6 +5,7 @@ import js.lib.Iterator;
 /**
     Represents a `js.lib.Iterator<T>` adapter that can be used for Haxe's `Iterator<T>`.
 **/
+@:deprecated("extype.iterator.js.IteratorAdapter is deprecated. Please use js.lib.HaxeIterator instead.")
 class IteratorAdapter<T> {
     final iterator:Iterator<T>;
     var current:IteratorStep<T>;

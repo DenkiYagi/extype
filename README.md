@@ -136,8 +136,10 @@ typedef PropertyOption = {
 
 
 # Breaking changes from v2.x
-
 * [rename] `Maybe<T>` (v2) -> `Nullable<T>` (v3)
 * [remove] `Result<T>` (v2)
 * [add] `Maybe<T>` (v3)
 * [add] `Result<T, E>` (v3)
+* `extype.iterator` package has been deprecated. This package was not maintained long time.
+* `XxxError` has been deprecated. Please use `XxxException` instead.
+*

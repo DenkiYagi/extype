@@ -1,5 +1,6 @@
 package extype.iterator;
 
+@:deprecated("extype.iterator.TransformIterator is deprecated.")
 class TransformIterator<T, U> {
     final iterator:Iterator<T>;
     final transform:(value:T) -> U;
