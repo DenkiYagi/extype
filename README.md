@@ -142,4 +142,3 @@ typedef PropertyOption = {
 * [add] `Result<T, E>` (v3)
 * `extype.iterator` package has been deprecated. This package was not maintained long time.
 * `XxxError` has been deprecated. Please use `XxxException` instead.
-*
