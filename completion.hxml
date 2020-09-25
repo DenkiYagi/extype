@@ -1,5 +1,5 @@
 .base.hxml
---macro include("extype", true)
+--macro include("extype", true, ["extype.extern.internal"])
 --no-output
 --no-opt
 --no-inline
