@@ -45,7 +45,7 @@ abstract Maybe<T>(Null<T>) {
         return this;
     }
 
-    public inline function getOrThrow(?errorFn:() -> Exception):T {
+    public inline function getOrThrow(?errorFn:() -> Dynamic):T {
         if (isEmpty()) {
             throw (errorFn == null) ? new NoDataException() : errorFn();
         }
