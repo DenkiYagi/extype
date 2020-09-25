@@ -1,4 +1,4 @@
-.base.html
+.base.hxml
 --macro include("extype", true)
 --no-output
 --no-opt
