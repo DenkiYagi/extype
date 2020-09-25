@@ -8,11 +8,6 @@ abstract Maybe<T>(Null<T>) {
     }
 
     @:from
-    public static inline function of<T>(x:T):Maybe<T> {
-        return new Maybe(x);
-    }
-
-    @:from
     public static inline function fromOption<T>(x:Option<T>):Maybe<T> {
         return switch (x) {
             case Some(v): Maybe.of(v);
@@ -27,6 +22,16 @@ abstract Maybe<T>(Null<T>) {
         } else {
             None;
         }
+    }
+
+    // should use just()
+    public static inline function of<T>(x:T):Maybe<T> {
+        return just(x);
+    }
+
+    @:from
+    public static inline function just<T>(x:T):Maybe<T> {
+        return new Maybe(x);
     }
 
     public static inline function empty<T>():Maybe<T> {

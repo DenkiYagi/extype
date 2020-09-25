@@ -44,14 +44,14 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe.of()", {
+        describe("Maybe.just()", {
             it("can convert value", {
-                Assert.equals(1, Maybe.of(1).get());
+                Assert.equals(1, Maybe.just(1).get());
             });
             it("can convert null", {
-                Assert.isTrue(Maybe.of(null).isEmpty());
+                Assert.isTrue(Maybe.just(null).isEmpty());
                 #if js
-                Assert.isTrue(Maybe.of(js.Lib.undefined).isEmpty());
+                Assert.isTrue(Maybe.just(js.Lib.undefined).isEmpty());
                 #end
             });
         });
@@ -64,7 +64,7 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#get()", {
             it("should return value", {
-                Assert.equals(1, Maybe.of(1).get());
+                Assert.equals(1, Maybe.just(1).get());
             });
             it("should return null", {
                 final x = (Maybe.empty(): Maybe<Int>).get();
@@ -74,7 +74,7 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#getUnsafe()", {
             it("should return value", {
-                Assert.equals(1, Maybe.of(1).getUnsafe());
+                Assert.equals(1, Maybe.just(1).getUnsafe());
             });
             it("should return null", {
                 Assert.equals(null, (Maybe.empty(): Maybe<String>).getUnsafe());
@@ -83,8 +83,8 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#getOrThrow()", {
             it("should be success", {
-                Assert.equals(1, Maybe.of(1).getOrThrow());
-                Assert.equals(2, Maybe.of(2).getOrThrow(() -> new MyException()));
+                Assert.equals(1, Maybe.just(1).getOrThrow());
+                Assert.equals(2, Maybe.just(2).getOrThrow(() -> new MyException()));
             });
             it("should be failure", {
                 Assert.raises(() -> {
@@ -100,7 +100,7 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#getOrElse()", {
             it("should return value", {
-                Assert.equals(1, Maybe.of(1).getOrElse(-5));
+                Assert.equals(1, Maybe.just(1).getOrElse(-5));
             });
             it("should return alt value", {
                 Assert.equals(-5, Maybe.empty().getOrElse(-5));
@@ -109,10 +109,10 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#orElse()", {
             it("should return value", {
-                Assert.equals(1, Maybe.of(1).orElse(Maybe.of(-5)));
+                Assert.equals(1, Maybe.just(1).orElse(Maybe.just(-5)));
             });
             it("should return alt value", {
-                Assert.equals(-5, Maybe.empty().orElse(Maybe.of(-5)));
+                Assert.equals(-5, Maybe.empty().orElse(Maybe.just(-5)));
             });
         });
 
@@ -121,13 +121,13 @@ class MaybeSuite extends BuddySuite {
                 Assert.isTrue(Maybe.empty().isEmpty());
             });
             it("should be false", {
-                Assert.isFalse(Maybe.of(1).isEmpty());
+                Assert.isFalse(Maybe.just(1).isEmpty());
             });
         });
 
         describe("Maybe#nonEmpty()", {
             it("should be true", {
-                Assert.isTrue(Maybe.of(1).nonEmpty());
+                Assert.isTrue(Maybe.just(1).nonEmpty());
             });
             it("should be false", {
                 Assert.isFalse(Maybe.empty().nonEmpty());
@@ -137,7 +137,7 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#iter()", {
             it("should call", {
                 var count = 0;
-                Maybe.of(1).iter(x -> {
+                Maybe.just(1).iter(x -> {
                     Assert.equals(1, x);
                     count++;
                 });
@@ -153,7 +153,7 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#foreach()", {
             it("should pass when function returns false", {
                 var count = 0;
-                Maybe.of(1).foreach(x -> {
+                Maybe.just(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return false;
@@ -162,7 +162,7 @@ class MaybeSuite extends BuddySuite {
             });
             it("should pass when function returns true", {
                 var count = 0;
-                Maybe.of(1).foreach(x -> {
+                Maybe.just(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return true;
@@ -180,7 +180,7 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#map()", {
             it("should call", {
                 var count = 0;
-                final ret = Maybe.of(1).map(x -> {
+                final ret = Maybe.just(1).map(x -> {
                     Assert.equals(1, x);
                     count++;
                     x + 1;
@@ -199,16 +199,16 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#flatMap()", {
             it("should call", {
                 var count = 0;
-                final ret = Maybe.of(1).flatMap(x -> {
+                final ret = Maybe.just(1).flatMap(x -> {
                     Assert.equals(1, x);
                     count++;
-                    Maybe.of(x + 1);
+                    Maybe.just(x + 1);
                 });
                 Assert.equals(2, ret);
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Maybe.of(1).flatMap(x -> Maybe.empty());
+                final ret = Maybe.just(1).flatMap(x -> Maybe.empty());
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
@@ -222,7 +222,7 @@ class MaybeSuite extends BuddySuite {
         describe("Maybe#filter()", {
             it("should call and be some value", {
                 var count = 0;
-                final ret = Maybe.of(1).filter(x -> {
+                final ret = Maybe.just(1).filter(x -> {
                     Assert.equals(1, x);
                     count++;
                     true;
@@ -231,7 +231,7 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Maybe.of(1).filter(x -> false);
+                final ret = Maybe.just(1).filter(x -> false);
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
@@ -251,7 +251,7 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(-1, ret);
             });
             it("should call fn", {
-                final ret = Maybe.of(1).fold(
+                final ret = Maybe.just(1).fold(
                     () -> -1,
                     x -> x * 3
                 );
@@ -261,7 +261,7 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#match()", {
             it("should call fn", done ->{
-                Maybe.of(10).match(
+                Maybe.just(10).match(
                     x -> {
                         Assert.equals(10, x);
                         done();
@@ -279,8 +279,8 @@ class MaybeSuite extends BuddySuite {
 
         describe("Maybe#toOption()", {
             it("should be Some(v)", {
-                Assert.same(Some(1), Maybe.of(1).toOption());
-                Assert.same(Some(1), (Maybe.of(1): Option<Int>));
+                Assert.same(Some(1), Maybe.just(1).toOption());
+                Assert.same(Some(1), (Maybe.just(1): Option<Int>));
             });
             it("should be None", {
                 Assert.same(None, Maybe.empty().toOption());
@@ -289,7 +289,7 @@ class MaybeSuite extends BuddySuite {
         });
 
         describe("Maybe.fromOption()", {
-            it("should be Maybe.of(v)", {
+            it("should be Maybe.just(v)", {
                 Assert.equals(1, Maybe.fromOption(Some(1)));
             });
             it("should be Maybe.empty()", {
