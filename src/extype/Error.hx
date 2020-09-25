@@ -1,5 +1,9 @@
 package extype;
 
+#if (haxe > version("4.1.0"))
+@:deprecated("extype.Error is deprecated. Please use haxe.Exception instead.")
+typedef Error = haxe.Exception;
+#else
 #if js
 typedef Error = js.lib.Error;
 #else
@@ -24,4 +28,5 @@ class Error {
         return CallStack.toString(callStack);
     }
 }
+#end
 #end

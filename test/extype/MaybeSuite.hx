@@ -283,6 +283,6 @@ class MaybeSuite extends BuddySuite {
 
 private class MyError extends Error {
     public function new() {
-        super();
+        super("myerror");
     }
 }
