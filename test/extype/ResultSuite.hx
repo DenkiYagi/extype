@@ -1,9 +1,19 @@
 package extype;
 
 import extype.Result;
+import haxe.ds.Either;
 
 class ResultSuite extends BuddySuite {
     public function new() {
+        describe("Result.toEither()", {
+            it("should convert `Success -> Right`", {
+                Success(1).toEither().should.equal(Right(1));
+            });
+            it("should convert `Failure -> Left`", {
+                Failure("error").toEither().should.equal(Left("error"));
+            });
+        });
+
         describe("Result.isSuccess()", {
             it("should be false", {
                 Failure(1).isSuccess().should.be(false);
@@ -21,6 +31,68 @@ class ResultSuite extends BuddySuite {
 
             it("should be false", {
                 Success(1).isFailure().should.be(false);
+            });
+        });
+
+        describe("Result.get()", {
+            it("should return value", {
+                Success(1).get().should.be(1);
+            });
+            it("should return null", {
+                final x:Null<Any> = Failure("error").get();
+                x.should.be(null);
+            });
+        });
+
+        #if !target.static
+        describe("Result.getUnsafe()", {
+            it("should return value", {
+                Success(1).getUnsafe().should.be(1);
+            });
+            it("should return null", {
+                final x:Null<Any> = Failure("error").getUnsafe();
+                x.should.be(null);
+            });
+        });
+        #end
+
+        describe("Result.getOrThrow()", {
+            it("should be success", {
+                Success(1).getOrThrow().should.be(1);
+                Success(2).getOrThrow(() -> "myerror").should.be(2);
+            });
+            it("should be failure", {
+                try {
+                    Failure("error").getOrThrow();
+                    fail();
+                } catch (e) {
+                    e.message.should.be("error");
+                }
+
+                try {
+                    Failure("error").getOrThrow(() -> "myerror");
+                    fail();
+                } catch (e) {
+                    e.message.should.be("myerror");
+                }
+            });
+        });
+
+        describe("Result.getOrElse()", {
+            it("should return value", {
+                Success(1).getOrElse(-5).should.be(1);
+            });
+            it("should return alt value", {
+                Failure("error").getOrElse(-5).should.be(-5);
+            });
+        });
+
+        describe("Result.orElse()", {
+            it("should return value", {
+                Success(1).orElse(Success(-5)).should.equal(Success(1));
+            });
+            it("should return alt value", {
+                Failure("error").orElse(Success(-5)).should.equal(Success(-5));
             });
         });
 

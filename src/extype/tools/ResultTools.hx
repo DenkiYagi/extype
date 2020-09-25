@@ -1,8 +1,16 @@
 package extype.tools;
 
 import extype.Result;
+import haxe.ds.Either;
 
 class ResultTools {
+    public static inline function toEither<T, E>(result:Result<T, E>):Either<E, T> {
+        return switch (result) {
+            case Success(value): Right(value);
+            case Failure(error): Left(error);
+        }
+    }
+
     public static inline function isSuccess<T, E>(result:Result<T, E>):Bool {
         return switch (result) {
             case Success(_): true;
@@ -14,6 +22,43 @@ class ResultTools {
         return switch (result) {
             case Success(_): false;
             case Failure(_): true;
+        }
+    }
+
+    public static inline function get<T, E>(result:Result<T, E>):Null<T> {
+        return switch (result) {
+            case Success(v): v;
+            case Failure(e): null;
+        }
+    }
+
+    #if !target.static
+    public static inline function getUnsafe<T, E>(result:Result<T, E>):T {
+        return switch (result) {
+            case Success(v): v;
+            case Failure(e): null;
+        }
+    }
+    #end
+
+    public static inline function getOrThrow<T, E>(result:Result<T, E>, ?errorFn:() -> Dynamic):T {
+        switch (result) {
+            case Success(v): return v;
+            case Failure(e): throw (errorFn == null) ? e : errorFn();
+        }
+    }
+
+    public static inline function getOrElse<T, E>(result:Result<T, E>, x:T):T {
+        return switch (result) {
+            case Success(v): v;
+            case Failure(e): x;
+        }
+    }
+
+    public static inline function orElse<T, E>(result:Result<T, E>, x:Result<T, E>):Result<T, E> {
+        return switch (result) {
+            case Success(v): Success(v);
+            case Failure(e): x;
         }
     }
 
