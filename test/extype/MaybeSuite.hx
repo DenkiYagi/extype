@@ -77,7 +77,7 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, Maybe.of(1).getUnsafe());
             });
             it("should return null", {
-                Assert.equals(null, (Maybe.empty(): Maybe<Int>).getUnsafe());
+                Assert.equals(null, (Maybe.empty(): Maybe<String>).getUnsafe());
             });
         });
 
