@@ -30,7 +30,11 @@ abstract Maybe<T>(Null<T>) {
     }
 
     public static inline function empty<T>():Maybe<T> {
+        #if js
+        return js.Lib.undefined;
+        #else
         return null;
+        #end
     }
 
     public inline function get():Null<T> {
