@@ -50,16 +50,16 @@ class ExternBuilder {
         return typeBuilder.build(type);
     }
 
-    static function resolveAnonymousType(type: Type): Maybe<Type> {
+    static function resolveAnonymousType(type: Type): Nullable<Type> {
         var acc = type;
         while (true) {
             switch (acc) {
                 case TAnonymous(_):
-                    return Maybe.of(acc);
+                    return Nullable.of(acc);
                 case TType(t, _):
                     acc = t.get().type;
                 case _:
-                    return Maybe.empty();
+                    return Nullable.empty();
             }
         }
     }
@@ -71,17 +71,17 @@ class ExternBuilder {
         }
     }
 
-    static function getNativeValue(meta: MetaAccess): Maybe<String> {
+    static function getNativeValue(meta: MetaAccess): Nullable<String> {
         final natives = meta.extract(":native")
-            .map(x -> (x.params.length == 1) ? getString(x.params[0]) : Maybe.empty())
+            .map(x -> (x.params.length == 1) ? getString(x.params[0]) : Nullable.empty())
             .filter(x -> x.nonEmpty());
-        return (natives.length > 0) ? natives[0] : Maybe.empty();
+        return (natives.length > 0) ? natives[0] : Nullable.empty();
     }
 
-    static function getString(expr: Expr): Maybe<String> {
+    static function getString(expr: Expr): Nullable<String> {
         return switch (expr.expr) {
-            case EConst(CString(s)): Maybe.of(s);
-            case _: Maybe.empty();
+            case EConst(CString(s)): Nullable.of(s);
+            case _: Nullable.empty();
         }
     }
 }
@@ -90,7 +90,7 @@ private class TypeBuilder {
     static var sequence = 0;
     final stack: Array<{
         final name: String;
-        final nativeName: Maybe<String>;
+        final nativeName: Nullable<String>;
         final transformers: Array<ExprOf<{} -> Void>>;
     }>;
     var transformers: Array<Expr>;
@@ -100,7 +100,7 @@ private class TypeBuilder {
         this.transformers = [];
     }
 
-    public function emitStart(name: String, nativeName: Maybe<String>): Void {
+    public function emitStart(name: String, nativeName: Nullable<String>): Void {
         stack.push({
             name: name,
             nativeName: nativeName,

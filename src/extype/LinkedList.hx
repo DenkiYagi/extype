@@ -1,18 +1,18 @@
 package extype;
 
-import extype.Maybe;
+import extype.Nullable;
 
 /**
     Represents a doubly linked list.
 **/
 class LinkedList<T> {
-    public var first(default, null):Maybe<LinkedListNode<T>>;
-    public var last(default, null):Maybe<LinkedListNode<T>>;
+    public var first(default, null):Nullable<LinkedListNode<T>>;
+    public var last(default, null):Nullable<LinkedListNode<T>>;
     public var length(default, null):Int;
 
     public function new(?iterable:Iterable<T>) {
-        this.first = Maybe.empty();
-        this.last = Maybe.empty();
+        this.first = Nullable.empty();
+        this.last = Nullable.empty();
         this.length = 0;
 
         if (iterable != null) {
@@ -24,11 +24,11 @@ class LinkedList<T> {
         final node = new LinkedListNode(this, value);
 
         if (length == 0) {
-            first = Maybe.of(node);
-            last = Maybe.of(node);
+            first = Nullable.of(node);
+            last = Nullable.of(node);
         } else {
             last.getUnsafe().append(node);
-            last = Maybe.of(node);
+            last = Nullable.of(node);
         }
         length++;
 
@@ -67,24 +67,24 @@ class LinkedList<T> {
 
 class LinkedListNode<T> {
     @:allow(extype.LinkedList)
-    var list(default, null):Maybe<LinkedList<T>>;
+    var list(default, null):Nullable<LinkedList<T>>;
 
     public final value:T;
-    public var prev(default, null):Maybe<LinkedListNode<T>>;
-    public var next(default, null):Maybe<LinkedListNode<T>>;
+    public var prev(default, null):Nullable<LinkedListNode<T>>;
+    public var next(default, null):Nullable<LinkedListNode<T>>;
 
     @:allow(extype.LinkedList)
     function new(list:LinkedList<T>, value:T) {
-        this.list = Maybe.of(list);
+        this.list = Nullable.of(list);
         this.value = value;
-        this.prev = Maybe.empty();
-        this.next = Maybe.empty();
+        this.prev = Nullable.empty();
+        this.next = Nullable.empty();
     }
 
     @:allow(extype.LinkedList)
     function append(node:LinkedListNode<T>):Void {
-        this.next = Maybe.of(node);
-        node.prev = Maybe.of(this);
+        this.next = Nullable.of(node);
+        node.prev = Nullable.of(this);
     }
 
     @:allow(extype.LinkedList)
@@ -95,17 +95,17 @@ class LinkedListNode<T> {
         prev.iter(x -> x.next = next);
         next.iter(x -> x.prev = prev);
 
-        this.list = Maybe.empty();
-        this.prev = Maybe.empty();
-        this.next = Maybe.empty();
+        this.list = Nullable.empty();
+        this.prev = Nullable.empty();
+        this.next = Nullable.empty();
     }
 }
 
 class LinkedListIterator<T> {
-    var current:Maybe<LinkedListNode<T>>;
+    var current:Nullable<LinkedListNode<T>>;
 
     @:allow(extype.LinkedList)
-    function new(firstNode:Maybe<LinkedListNode<T>>) {
+    function new(firstNode:Nullable<LinkedListNode<T>>) {
         this.current = firstNode;
     }
 

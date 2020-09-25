@@ -4,156 +4,156 @@ import haxe.ds.Option;
 import buddy.BuddySuite;
 import utest.Assert;
 
-class MaybeSuite extends BuddySuite {
+class NullableSuite extends BuddySuite {
     public function new() {
-        describe("Maybe cast", {
+        describe("Nullable cast", {
             it("should be any value", {
-                final a: Maybe<Int> = 1;
+                final a: Nullable<Int> = 1;
                 Assert.isTrue(a.nonEmpty());
                 Assert.equals(1, a.get());
             });
 
             it("should be empty value", {
-                final a: Maybe<Int> = null;
+                final a: Nullable<Int> = null;
                 Assert.isTrue(a.isEmpty());
             });
         });
 
-        describe("Maybe operator", {
+        describe("Nullable operator", {
             it("should pass", {
-                final a: Maybe<String> = "test";
-                final b: Maybe<String> = "test";
-                final c: Maybe<String> = "hoge";
+                final a: Nullable<String> = "test";
+                final b: Nullable<String> = "test";
+                final c: Nullable<String> = "hoge";
 
                 Assert.isTrue(a == b);
                 Assert.isFalse(a == c);
-                Assert.isFalse(a == Maybe.empty());
+                Assert.isFalse(a == Nullable.empty());
                 Assert.isTrue(a == "test");
             });
         });
 
-        describe("Maybe from", {
+        describe("Nullable from", {
             it("should convert to value", {
-                Assert.equals(1, (1: Maybe<Int>).get());
+                Assert.equals(1, (1: Nullable<Int>).get());
             });
             it("should convert to null", {
-                Assert.isTrue((null: Maybe<Int>).isEmpty());
+                Assert.isTrue((null: Nullable<Int>).isEmpty());
                 #if js
-                Assert.isTrue((js.Lib.undefined: Maybe<Int>).isEmpty());
+                Assert.isTrue((js.Lib.undefined: Nullable<Int>).isEmpty());
                 #end
             });
         });
 
-        describe("Maybe.just()", {
+        describe("Nullable.just()", {
             it("can convert value", {
-                Assert.equals(1, Maybe.just(1).get());
+                Assert.equals(1, Nullable.just(1).get());
             });
             it("can convert null", {
-                Assert.isTrue(Maybe.just(null).isEmpty());
+                Assert.isTrue(Nullable.just(null).isEmpty());
                 #if js
-                Assert.isTrue(Maybe.just(js.Lib.undefined).isEmpty());
+                Assert.isTrue(Nullable.just(js.Lib.undefined).isEmpty());
                 #end
             });
         });
 
-        describe("Maybe.empty()", {
+        describe("Nullable.empty()", {
             it("should be success", {
-                Assert.isTrue(Maybe.empty().isEmpty());
+                Assert.isTrue(Nullable.empty().isEmpty());
             });
         });
 
-        describe("Maybe#get()", {
+        describe("Nullable#get()", {
             it("should return value", {
-                Assert.equals(1, Maybe.just(1).get());
+                Assert.equals(1, Nullable.just(1).get());
             });
             it("should return null", {
-                final x = (Maybe.empty(): Maybe<Int>).get();
+                final x = (Nullable.empty(): Nullable<Int>).get();
                 Assert.isTrue(x == null);
             });
         });
 
-        describe("Maybe#getUnsafe()", {
+        describe("Nullable#getUnsafe()", {
             it("should return value", {
-                Assert.equals(1, Maybe.just(1).getUnsafe());
+                Assert.equals(1, Nullable.just(1).getUnsafe());
             });
             it("should return null", {
-                Assert.equals(null, (Maybe.empty(): Maybe<String>).getUnsafe());
+                Assert.equals(null, (Nullable.empty(): Nullable<String>).getUnsafe());
             });
         });
 
-        describe("Maybe#getOrThrow()", {
+        describe("Nullable#getOrThrow()", {
             it("should be success", {
-                Assert.equals(1, Maybe.just(1).getOrThrow());
-                Assert.equals(2, Maybe.just(2).getOrThrow(() -> new MyException()));
+                Assert.equals(1, Nullable.just(1).getOrThrow());
+                Assert.equals(2, Nullable.just(2).getOrThrow(() -> new MyException()));
             });
             it("should be failure", {
                 Assert.raises(() -> {
-                    Maybe.empty().getOrThrow();
+                    Nullable.empty().getOrThrow();
                     return;
                 }, NoDataException);
                 Assert.raises(() -> {
-                    Maybe.empty().getOrThrow(() -> new MyException());
+                    Nullable.empty().getOrThrow(() -> new MyException());
                     return;
                 }, MyException);
             });
         });
 
-        describe("Maybe#getOrElse()", {
+        describe("Nullable#getOrElse()", {
             it("should return value", {
-                Assert.equals(1, Maybe.just(1).getOrElse(-5));
+                Assert.equals(1, Nullable.just(1).getOrElse(-5));
             });
             it("should return alt value", {
-                Assert.equals(-5, Maybe.empty().getOrElse(-5));
+                Assert.equals(-5, Nullable.empty().getOrElse(-5));
             });
         });
 
-        describe("Maybe#orElse()", {
+        describe("Nullable#orElse()", {
             it("should return value", {
-                Assert.equals(1, Maybe.just(1).orElse(Maybe.just(-5)));
+                Assert.equals(1, Nullable.just(1).orElse(Nullable.just(-5)));
             });
             it("should return alt value", {
-                Assert.equals(-5, Maybe.empty().orElse(Maybe.just(-5)));
+                Assert.equals(-5, Nullable.empty().orElse(Nullable.just(-5)));
             });
         });
 
-        describe("Maybe#isEmpty()", {
+        describe("Nullable#isEmpty()", {
             it("should be true", {
-                Assert.isTrue(Maybe.empty().isEmpty());
+                Assert.isTrue(Nullable.empty().isEmpty());
             });
             it("should be false", {
-                Assert.isFalse(Maybe.just(1).isEmpty());
+                Assert.isFalse(Nullable.just(1).isEmpty());
             });
         });
 
-        describe("Maybe#nonEmpty()", {
+        describe("Nullable#nonEmpty()", {
             it("should be true", {
-                Assert.isTrue(Maybe.just(1).nonEmpty());
+                Assert.isTrue(Nullable.just(1).nonEmpty());
             });
             it("should be false", {
-                Assert.isFalse(Maybe.empty().nonEmpty());
+                Assert.isFalse(Nullable.empty().nonEmpty());
             });
         });
 
-        describe("Maybe#iter()", {
+        describe("Nullable#iter()", {
             it("should call", {
                 var count = 0;
-                Maybe.just(1).iter(x -> {
+                Nullable.just(1).iter(x -> {
                     Assert.equals(1, x);
                     count++;
                 });
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().iter(x -> {
+                Nullable.empty().iter(x -> {
                     fail();
                 });
             });
         });
 
-        describe("Maybe#foreach()", {
+        describe("Nullable#foreach()", {
             it("should pass when function returns false", {
                 var count = 0;
-                Maybe.just(1).foreach(x -> {
+                Nullable.just(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return false;
@@ -162,7 +162,7 @@ class MaybeSuite extends BuddySuite {
             });
             it("should pass when function returns true", {
                 var count = 0;
-                Maybe.just(1).foreach(x -> {
+                Nullable.just(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return true;
@@ -170,17 +170,17 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().foreach(x -> {
+                Nullable.empty().foreach(x -> {
                     fail();
                     return false;
                 });
             });
         });
 
-        describe("Maybe#map()", {
+        describe("Nullable#map()", {
             it("should call", {
                 var count = 0;
-                final ret = Maybe.just(1).map(x -> {
+                final ret = Nullable.just(1).map(x -> {
                     Assert.equals(1, x);
                     count++;
                     x + 1;
@@ -189,40 +189,40 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should not call", {
-                Maybe.empty().map(x -> {
+                Nullable.empty().map(x -> {
                     fail();
                     x;
                 });
             });
         });
 
-        describe("Maybe#flatMap()", {
+        describe("Nullable#flatMap()", {
             it("should call", {
                 var count = 0;
-                final ret = Maybe.just(1).flatMap(x -> {
+                final ret = Nullable.just(1).flatMap(x -> {
                     Assert.equals(1, x);
                     count++;
-                    Maybe.just(x + 1);
+                    Nullable.just(x + 1);
                 });
                 Assert.equals(2, ret);
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Maybe.just(1).flatMap(x -> Maybe.empty());
+                final ret = Nullable.just(1).flatMap(x -> Nullable.empty());
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
-                Maybe.empty().flatMap(x -> {
+                Nullable.empty().flatMap(x -> {
                     fail();
                     x;
                 });
             });
         });
 
-        describe("Maybe#filter()", {
+        describe("Nullable#filter()", {
             it("should call and be some value", {
                 var count = 0;
-                final ret = Maybe.just(1).filter(x -> {
+                final ret = Nullable.just(1).filter(x -> {
                     Assert.equals(1, x);
                     count++;
                     true;
@@ -231,27 +231,27 @@ class MaybeSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Maybe.just(1).filter(x -> false);
+                final ret = Nullable.just(1).filter(x -> false);
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
-                Maybe.empty().filter(x -> {
+                Nullable.empty().filter(x -> {
                     fail();
                     x;
                 });
             });
         });
 
-        describe("Maybe#fold()", {
+        describe("Nullable#fold()", {
             it("should call ifEmpty", {
-                final ret = Maybe.empty().fold(
+                final ret = Nullable.empty().fold(
                     () -> -1,
                     x -> x * 3
                 );
                 Assert.equals(-1, ret);
             });
             it("should call fn", {
-                final ret = Maybe.just(1).fold(
+                final ret = Nullable.just(1).fold(
                     () -> -1,
                     x -> x * 3
                 );
@@ -259,9 +259,9 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
-        describe("Maybe#match()", {
+        describe("Nullable#match()", {
             it("should call fn", done ->{
-                Maybe.just(10).match(
+                Nullable.just(10).match(
                     x -> {
                         Assert.equals(10, x);
                         done();
@@ -270,30 +270,30 @@ class MaybeSuite extends BuddySuite {
                 );
             });
             it("should call ifEmpty", done -> {
-                Maybe.empty().match(
+                Nullable.empty().match(
                     x -> fail(),
                     () -> done()
                 );
             });
         });
 
-        describe("Maybe#toOption()", {
+        describe("Nullable#toOption()", {
             it("should be Some(v)", {
-                Assert.same(Some(1), Maybe.just(1).toOption());
-                Assert.same(Some(1), (Maybe.just(1): Option<Int>));
+                Assert.same(Some(1), Nullable.just(1).toOption());
+                Assert.same(Some(1), (Nullable.just(1): Option<Int>));
             });
             it("should be None", {
-                Assert.same(None, Maybe.empty().toOption());
-                Assert.same(None, (Maybe.empty(): Option<Int>));
+                Assert.same(None, Nullable.empty().toOption());
+                Assert.same(None, (Nullable.empty(): Option<Int>));
             });
         });
 
-        describe("Maybe.fromOption()", {
-            it("should be Maybe.just(v)", {
-                Assert.equals(1, Maybe.fromOption(Some(1)));
+        describe("Nullable.fromOption()", {
+            it("should be Nullable.just(v)", {
+                Assert.equals(1, Nullable.fromOption(Some(1)));
             });
-            it("should be Maybe.empty()", {
-                Assert.equals(Maybe.empty(), Maybe.fromOption(None));
+            it("should be Nullable.empty()", {
+                Assert.equals(Nullable.empty(), Nullable.fromOption(None));
             });
         });
     }

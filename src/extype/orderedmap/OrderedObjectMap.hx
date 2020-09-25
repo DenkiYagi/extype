@@ -44,7 +44,7 @@ class OrderedObjectMap<K:{}, V> implements IOrderedMap<K, V> {
         #if js
         return map.get(key);
         #else
-        final node = Maybe.of(map.get(key));
+        final node = Nullable.of(map.get(key));
         return node.map(x -> x.value.value2).get();
         #end
     }

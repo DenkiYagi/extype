@@ -2,16 +2,16 @@ package extype;
 
 import haxe.ds.Option;
 
-abstract Maybe<T>(Null<T>) {
+abstract Nullable<T>(Null<T>) {
     inline function new(x:Null<T>) {
         this = x;
     }
 
     @:from
-    public static inline function fromOption<T>(x:Option<T>):Maybe<T> {
+    public static inline function fromOption<T>(x:Option<T>):Nullable<T> {
         return switch (x) {
-            case Some(v): Maybe.of(v);
-            case None: Maybe.empty();
+            case Some(v): Nullable.of(v);
+            case None: Nullable.empty();
         }
     }
 
@@ -25,16 +25,16 @@ abstract Maybe<T>(Null<T>) {
     }
 
     // should use just()
-    public static inline function of<T>(x:T):Maybe<T> {
+    public static inline function of<T>(x:T):Nullable<T> {
         return just(x);
     }
 
     @:from
-    public static inline function just<T>(x:T):Maybe<T> {
-        return new Maybe(x);
+    public static inline function just<T>(x:T):Nullable<T> {
+        return new Nullable(x);
     }
 
-    public static inline function empty<T>():Maybe<T> {
+    public static inline function empty<T>():Nullable<T> {
         #if js
         return js.Lib.undefined;
         #else
@@ -65,9 +65,9 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function orElse(x:Maybe<T>):Maybe<T> {
+    public inline function orElse(x:Nullable<T>):Nullable<T> {
         return if (nonEmpty()) {
-            Maybe.of(this);
+            Nullable.of(this);
         } else {
             x;
         }
@@ -89,7 +89,7 @@ abstract Maybe<T>(Null<T>) {
         if (nonEmpty()) fn(this);
     }
 
-    public inline function map<U>(fn:(value:T) -> U):Maybe<U> {
+    public inline function map<U>(fn:(value:T) -> U):Nullable<U> {
         return if (nonEmpty()) {
             fn(this);
         } else {
@@ -97,7 +97,7 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function flatMap<U>(fn:(value:T) -> Maybe<U>):Maybe<U> {
+    public inline function flatMap<U>(fn:(value:T) -> Nullable<U>):Nullable<U> {
         return if (nonEmpty()) {
             fn(this);
         } else {
@@ -105,7 +105,7 @@ abstract Maybe<T>(Null<T>) {
         }
     }
 
-    public inline function filter(fn:(value:T) -> Bool):Maybe<T> {
+    public inline function filter(fn:(value:T) -> Bool):Nullable<T> {
         return if (nonEmpty() && fn(this)) {
             this;
         } else {

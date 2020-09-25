@@ -27,7 +27,7 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
         Returns the current mapping of `key`.
     **/
     public inline function get(key:K):Null<V> {
-        final node = Maybe.of(map.get(key));
+        final node = Nullable.of(map.get(key));
         return node.map(x -> x.value.value2).get();
     }
 

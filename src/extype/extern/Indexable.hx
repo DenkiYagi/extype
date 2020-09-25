@@ -3,7 +3,7 @@ package extype.extern;
 @:forward
 abstract Indexable<TObject:{}, TValue>(TObject) from TObject to TObject {
     @:arrayAccess
-    inline function get(field:String):Maybe<TValue> {
+    inline function get(field:String):Nullable<TValue> {
         #if js
         return js.Syntax.code("{0}[{1}]", this, field);
         #else
@@ -12,7 +12,7 @@ abstract Indexable<TObject:{}, TValue>(TObject) from TObject to TObject {
     }
 
     @:op(a.b)
-    inline function getByDotAccess(field:String):Maybe<TValue> {
+    inline function getByDotAccess(field:String):Nullable<TValue> {
         return get(field);
     }
 
