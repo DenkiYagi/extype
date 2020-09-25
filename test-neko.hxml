@@ -1,2 +1,3 @@
+.base-test.hxml
 --neko .out/neko.n
 -cmd neko .out/neko.n
