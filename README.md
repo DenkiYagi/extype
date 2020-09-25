@@ -24,11 +24,14 @@ haxelib install extype
 ### Unit
 `Unit` is a type that indicates no value.
 
+### Nullable
+`Nullable<T>` is a wrapper type that can either have a value or null.
+
 ### Maybe
-`Maybe<T>` is a wrapper type that can either have a value or null.
+`Maybe<T>` is a wrapper type that can either have a value or none. `Maybe<T>` looks like `haxe.ds.Option<T>`, but be annotatted the Default Static Extension (`@:using(extype.tools.MaybeTools)`).
 
 ### Result
-`Result<T>` is a wrapper type that can either have a value or error.
+`Result<T, E>` is a wrapper type that can either have a value or an error. `Result<T, E>` looks like `haxe.ds.Either<A,B>`, but be annotatted the Default Static Extension (`@:using(extype.tools.ResultTools)`).
 
 ### Tuple2 - Tuple10
 `Tuple[2-10]` can hold any values of several different types.
@@ -130,3 +133,11 @@ typedef PropertyOption = {
 
 ### **{{ Experimental }}** Indexable&lt;TObject, TValue&gt;
 `Indexable<TObject, TValue>` is a type that likes as `haxe.DynamicAccess<TValue>`. But `Indexable<TObject, TValue>` is different in that can access `TObject`'s field.
+
+
+# Breaking changes from v2.x
+
+* [rename] `Maybe<T>` (v2) -> `Nullable<T>` (v3)
+* [remove] `Result<T>` (v2)
+* [add] `Maybe<T>` (v3)
+* [add] `Result<T, E>` (v3)
