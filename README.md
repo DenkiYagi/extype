@@ -100,14 +100,6 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 * `NoDataException`
 * `NotImplementedException`
 
-## extype.iterator
-### TransformIterator
-`TransformIterator` wraps another iterator and can iterate over elements these are applied transform function.
-
-## extype.iterator.js
-### IteratorAdapter and KeyValueIteratorAdapter
-`IteratorAdapter` and `KeyValueIteratorAdapter` can wrap `js.lib.Iterator` as Haxe's iterator.
-
 ## extype.extern
 ### Mixed2 - Mixed10
 `Mixed[2-10]` can have a value of several different types.
