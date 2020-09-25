@@ -46,11 +46,9 @@ abstract Nullable<T>(Null<T>) {
         return this;
     }
 
-    #if !target.static
     public inline function getUnsafe():T {
         return this;
     }
-    #end
 
     public inline function getOrThrow(?errorFn:() -> Dynamic):T {
         if (isEmpty()) {

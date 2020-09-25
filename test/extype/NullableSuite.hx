@@ -70,7 +70,6 @@ class NullableSuite extends BuddySuite {
             });
         });
 
-        #if !target.static
         describe("Nullable#getUnsafe()", {
             it("should return value", {
                 Assert.equals(1, Nullable.just(1).getUnsafe());
@@ -79,7 +78,6 @@ class NullableSuite extends BuddySuite {
                 Assert.equals(null, (Nullable.empty(): Nullable<String>).getUnsafe());
             });
         });
-        #end
 
         describe("Nullable#getOrThrow()", {
             it("should be success", {
