@@ -1,8 +1,2 @@
--main Main
--cp src
--cp test
--lib buddy
--lib utest
+.base-test.hxml
 --interp
--D buddy-colors
--dce full

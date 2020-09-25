@@ -35,6 +35,7 @@ jobs:
         haxelib install utest
         haxelib install hxnodejs
         haxelib install hxcpp
+        haxelib install hxjava
     - name: Run test - JS
       run: haxe test-js.hxml
     - name: Run test - eval
@@ -43,4 +44,7 @@ jobs:
       run: haxe test-neko.hxml
     - name: Run test - C++
       run: haxe test-cpp.hxml
-
+    - name: Run test - Java
+      run: haxe test-java.hxml
+    - name: Run test - jvm
+      run: haxe test-jvm.hxml

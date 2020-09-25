@@ -1,0 +1,3 @@
+.base-test.hxml
+--java .out/java
+-cmd java -jar .out/java/TestMain.jar

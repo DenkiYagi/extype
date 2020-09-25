@@ -1,0 +1,5 @@
+.base.hxml
+-main Main
+-D buddy-colors
+-D analyzer-optimize
+-dce full

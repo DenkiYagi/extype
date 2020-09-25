@@ -1,11 +1,8 @@
--main Main
--cp src
--cp test
--lib buddy
--lib utest
-#--interp
-#-js dist/dummy.js
--neko dist/dummy.n
+.base.html
+--macro include("extype", true)
 --no-output
 --no-opt
 --no-inline
+-js dummy.js
+#-neko dummy.n
+#--interp
