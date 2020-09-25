@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "classPath": "src/",
-    "releasenote": "Update `extype.Maybe` and make `extype.Error` `@:deprecated`.",
+    "releasenote": "Change `Maybe.getOrThrow()` to accept `Dynamic` error value.",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
