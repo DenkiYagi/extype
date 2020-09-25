@@ -91,11 +91,11 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 ### ReadOnlyMap
 `ReadOnlyMap<K, V>` is a read-only `Map<K, V>`.
 
-### Error
-`Error` represents the application errors. In JavaScript, `Error` is the same as `js.Error`.
+### Exception
+`Exception` represents the application errors. `Exception` is the same as `haxe.Exception`.
 
-* `NoDataError`
-* `NotImplementedError`
+* `NoDataException`
+* `NotImplementedException`
 
 ## extype.iterator
 ### TransformIterator
