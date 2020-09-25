@@ -1,9 +1,5 @@
 package extype;
 
-import haxe.ds.Option;
-import buddy.BuddySuite;
-import utest.Assert;
-
 class LinkedListSuite extends BuddySuite {
     public function new() {
         describe("LinkedList", {

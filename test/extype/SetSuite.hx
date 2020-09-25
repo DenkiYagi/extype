@@ -1,13 +1,10 @@
 package extype;
 
-import buddy.BuddySuite;
-import utest.Assert;
 import haxe.ds.Option;
 import extype.set.StringSet;
 import extype.set.IntSet;
 import extype.set.EnumValueSet;
 import extype.set.ObjectSet;
-using buddy.Should;
 
 class SetSuite extends BuddySuite {
     public function new() {

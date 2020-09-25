@@ -1,8 +1,6 @@
 package extype;
 
 import haxe.ds.Option;
-import buddy.BuddySuite;
-import utest.Assert;
 
 class NullableSuite extends BuddySuite {
     public function new() {

@@ -1,10 +1,5 @@
 package extype;
 
-import buddy.BuddySuite;
-import buddy.CompilationShould;
-import utest.Assert;
-using buddy.Should;
-
 class ReadOnlyMapSuite extends BuddySuite {
     public function new() {
         describe("ReadOnlyMap", {

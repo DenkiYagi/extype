@@ -1,22 +1,19 @@
 package extype;
 
-import buddy.BuddySuite;
-import utest.Assert;
-
 class ReadOnlyDynamicSuite extends BuddySuite {
     public function new() {
         describe("ReadOnlyDynamic from", {
             it("should cast from Dynamic<T>", {
                 final src = ({}: Dynamic<Int>);
                 src.age = 1;
-                
+
                 final d: ReadOnlyDynamic<Int> = src;
                 Assert.equals(1, d.age);
             });
 
             it("should cast from anonymous structure", {
                 final src = { age: 2 };
-                
+
                 final d: ReadOnlyDynamic<Int> = src;
                 Assert.equals(2, d.age);
             });

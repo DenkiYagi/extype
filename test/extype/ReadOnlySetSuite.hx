@@ -1,9 +1,5 @@
 package extype;
 
-import buddy.BuddySuite;
-import buddy.CompilationShould;
-import utest.Assert;
-
 class ReadOnlySetSuite extends BuddySuite {
     public function new() {
         describe("ReadOnlySet", {

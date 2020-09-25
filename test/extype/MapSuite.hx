@@ -1,13 +1,10 @@
 package extype;
 
-import buddy.BuddySuite;
-import utest.Assert;
 import haxe.ds.Option;
 import extype.map.StringMap;
 import extype.map.IntMap;
 import extype.map.EnumValueMap;
 import extype.map.ObjectMap;
-using buddy.Should;
 
 class MapSuite extends BuddySuite {
     public function new() {

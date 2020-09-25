@@ -1,7 +1,5 @@
 package extype;
 
-import buddy.BuddySuite;
-import utest.Assert;
 import haxe.ds.Option;
 import extype.orderedset.OrderedStringSet;
 import extype.orderedset.OrderedIntSet;
