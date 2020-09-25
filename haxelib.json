@@ -1,6 +1,6 @@
 {
     "name": "extype",
-    "url": "https://github.com/DenkiYagi/haxe-extype",
+    "url": "https://github.com/DenkiYagi/extype",
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
