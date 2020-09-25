@@ -1,8 +1,4 @@
 package extype;
 
-class NotImplementedError extends Error {
-    public function new(message:String = "not implemented") {
-        super(message);
-        this.name = "NotImplementedError";
-    }
-}
+@:deprecated("extype.NotImplementedError is deprecated. Please use extype.NotImplementedException instead.")
+typedef NotImplementedError = NotImplementedException;

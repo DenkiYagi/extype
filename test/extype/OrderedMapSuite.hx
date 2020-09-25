@@ -250,10 +250,6 @@ class OrderedMapSuite extends BuddySuite {
 
             describe("OrderedMap.of()", {
                 it("should create OrderedIntMap", {
-                    final m = new OrderedMap();
-                    m.set("", 1);
-
-
                     final map = OrderedMap.of([1 => "abc", 2 => "xyz"]);
                     Assert.isOfType(map, OrderedIntMap);
                     Assert.equals(2, map.length);

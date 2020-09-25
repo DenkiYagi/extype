@@ -1,8 +1,4 @@
 package extype;
 
-class NoDataError extends Error {
-    public function new(message:String = "no data") {
-        super(message);
-        // this.name = "NoDataError";
-    }
-}
+@:deprecated("extype.NoDataError is deprecated. Please use extype.NoDataException instead.")
+typedef NoDataError = NoDataException;
