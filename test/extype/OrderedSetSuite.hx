@@ -230,7 +230,7 @@ class OrderedSetSuite extends BuddySuite {
             describe("OrderedSet.of()", {
                 it("should create OrderedIntSet", {
                     final set = OrderedSet.of([1, 2]);
-                    Assert.is(set, OrderedIntSet);
+                    Assert.isOfType(set, OrderedIntSet);
                     Assert.equals(2, set.length);
                     Assert.isTrue(set.exists(1));
                     Assert.isTrue(set.exists(2));
@@ -239,7 +239,7 @@ class OrderedSetSuite extends BuddySuite {
 
                 it("should create OrderedStringSet", {
                     final set = OrderedSet.of(["key1", "key2"]);
-                    Assert.is(set, OrderedStringSet);
+                    Assert.isOfType(set, OrderedStringSet);
                     Assert.equals(2, set.length);
                     Assert.isTrue(set.exists("key1"));
                     Assert.isTrue(set.exists("key1"));
@@ -248,7 +248,7 @@ class OrderedSetSuite extends BuddySuite {
 
                 it("should create OrderedEnumValueSet", {
                     final set = OrderedSet.of([Some(1), Some(2)]);
-                    Assert.is(set, OrderedEnumValueSet);
+                    Assert.isOfType(set, OrderedEnumValueSet);
                     Assert.equals(2, set.length);
                     Assert.isTrue(set.exists(Some(1)));
                     Assert.isTrue(set.exists(Some(2)));
@@ -259,7 +259,7 @@ class OrderedSetSuite extends BuddySuite {
                     final key1 = {key: 1};
                     final key2 = {key: 2};
                     final set = OrderedSet.of([key1, key2]);
-                    Assert.is(set, OrderedObjectSet);
+                    Assert.isOfType(set, OrderedObjectSet);
                     Assert.equals(2, set.length);
                     Assert.isTrue(set.exists(key1));
                     Assert.isTrue(set.exists(key2));

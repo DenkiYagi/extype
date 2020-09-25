@@ -243,7 +243,7 @@ class SetSuite extends BuddySuite {
             describe("Set.of()", {
                 it("should create IntSet", {
                     final map = Set.of([1, 2]);
-                    Assert.is(map, IntSet);
+                    Assert.isOfType(map, IntSet);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(1));
                     Assert.isTrue(map.exists(2));
@@ -251,7 +251,7 @@ class SetSuite extends BuddySuite {
 
                 it("should create StringSet", {
                     final map = Set.of(["key1", "key2"]);
-                    Assert.is(map, StringSet);
+                    Assert.isOfType(map, StringSet);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists("key1"));
                     Assert.isTrue(map.exists("key1"));
@@ -259,7 +259,7 @@ class SetSuite extends BuddySuite {
 
                 it("should create EnumValueSet", {
                     final map = Set.of([Some(1), Some(2)]);
-                    Assert.is(map, EnumValueSet);
+                    Assert.isOfType(map, EnumValueSet);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(Some(1)));
                     Assert.isTrue(map.exists(Some(2)));
@@ -269,7 +269,7 @@ class SetSuite extends BuddySuite {
                     final key1 = {key: 1};
                     final key2 = {key: 2};
                     final map = Set.of([key1, key2]);
-                    Assert.is(map, ObjectSet);
+                    Assert.isOfType(map, ObjectSet);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(key1));
                     Assert.isTrue(map.exists(key2));

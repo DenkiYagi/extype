@@ -263,7 +263,7 @@ class MapSuite extends BuddySuite {
             describe("Map.of()", {
                 it("should create IntMap", {
                     final map = Map.of([1 => "abc", 2 => "xyz"]);
-                    Assert.is(map, IntMap);
+                    Assert.isOfType(map, IntMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(1));
                     Assert.equals("abc", map.get(1));
@@ -273,7 +273,7 @@ class MapSuite extends BuddySuite {
 
                 it("should create StringMap", {
                     final map = Map.of(["key1" => "abc", "key2" => "xyz"]);
-                    Assert.is(map, StringMap);
+                    Assert.isOfType(map, StringMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists("key1"));
                     Assert.equals("abc", map.get("key1"));
@@ -283,7 +283,7 @@ class MapSuite extends BuddySuite {
 
                 it("should create EnumValueMap", {
                     final map = Map.of([Some(1) => "abc", Some(2) => "xyz"]);
-                    Assert.is(map, EnumValueMap);
+                    Assert.isOfType(map, EnumValueMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(Some(1)));
                     Assert.equals("abc", map.get(Some(1)));
@@ -295,7 +295,7 @@ class MapSuite extends BuddySuite {
                     final key1 = {key: 1};
                     final key2 = {key: 2};
                     final map = Map.of([key1 => "abc", key2 => "xyz"]);
-                    Assert.is(map, ObjectMap);
+                    Assert.isOfType(map, ObjectMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(key1));
                     Assert.equals("abc", map.get(key1));

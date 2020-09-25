@@ -250,8 +250,12 @@ class OrderedMapSuite extends BuddySuite {
 
             describe("OrderedMap.of()", {
                 it("should create OrderedIntMap", {
+                    final m = new OrderedMap();
+                    m.set("", 1);
+
+
                     final map = OrderedMap.of([1 => "abc", 2 => "xyz"]);
-                    Assert.is(map, OrderedIntMap);
+                    Assert.isOfType(map, OrderedIntMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(1));
                     Assert.equals("abc", map.get(1));
@@ -262,7 +266,7 @@ class OrderedMapSuite extends BuddySuite {
 
                 it("should create OrderedStringMap", {
                     final map = OrderedMap.of(["key1" => "abc", "key2" => "xyz"]);
-                    Assert.is(map, OrderedStringMap);
+                    Assert.isOfType(map, OrderedStringMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists("key1"));
                     Assert.equals("abc", map.get("key1"));
@@ -273,7 +277,7 @@ class OrderedMapSuite extends BuddySuite {
 
                 it("should create OrderedEnumValueMap", {
                     final map = OrderedMap.of([Some(1) => "abc", Some(2) => "xyz"]);
-                    Assert.is(map, OrderedEnumValueMap);
+                    Assert.isOfType(map, OrderedEnumValueMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(Some(1)));
                     Assert.equals("abc", map.get(Some(1)));
@@ -286,7 +290,7 @@ class OrderedMapSuite extends BuddySuite {
                     final key1 = {key: 1};
                     final key2 = {key: 2};
                     final map = OrderedMap.of([key1 => "abc", key2 => "xyz"]);
-                    Assert.is(map, OrderedObjectMap);
+                    Assert.isOfType(map, OrderedObjectMap);
                     Assert.equals(2, map.length);
                     Assert.isTrue(map.exists(key1));
                     Assert.equals("abc", map.get(key1));
