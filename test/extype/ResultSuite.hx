@@ -198,17 +198,19 @@ class ResultSuite extends BuddySuite {
         });
 
         describe("Result.iter()", {
-            it("should pass", done -> {
+            it("should call callback", done -> {
                 Success(1).iter(x -> {
                     x.should.be(1);
                     done();
                 });
+            });
+            it("should never call callback", {
                 Failure(1).iter(x -> fail());
             });
         });
 
         describe("Result.match()", {
-            it("should pass", done -> {
+            it("should call ifSuccess", done -> {
                 Success(1).match(
                     x -> {
                         x.should.be(1);
@@ -216,6 +218,9 @@ class ResultSuite extends BuddySuite {
                     },
                     x -> fail()
                 );
+            });
+
+            it("should call ifFailure", done -> {
                 Failure(1).match(
                     x -> fail(),
                     x -> {
