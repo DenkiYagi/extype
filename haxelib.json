@@ -4,7 +4,7 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "classPath": "src/",
     "releasenote": "SEE https://github.com/DenkiYagi/extype#breaking-changes-from-v2x",
     "contributors": ["denkiyagi"],
