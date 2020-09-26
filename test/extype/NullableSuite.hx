@@ -5,40 +5,28 @@ import haxe.ds.Option;
 class NullableSuite extends BuddySuite {
     public function new() {
         describe("Nullable cast", {
-            it("should be any value", {
-                final a: Nullable<Int> = 1;
+            it("should cast from a value", {
+                final a:Nullable<Int> = 1;
                 Assert.isTrue(a.nonEmpty());
                 Assert.equals(1, a.get());
             });
 
-            it("should be empty value", {
-                final a: Nullable<Int> = null;
+            it("should cast from null", {
+                final a:Nullable<Int> = null;
                 Assert.isTrue(a.isEmpty());
             });
         });
 
         describe("Nullable operator", {
             it("should pass", {
-                final a: Nullable<String> = "test";
-                final b: Nullable<String> = "test";
-                final c: Nullable<String> = "hoge";
+                final a:Nullable<String> = "test";
+                final b:Nullable<String> = "test";
+                final c:Nullable<String> = "hoge";
 
                 Assert.isTrue(a == b);
                 Assert.isFalse(a == c);
                 Assert.isFalse(a == Nullable.empty());
                 Assert.isTrue(a == "test");
-            });
-        });
-
-        describe("Nullable from", {
-            it("should convert to value", {
-                Assert.equals(1, (1: Nullable<Int>).get());
-            });
-            it("should convert to null", {
-                Assert.isTrue((null: Nullable<Int>).isEmpty());
-                #if js
-                Assert.isTrue((js.Lib.undefined: Nullable<Int>).isEmpty());
-                #end
             });
         });
 
@@ -57,6 +45,46 @@ class NullableSuite extends BuddySuite {
         describe("Nullable.empty()", {
             it("should be success", {
                 Assert.isTrue(Nullable.empty().isEmpty());
+            });
+        });
+
+        describe("Nullable#toMaybe()", {
+            it("should be Some(v)", {
+                Assert.same(Maybe.Some(1), Nullable.of(1).toMaybe());
+                Assert.same(Maybe.Some(1), (Nullable.of(1): Maybe<Int>));
+            });
+            it("should be None", {
+                Assert.same(Maybe.None, Nullable.empty().toMaybe());
+                Assert.same(Maybe.None, (Nullable.empty(): Maybe<Int>));
+            });
+        });
+
+        describe("Nullable.fromMaybe()", {
+            it("should be Nullable.of(v)", {
+                Assert.equals(1, Nullable.fromMaybe(Maybe.Some(1)));
+            });
+            it("should be Nullable.empty()", {
+                Assert.equals(Nullable.empty(), Nullable.fromMaybe(Maybe.None));
+            });
+        });
+
+        describe("Nullable#toOption()", {
+            it("should be Some(v)", {
+                Assert.same(Option.Some(1), Nullable.of(1).toOption());
+                Assert.same(Option.Some(1), (Nullable.of(1): Option<Int>));
+            });
+            it("should be None", {
+                Assert.same(Option.None, Nullable.empty().toOption());
+                Assert.same(Option.None, (Nullable.empty(): Option<Int>));
+            });
+        });
+
+        describe("Nullable.fromOption()", {
+            it("should be Nullable.of(v)", {
+                Assert.equals(1, Nullable.fromOption(Option.Some(1)));
+            });
+            it("should be Nullable.empty()", {
+                Assert.equals(Nullable.empty(), Nullable.fromOption(Option.None));
             });
         });
 
@@ -272,26 +300,6 @@ class NullableSuite extends BuddySuite {
                     x -> fail(),
                     () -> done()
                 );
-            });
-        });
-
-        describe("Nullable#toOption()", {
-            it("should be Some(v)", {
-                Assert.same(Some(1), Nullable.of(1).toOption());
-                Assert.same(Some(1), (Nullable.of(1): Option<Int>));
-            });
-            it("should be None", {
-                Assert.same(None, Nullable.empty().toOption());
-                Assert.same(None, (Nullable.empty(): Option<Int>));
-            });
-        });
-
-        describe("Nullable.fromOption()", {
-            it("should be Nullable.of(v)", {
-                Assert.equals(1, Nullable.fromOption(Some(1)));
-            });
-            it("should be Nullable.empty()", {
-                Assert.equals(Nullable.empty(), Nullable.fromOption(None));
             });
         });
     }

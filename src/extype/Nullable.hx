@@ -8,7 +8,28 @@ abstract Nullable<T>(Null<T>) {
     }
 
     @:from
-    public static inline function fromOption<T>(x:Option<T>):Nullable<T> {
+    public static inline function of<T>(x:T):Nullable<T> {
+        return new Nullable(x);
+    }
+
+    public static inline function empty<T>():Nullable<T> {
+        #if js
+        return js.Lib.undefined;
+        #else
+        return null;
+        #end
+    }
+
+    @:to
+    public inline function toMaybe():Maybe<T> {
+        return if (nonEmpty()) {
+            Some(this);
+        } else {
+            None;
+        }
+    }
+
+    public static inline function fromMaybe<T>(x:Maybe<T>):Nullable<T> {
         return switch (x) {
             case Some(v): Nullable.of(v);
             case None: Nullable.empty();
@@ -24,17 +45,11 @@ abstract Nullable<T>(Null<T>) {
         }
     }
 
-    @:from
-    public static inline function of<T>(x:T):Nullable<T> {
-        return new Nullable(x);
-    }
-
-    public static inline function empty<T>():Nullable<T> {
-        #if js
-        return js.Lib.undefined;
-        #else
-        return null;
-        #end
+    public static inline function fromOption<T>(x:Option<T>):Nullable<T> {
+        return switch (x) {
+            case Some(v): Nullable.of(v);
+            case None: Nullable.empty();
+        }
     }
 
     public inline function get():Null<T> {
