@@ -90,6 +90,42 @@ class ResultTools {
         };
     }
 
+    public static inline function flatten<T, E>(result:Result<Result<T, E>, E>):Result<T, E> {
+        return switch (result) {
+            case Success(Success(a)): Success(a);
+            case Success(Failure(e)): Failure(e);
+            case Failure(e): Failure(e);
+        }
+    }
+
+    public static inline function exists<T, E>(result:Result<T, E>, value:T):Bool {
+        return switch (result) {
+            case Success(a) if (a == value): true;
+            case _: false;
+        }
+    }
+
+    public static inline function notExists<T, E>(result:Result<T, E>, value:T):Bool {
+        return switch (result) {
+            case Success(a) if (a == value): false;
+            case _: true;
+        }
+    }
+
+    public static inline function find<T, E>(result:Result<T, E>, fn:T->Bool):Bool {
+        return switch (result) {
+            case Success(a) if (fn(a)): true;
+            case _: false;
+        }
+    }
+
+    public static inline function filterOrElse<T, E>(result:Result<T, E>, fn:T->Bool, error:E):Result<T, E> {
+        return switch (result) {
+            case Success(a): fn(a) ? Success(a) : Failure(error);
+            case Failure(e): Failure(e);
+        }
+    }
+
     public static inline function fold<T, E, U>(result:Result<T, E>, fnSuccess:T->U, fnFailure:E->U):U {
         return switch (result) {
             case Success(v): fnSuccess(v);

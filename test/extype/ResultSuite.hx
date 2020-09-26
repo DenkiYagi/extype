@@ -150,6 +150,46 @@ class ResultSuite extends BuddySuite {
             });
         });
 
+        describe("Result.flatten()", {
+            it("should pass", {
+                Success(Success(1)).flatten().should.equal(Success(1));
+                Success(Failure("error")).flatten().should.equal(Failure("error"));
+                Failure("error").flatten().should.equal(Failure("error"));
+            });
+        });
+
+        describe("Result.exists()", {
+            it("should pass", {
+                Success(1).exists(1).should.be(true);
+                Success(1).exists(2).should.be(false);
+                Failure("error").exists(1).should.be(false);
+            });
+        });
+
+        describe("Result.notExists()", {
+            it("should pass", {
+                Success(1).notExists(1).should.be(false);
+                Success(1).notExists(2).should.be(true);
+                Failure("error").notExists(1).should.be(true);
+            });
+        });
+
+        describe("Result.find()", {
+            it("should pass", {
+                Success(1).find(x -> x == 1).should.be(true);
+                Success(1).find(x -> x == 2).should.be(false);
+                Failure("error").find(x -> x == 1).should.be(false);
+            });
+        });
+
+        describe("Result.filterOrElse()", {
+            it("should pass", {
+                Success(1).filterOrElse(x -> x == 1, "notfound").should.equal(Success(1));
+                Success(1).filterOrElse(x -> x == 2, "notfound").should.equal(Failure("notfound"));
+                Failure("error").filterOrElse(x -> x == 1, "notfound").should.equal(Failure("error"));
+            });
+        });
+
         describe("Result.fold()", {
             it("should pass", {
                 Success(1).fold(x -> x + 100, x -> x + 200).should.be(101);
