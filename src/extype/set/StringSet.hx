@@ -70,8 +70,8 @@ class StringSet implements ISet<String> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public inline function iterator():IteratorAdapter<String> {
-        return new IteratorAdapter(set.values());
+    public inline function iterator():js.lib.HaxeIterator<String> {
+        return new js.lib.HaxeIterator(set.values());
     }
     #else
     public inline function iterator():Iterator<String> {

@@ -42,14 +42,14 @@ class NullableSuite extends BuddySuite {
             });
         });
 
-        describe("Nullable.just()", {
+        describe("Nullable.of()", {
             it("can convert value", {
-                Assert.equals(1, Nullable.just(1).get());
+                Assert.equals(1, Nullable.of(1).get());
             });
             it("can convert null", {
-                Assert.isTrue(Nullable.just(null).isEmpty());
+                Assert.isTrue(Nullable.of(null).isEmpty());
                 #if js
-                Assert.isTrue(Nullable.just(js.Lib.undefined).isEmpty());
+                Assert.isTrue(Nullable.of(js.Lib.undefined).isEmpty());
                 #end
             });
         });
@@ -62,7 +62,7 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#get()", {
             it("should return value", {
-                Assert.equals(1, Nullable.just(1).get());
+                Assert.equals(1, Nullable.of(1).get());
             });
             it("should return null", {
                 final x = (Nullable.empty(): Nullable<Int>).get();
@@ -72,7 +72,7 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#getUnsafe()", {
             it("should return value", {
-                Assert.equals(1, Nullable.just(1).getUnsafe());
+                Assert.equals(1, Nullable.of(1).getUnsafe());
             });
             it("should return null", {
                 Assert.equals(null, (Nullable.empty(): Nullable<String>).getUnsafe());
@@ -81,8 +81,8 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#getOrThrow()", {
             it("should be success", {
-                Assert.equals(1, Nullable.just(1).getOrThrow());
-                Assert.equals(2, Nullable.just(2).getOrThrow(() -> new MyException()));
+                Assert.equals(1, Nullable.of(1).getOrThrow());
+                Assert.equals(2, Nullable.of(2).getOrThrow(() -> new MyException()));
             });
             it("should be failure", {
                 Assert.raises(() -> {
@@ -98,7 +98,7 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#getOrElse()", {
             it("should return value", {
-                Assert.equals(1, Nullable.just(1).getOrElse(-5));
+                Assert.equals(1, Nullable.of(1).getOrElse(-5));
             });
             it("should return alt value", {
                 Assert.equals(-5, Nullable.empty().getOrElse(-5));
@@ -107,10 +107,10 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#orElse()", {
             it("should return value", {
-                Assert.equals(1, Nullable.just(1).orElse(Nullable.just(-5)));
+                Assert.equals(1, Nullable.of(1).orElse(Nullable.of(-5)));
             });
             it("should return alt value", {
-                Assert.equals(-5, Nullable.empty().orElse(Nullable.just(-5)));
+                Assert.equals(-5, Nullable.empty().orElse(Nullable.of(-5)));
             });
         });
 
@@ -119,13 +119,13 @@ class NullableSuite extends BuddySuite {
                 Assert.isTrue(Nullable.empty().isEmpty());
             });
             it("should be false", {
-                Assert.isFalse(Nullable.just(1).isEmpty());
+                Assert.isFalse(Nullable.of(1).isEmpty());
             });
         });
 
         describe("Nullable#nonEmpty()", {
             it("should be true", {
-                Assert.isTrue(Nullable.just(1).nonEmpty());
+                Assert.isTrue(Nullable.of(1).nonEmpty());
             });
             it("should be false", {
                 Assert.isFalse(Nullable.empty().nonEmpty());
@@ -135,7 +135,7 @@ class NullableSuite extends BuddySuite {
         describe("Nullable#iter()", {
             it("should call", {
                 var count = 0;
-                Nullable.just(1).iter(x -> {
+                Nullable.of(1).iter(x -> {
                     Assert.equals(1, x);
                     count++;
                 });
@@ -151,7 +151,7 @@ class NullableSuite extends BuddySuite {
         describe("Nullable#foreach()", {
             it("should pass when function returns false", {
                 var count = 0;
-                Nullable.just(1).foreach(x -> {
+                Nullable.of(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return false;
@@ -160,7 +160,7 @@ class NullableSuite extends BuddySuite {
             });
             it("should pass when function returns true", {
                 var count = 0;
-                Nullable.just(1).foreach(x -> {
+                Nullable.of(1).foreach(x -> {
                     Assert.equals(1, x);
                     count++;
                     return true;
@@ -178,7 +178,7 @@ class NullableSuite extends BuddySuite {
         describe("Nullable#map()", {
             it("should call", {
                 var count = 0;
-                final ret = Nullable.just(1).map(x -> {
+                final ret = Nullable.of(1).map(x -> {
                     Assert.equals(1, x);
                     count++;
                     x + 1;
@@ -197,16 +197,16 @@ class NullableSuite extends BuddySuite {
         describe("Nullable#flatMap()", {
             it("should call", {
                 var count = 0;
-                final ret = Nullable.just(1).flatMap(x -> {
+                final ret = Nullable.of(1).flatMap(x -> {
                     Assert.equals(1, x);
                     count++;
-                    Nullable.just(x + 1);
+                    Nullable.of(x + 1);
                 });
                 Assert.equals(2, ret);
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Nullable.just(1).flatMap(x -> Nullable.empty());
+                final ret = Nullable.of(1).flatMap(x -> Nullable.empty());
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
@@ -220,7 +220,7 @@ class NullableSuite extends BuddySuite {
         describe("Nullable#filter()", {
             it("should call and be some value", {
                 var count = 0;
-                final ret = Nullable.just(1).filter(x -> {
+                final ret = Nullable.of(1).filter(x -> {
                     Assert.equals(1, x);
                     count++;
                     true;
@@ -229,7 +229,7 @@ class NullableSuite extends BuddySuite {
                 Assert.equals(1, count);
             });
             it("should call and be empty", {
-                final ret = Nullable.just(1).filter(x -> false);
+                final ret = Nullable.of(1).filter(x -> false);
                 Assert.isTrue(ret.isEmpty());
             });
             it("should not call", {
@@ -249,7 +249,7 @@ class NullableSuite extends BuddySuite {
                 Assert.equals(-1, ret);
             });
             it("should call fn", {
-                final ret = Nullable.just(1).fold(
+                final ret = Nullable.of(1).fold(
                     () -> -1,
                     x -> x * 3
                 );
@@ -259,7 +259,7 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#match()", {
             it("should call fn", done ->{
-                Nullable.just(10).match(
+                Nullable.of(10).match(
                     x -> {
                         Assert.equals(10, x);
                         done();
@@ -277,8 +277,8 @@ class NullableSuite extends BuddySuite {
 
         describe("Nullable#toOption()", {
             it("should be Some(v)", {
-                Assert.same(Some(1), Nullable.just(1).toOption());
-                Assert.same(Some(1), (Nullable.just(1): Option<Int>));
+                Assert.same(Some(1), Nullable.of(1).toOption());
+                Assert.same(Some(1), (Nullable.of(1): Option<Int>));
             });
             it("should be None", {
                 Assert.same(None, Nullable.empty().toOption());
@@ -287,7 +287,7 @@ class NullableSuite extends BuddySuite {
         });
 
         describe("Nullable.fromOption()", {
-            it("should be Nullable.just(v)", {
+            it("should be Nullable.of(v)", {
                 Assert.equals(1, Nullable.fromOption(Some(1)));
             });
             it("should be Nullable.empty()", {

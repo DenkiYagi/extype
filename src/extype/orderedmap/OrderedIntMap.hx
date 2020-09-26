@@ -104,9 +104,9 @@ class OrderedIntMap<V> implements IOrderedMap<Int, V> {
     **/
     public inline function keys():Iterator<Int> {
         #if js
-        return new IteratorAdapter(map.keys());
+        return new js.lib.HaxeIterator(map.keys());
         #else
-        return new TransformIterator(list.iterator(), pair -> pair.value1);
+        return new extype._internal.TransformIterator(list.iterator(), pair -> pair.value1);
         #end
     }
 
@@ -115,9 +115,9 @@ class OrderedIntMap<V> implements IOrderedMap<Int, V> {
     **/
     public inline function iterator():Iterator<V> {
         #if js
-        return new IteratorAdapter(map.values());
+        return map.iterator();
         #else
-        return new TransformIterator(list.iterator(), pair -> pair.value2);
+        return new extype._internal.TransformIterator(list.iterator(), pair -> pair.value2);
         #end
     }
 
@@ -126,9 +126,9 @@ class OrderedIntMap<V> implements IOrderedMap<Int, V> {
     **/
     public inline function keyValueIterator():KeyValueIterator<Int, V> {
         #if js
-        return new KeyValueIteratorAdapter(map.entries());
+        return new extype._internal.HaxeKeyValueIterator<Int, V>(map.entries());
         #else
-        return new TransformIterator(list.iterator(), pair -> new IntMapEntry(pair.value1, pair.value2));
+        return new extype._internal.TransformIterator(list.iterator(), pair -> new IntMapEntry(pair.value1, pair.value2));
         #end
     }
 

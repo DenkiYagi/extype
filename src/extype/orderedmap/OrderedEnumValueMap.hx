@@ -73,21 +73,21 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
         Returns an Iterator over the keys of this Map.
     **/
     public inline function keys():Iterator<K> {
-        return new TransformIterator(list.iterator(), pair -> pair.value1);
+        return new extype._internal.TransformIterator(list.iterator(), pair -> pair.value1);
     }
 
     /**
         Returns an Iterator over the values of this Map.
     **/
     public inline function iterator():Iterator<V> {
-        return new TransformIterator(list.iterator(), pair -> pair.value2);
+        return new extype._internal.TransformIterator(list.iterator(), pair -> pair.value2);
     }
 
     /**
         Returns an Iterator over the keys and values of this Map.
     **/
     public inline function keyValueIterator():KeyValueIterator<K, V> {
-        return new TransformIterator(list.iterator(), pair -> new EnumValueMapEntry(pair.value1, pair.value2));
+        return new extype._internal.TransformIterator(list.iterator(), pair -> new EnumKeyValue(pair.value1, pair.value2));
     }
 
     /**
@@ -113,7 +113,7 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     }
 }
 
-private class EnumValueMapEntry<K:EnumValue, V> {
+private class EnumKeyValue<K:EnumValue, V> {
     public var key:K;
     public var value:V;
 

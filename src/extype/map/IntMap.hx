@@ -107,7 +107,7 @@ class IntMap<V> implements IMap<Int, V> {
     **/
     public inline function keys():Iterator<Int> {
         #if js
-        return new IteratorAdapter(map.keys());
+        return new js.lib.HaxeIterator(map.keys());
         #elseif neko
         final list = new List<Int>();
         untyped __dollar__hiter(hash, (k, _) -> {
@@ -124,7 +124,7 @@ class IntMap<V> implements IMap<Int, V> {
     **/
     public inline function iterator():Iterator<V> {
         #if js
-        return new IteratorAdapter(map.values());
+        return map.iterator();
         #elseif neko
         final list = new List<V>();
         untyped __dollar__hiter(hash, (_, v) -> {
@@ -141,7 +141,7 @@ class IntMap<V> implements IMap<Int, V> {
     **/
     public inline function keyValueIterator():KeyValueIterator<Int, V> {
         #if js
-        return new KeyValueIteratorAdapter(map.entries());
+        return new extype._internal.HaxeKeyValueIterator(map.entries());
         #elseif neko
         final list = new List<IntMapEntry<V>>();
         untyped __dollar__hiter(hash, (k, v) -> {

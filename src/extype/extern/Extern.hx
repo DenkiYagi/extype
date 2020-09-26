@@ -1,4 +1,4 @@
 package extype.extern;
 
-@:genericBuild(extype.extern.internal.ExternBuilder.build())
+@:genericBuild(extype.extern._internal.ExternBuilder.build())
 class Extern<T:{}> {}

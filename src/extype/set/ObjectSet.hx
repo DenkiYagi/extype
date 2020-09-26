@@ -70,8 +70,8 @@ class ObjectSet<T:{}> implements ISet<T> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public inline function iterator():IteratorAdapter<T> {
-        return new IteratorAdapter(set.values());
+    public inline function iterator():js.lib.HaxeIterator<T> {
+        return new js.lib.HaxeIterator(set.values());
     }
     #else
     public inline function iterator():Iterator<T> {

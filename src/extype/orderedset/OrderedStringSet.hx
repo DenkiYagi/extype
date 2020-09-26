@@ -80,8 +80,8 @@ class OrderedStringSet implements IOrderedSet<String> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public function iterator():IteratorAdapter<String> {
-        return new IteratorAdapter(set.values());
+    public function iterator():js.lib.HaxeIterator<String> {
+        return new js.lib.HaxeIterator(set.values());
     }
     #else
     public function iterator():LinkedListIterator<String> {

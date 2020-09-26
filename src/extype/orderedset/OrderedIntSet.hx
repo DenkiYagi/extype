@@ -81,8 +81,8 @@ class OrderedIntSet implements IOrderedSet<Int> {
         Returns an Iterator over the values of this set.
     **/
     #if js
-    public function iterator():IteratorAdapter<Int> {
-        return new IteratorAdapter(set.values());
+    public function iterator():js.lib.HaxeIterator<Int> {
+        return new js.lib.HaxeIterator(set.values());
     }
     #else
     public function iterator():LinkedListIterator<Int> {

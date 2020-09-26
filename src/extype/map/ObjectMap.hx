@@ -108,7 +108,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     **/
     public inline function keys():Iterator<K> {
         #if js
-        return new IteratorAdapter(map.keys());
+        return new js.lib.HaxeIterator(map.keys());
         #elseif neko
         final list = new List<K>();
         untyped __dollar__hiter(hash, (_, entry) -> {
@@ -125,7 +125,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     **/
     public inline function iterator():Iterator<V> {
         #if js
-        return new IteratorAdapter(map.values());
+        return map.iterator();
         #elseif neko
         final list = new List<V>();
         untyped __dollar__hiter(hash, (_, entry) -> {
@@ -142,7 +142,7 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     **/
     public inline function keyValueIterator():KeyValueIterator<K, V> {
         #if js
-        return new KeyValueIteratorAdapter(map.entries());
+        return new extype._internal.HaxeKeyValueIterator(map.entries());
         #elseif neko
         final list = new List<ObjectMapEntry<K, V>>();
         untyped __dollar__hiter(hash, (_, entry) -> {

@@ -1,4 +1,4 @@
-package extype.extern.internal;
+package extype.extern._internal;
 
 import haxe.macro.Expr;
 import haxe.macro.Context;

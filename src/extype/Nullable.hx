@@ -24,13 +24,8 @@ abstract Nullable<T>(Null<T>) {
         }
     }
 
-    // should use just()
-    public static inline function of<T>(x:T):Nullable<T> {
-        return just(x);
-    }
-
     @:from
-    public static inline function just<T>(x:T):Nullable<T> {
+    public static inline function of<T>(x:T):Nullable<T> {
         return new Nullable(x);
     }
 
