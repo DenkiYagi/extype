@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "extern", "type"],
     "description": "Enhanced standard types for Haxe",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "classPath": "src/",
-    "releasenote": "SEE https://github.com/DenkiYagi/extype#breaking-changes-from-v2x",
+    "releasenote": "Fix some functions that are different with Lambda. And see https://github.com/DenkiYagi/extype#breaking-changes-from-v2x",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
