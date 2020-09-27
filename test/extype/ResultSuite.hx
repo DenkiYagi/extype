@@ -158,27 +158,29 @@ class ResultSuite extends BuddySuite {
             });
         });
 
-        describe("Result.exists()", {
+        describe("Result.has()", {
             it("should pass", {
-                Success(1).exists(1).should.be(true);
-                Success(1).exists(2).should.be(false);
-                Failure("error").exists(1).should.be(false);
+                Success(1).has(1).should.be(true);
+                Success(1).has(2).should.be(false);
+                Failure("error").has(1).should.be(false);
             });
         });
 
-        describe("Result.notExists()", {
+        describe("Result.exists()", {
             it("should pass", {
-                Success(1).notExists(1).should.be(false);
-                Success(1).notExists(2).should.be(true);
-                Failure("error").notExists(1).should.be(true);
+                Success(1).exists(x -> x == 1).should.be(true);
+                Success(1).exists(x -> x == 2).should.be(false);
+                Failure("error").exists(x -> true).should.be(false);
+                Failure("error").exists(x -> false).should.be(false);
             });
         });
 
         describe("Result.find()", {
             it("should pass", {
-                Success(1).find(x -> x == 1).should.be(true);
-                Success(1).find(x -> x == 2).should.be(false);
-                Failure("error").find(x -> x == 1).should.be(false);
+                Success(1).find(x -> x == 1).should.be(1);
+                Success(1).find(x -> x == 2).should.be(null);
+                (Failure("error").find(x -> true) : Null<Any>).should.be(null);
+                (Failure("error").find(x -> false) : Null<Any>).should.be(null);
             });
         });
 

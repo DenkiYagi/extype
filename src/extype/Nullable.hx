@@ -115,6 +115,18 @@ abstract Nullable<T>(Null<T>) {
         }
     }
 
+    public inline function has(value:T):Bool {
+        return nonEmpty() && this == value;
+    }
+
+    public inline function exists(fn:T->Bool):Bool {
+        return nonEmpty() && fn(this);
+    }
+
+    public inline function find(fn:T->Bool):Null<T> {
+        return nonEmpty() && fn(this) ? this : null;
+    }
+
     public inline function filter(fn:(value:T) -> Bool):Nullable<T> {
         return if (nonEmpty() && fn(this)) {
             this;

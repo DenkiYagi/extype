@@ -92,24 +92,24 @@ class MaybeTools {
         }
     }
 
-    public static inline function exists<T>(maybe:Maybe<T>, value:T):Bool {
+    public static inline function has<T>(maybe:Maybe<T>, value:T):Bool {
         return switch (maybe) {
             case Some(a) if (a == value): true;
             case _: false;
         }
     }
 
-    public static inline function notExists<T>(maybe:Maybe<T>, value:T):Bool {
-        return switch (maybe) {
-            case Some(a) if (a == value): false;
-            case _: true;
-        }
-    }
-
-    public static inline function find<T>(maybe:Maybe<T>, fn:T->Bool):Bool {
+    public static inline function exists<T>(maybe:Maybe<T>, fn:T->Bool):Bool {
         return switch (maybe) {
             case Some(a) if (fn(a)): true;
             case _: false;
+        }
+    }
+
+    public static inline function find<T>(maybe:Maybe<T>, fn:T->Bool):Null<T> {
+        return switch (maybe) {
+            case Some(a) if (fn(a)): a;
+            case _: null;
         }
     }
 

@@ -98,24 +98,24 @@ class ResultTools {
         }
     }
 
-    public static inline function exists<T, E>(result:Result<T, E>, value:T):Bool {
+    public static inline function has<T, E>(result:Result<T, E>, value:T):Bool {
         return switch (result) {
             case Success(a) if (a == value): true;
             case _: false;
         }
     }
 
-    public static inline function notExists<T, E>(result:Result<T, E>, value:T):Bool {
-        return switch (result) {
-            case Success(a) if (a == value): false;
-            case _: true;
-        }
-    }
-
-    public static inline function find<T, E>(result:Result<T, E>, fn:T->Bool):Bool {
+    public static inline function exists<T, E>(result:Result<T, E>, fn:T->Bool):Bool {
         return switch (result) {
             case Success(a) if (fn(a)): true;
             case _: false;
+        }
+    }
+
+    public static inline function find<T, E>(result:Result<T, E>, fn:T->Bool):Null<T> {
+        return switch (result) {
+            case Success(a) if (fn(a)): a;
+            case _: null;
         }
     }
 

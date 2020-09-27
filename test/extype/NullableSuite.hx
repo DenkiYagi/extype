@@ -245,6 +245,32 @@ class NullableSuite extends BuddySuite {
             });
         });
 
+        describe("Nullable#has()", {
+            it("should pass", {
+                Nullable.of(1).has(1).should.be(true);
+                Nullable.of(1).has(2).should.be(false);
+                Nullable.empty().has(1).should.be(false);
+            });
+        });
+
+        describe("Nullable#exists()", {
+            it("should pass", {
+                Nullable.of(1).exists(x -> x == 1).should.be(true);
+                Nullable.of(1).exists(x -> x == 2).should.be(false);
+                Nullable.empty().exists(x -> true).should.be(false);
+                Nullable.empty().exists(x -> false).should.be(false);
+            });
+        });
+
+        describe("Nullable#find()", {
+            it("should pass", {
+                Nullable.of(1).find(x -> x == 1).should.be(1);
+                Nullable.of(1).find(x -> x == 2).should.be(null);
+                (Nullable.empty().find(x -> true) : Null<Any>).should.be(null);
+                (Nullable.empty().find(x -> false) : Null<Any>).should.be(null);
+            });
+        });
+
         describe("Nullable#filter()", {
             it("should call and be some value", {
                 var count = 0;

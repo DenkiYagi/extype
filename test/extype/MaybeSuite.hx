@@ -149,37 +149,29 @@ class MaybeSuite extends BuddySuite {
             });
         });
 
+        describe("Maybe.has()", {
+            it("should pass", {
+                Some(1).has(1).should.be(true);
+                Some(1).has(0).should.be(false);
+                None.has(1).should.be(false);
+            });
+        });
+
         describe("Maybe.exists()", {
             it("should be true", {
-                Some(1).exists(1).should.be(true);
-            });
-
-            it("should be false", {
-                Some(1).exists(0).should.be(false);
-                None.exists(1).should.be(false);
+                Some(1).exists(x -> x == 1).should.be(true);
+                Some(1).exists(x -> x == 2).should.be(false);
+                None.exists(x -> true).should.be(false);
+                None.exists(x -> false).should.be(false);
             });
         });
 
-        describe("Maybe.notExists()", {
-            it("should be false", {
-                Some(1).notExists(1).should.be(false);
-            });
-
-            it("should be true", {
-                Some(1).notExists(0).should.be(true);
-                None.notExists(1).should.be(true);
-            });
-        });
-
-        describe("Maybe.find()", {
-            it("should be true", {
-                Some(1).find(x -> x == 1).should.be(true);
-            });
-
-            it("should be false", {
-                Some(1).find(x -> false).should.be(false);
-                None.find(x -> true).should.be(false);
-                None.find(x -> false).should.be(false);
+        describe("Maybe#find()", {
+            it("should pass", {
+                Some(1).find(x -> x == 1).should.be(1);
+                Some(1).find(x -> x == 2).should.be(null);
+                (None.find(x -> true) : Null<Any>).should.be(null);
+                (None.find(x -> false) : Null<Any>).should.be(null);
             });
         });
 
