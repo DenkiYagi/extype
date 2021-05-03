@@ -14,7 +14,12 @@ import haxe.macro.Expr;
     This is a multi-type abstract, it is instantiated as one of its specialization types
     depending on its type parameters.
 **/
+#if (haxe >= version("4.2.0"))
+@:transitive
+@:multiType(@:followWithAbstracts K)
+#else
 @:multiType
+#end
 abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
     /**
         Creates a new forward.
