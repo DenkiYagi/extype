@@ -14,7 +14,7 @@ jobs:
         rm neko-${NEKO_VERSION}-linux64.tar.gz
         mv neko-${NEKO_VERSION}-linux64 $HOME/neko
         echo "::add-path::$HOME/neko"
-        echo "::set-env name=LD_LIBRARY_PATH::$LD_LIBRARY_PATH:$HOME/neko"
+        echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/neko" >> $GITHUB_ENV
       env:
         NEKO_VERSION: 2.3.0
     - name: Install Haxe
@@ -24,7 +24,7 @@ jobs:
         rm haxe-${HAXE_VERSION}-linux64.tar.gz
         mv haxe $HOME/haxe
         echo "::add-path::$HOME/haxe"
-        echo "::set-env name=HAXE_STD_PATH::$HOME/haxe/std"
+        echo "HAXE_STD_PATH=$HOME/haxe/std" >> $GITHUB_ENV
       env:
         HAXE_VERSION: 4.1.1
     - uses: actions/checkout@v2
