@@ -13,7 +13,7 @@ jobs:
         tar xzvf neko-${NEKO_VERSION}-linux64.tar.gz
         rm neko-${NEKO_VERSION}-linux64.tar.gz
         mv neko-${NEKO_VERSION}-linux64 $HOME/neko
-        echo "::add-path::$HOME/neko"
+        run: echo "$HOME/neko" >> $GITHUB_PATH
         echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/neko" >> $GITHUB_ENV
       env:
         NEKO_VERSION: 2.3.0
@@ -23,10 +23,10 @@ jobs:
         mkdir haxe && tar xzvf haxe-${HAXE_VERSION}-linux64.tar.gz -C haxe --strip-components 1
         rm haxe-${HAXE_VERSION}-linux64.tar.gz
         mv haxe $HOME/haxe
-        echo "::add-path::$HOME/haxe"
+        run: echo "$HOME/haxe" >> $GITHUB_PATH
         echo "HAXE_STD_PATH=$HOME/haxe/std" >> $GITHUB_ENV
       env:
-        HAXE_VERSION: 4.1.1
+        HAXE_VERSION: 4.1.5
     - uses: actions/checkout@v2
     - name: Install Haxelib
       run: |
