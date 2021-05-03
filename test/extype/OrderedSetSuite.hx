@@ -191,7 +191,7 @@ class OrderedSetSuite extends BuddySuite {
         describe("OrderedSet", {
             describe("OrderedSet<String>", test(
                 () -> new OrderedSet<String>(),
-                Std.is.bind(_, OrderedStringSet),
+                Std.isOfType.bind(_, OrderedStringSet),
                 "abc",
                 "def",
                 "ghi",
@@ -200,7 +200,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<Int>", test(
                 () -> new OrderedSet<Int>(),
-                Std.is.bind(_, OrderedIntSet),
+                Std.isOfType.bind(_, OrderedIntSet),
                 1,
                 2,
                 3,
@@ -209,7 +209,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<EnumValue>", test(
                 () -> new OrderedSet<Option<Int>>(),
-                Std.is.bind(_, OrderedEnumValueSet),
+                Std.isOfType.bind(_, OrderedEnumValueSet),
                 Some(1),
                 Some(2),
                 Some(3),
@@ -218,7 +218,7 @@ class OrderedSetSuite extends BuddySuite {
 
             describe("OrderedSet<{}>", test(
                 () -> new OrderedSet<{value:Int}>(),
-                Std.is.bind(_, OrderedObjectSet),
+                Std.isOfType.bind(_, OrderedObjectSet),
                 {value:1},
                 {value:2},
                 {value:3},

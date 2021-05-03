@@ -203,7 +203,7 @@ class SetSuite extends BuddySuite {
         describe("Set", {
             describe("Set<String>", test(
                 () -> new Set<String>(),
-                Std.is.bind(_, StringSet),
+                Std.isOfType.bind(_, StringSet),
                 "abc",
                 "def",
                 "ghi",
@@ -212,7 +212,7 @@ class SetSuite extends BuddySuite {
 
             describe("Set<Int>", test(
                 () -> new Set<Int>(),
-                Std.is.bind(_, IntSet),
+                Std.isOfType.bind(_, IntSet),
                 1,
                 2,
                 3,
@@ -221,7 +221,7 @@ class SetSuite extends BuddySuite {
 
             describe("Set<EnumValue>", test(
                 () -> new Set<Option<Int>>(),
-                Std.is.bind(_, EnumValueSet),
+                Std.isOfType.bind(_, EnumValueSet),
                 Some(1),
                 Some(2),
                 Some(3),
@@ -230,7 +230,7 @@ class SetSuite extends BuddySuite {
 
             describe("Set<{}>", test(
                 () -> new Set<{value:Int}>(),
-                Std.is.bind(_, ObjectSet),
+                Std.isOfType.bind(_, ObjectSet),
                 {value:1},
                 {value:2},
                 {value:3},

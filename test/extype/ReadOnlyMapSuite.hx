@@ -8,7 +8,7 @@ class ReadOnlyMapSuite extends BuddySuite {
                 src.set(10, "ABC");
                 src.set(15, "XYZ");
 
-                final dist: ReadOnlyMap<Int, String> = src;
+                final dist:ReadOnlyMap<Int, String> = src;
                 Assert.equals(src, dist);
                 Assert.equals(2, dist.length);
                 Assert.isTrue(dist.exists(10));
@@ -27,7 +27,7 @@ class ReadOnlyMapSuite extends BuddySuite {
                 src.set(10, "ABC");
                 src.set(15, "XYZ");
 
-                final dist: ReadOnlyMap<Int, String> = src;
+                final dist:ReadOnlyMap<Int, String> = src;
                 Assert.equals(src, dist);
                 Assert.equals(2, dist.length);
                 Assert.isTrue(dist.exists(10));

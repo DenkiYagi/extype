@@ -223,7 +223,7 @@ class MapSuite extends BuddySuite {
         describe("Map", {
             describe("Map<String, V>", test(
                 () -> new Map<String, String>(),
-                map -> Std.is(map, StringMap),
+                map -> Std.isOfType(map, StringMap),
                 new Pair("key1", "AAA"),
                 new Pair("key2", "BBB"),
                 new Pair("key3", "CCC"),
@@ -232,7 +232,7 @@ class MapSuite extends BuddySuite {
 
             describe("Map<Int, V>", test(
                 () -> new Map<Int, String>(),
-                map -> Std.is(map, IntMap),
+                map -> Std.isOfType(map, IntMap),
                 new Pair(10, "AAA"),
                 new Pair(20, "BBB"),
                 new Pair(30, "CCC"),
@@ -241,7 +241,7 @@ class MapSuite extends BuddySuite {
 
             describe("Map<EnumValue, V>", test(
                 () -> new Map<Option<Int>, String>(),
-                map -> Std.is(map, EnumValueMap),
+                map -> Std.isOfType(map, EnumValueMap),
                 new Pair(Some(10), "AAA"),
                 new Pair(Some(20), "BBB"),
                 new Pair(Some(30), "CCC"),
@@ -250,7 +250,7 @@ class MapSuite extends BuddySuite {
 
             describe("Map<{}, V>", test(
                 () -> new Map<{value:Int}, String>(),
-                map -> Std.is(map, ObjectMap),
+                map -> Std.isOfType(map, ObjectMap),
                 new Pair({value:1}, "AAA"),
                 new Pair({value:2}, "BBB"),
                 new Pair({value:3}, "CCC"),
