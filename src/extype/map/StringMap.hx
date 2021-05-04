@@ -3,11 +3,6 @@ package extype.map;
 import extype.Map.IMap;
 #if js
 import js.lib.Map in JsMap;
-import extype.iterator.js.IteratorAdapter;
-import extype.iterator.js.KeyValueIteratorAdapter;
-#elseif neko
-import extype.Pair;
-import extype.iterator.TransformIterator;
 #else
 import haxe.ds.StringMap in StdMap;
 #end

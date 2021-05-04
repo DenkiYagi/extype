@@ -12,7 +12,7 @@ private typedef MapLike<K, V> = {
     function keys():Iterator<K>;
     function iterator():Iterator<V>;
     function keyValueIterator():KeyValueIterator<K, V>;
-    function copy():Map.IMap<K, V>;
+    function copy():MapLike<K, V>;
     function toString():String;
     function clear():Void;
 }

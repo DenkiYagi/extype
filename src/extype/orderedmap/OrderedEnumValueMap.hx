@@ -2,7 +2,6 @@ package extype.orderedmap;
 
 import extype.OrderedMap.IOrderedMap;
 import extype.LinkedList;
-import extype.iterator.TransformIterator;
 import haxe.ds.EnumValueMap in StdMap;
 
 /**
@@ -113,9 +112,7 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
     **/
     public inline function clear():Void {
         map.clear();
-        #if !js
         list.clear();
-        #end
     }
 
     inline function get_length():Int {

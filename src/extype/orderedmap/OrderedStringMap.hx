@@ -3,11 +3,8 @@ package extype.orderedmap;
 import extype.OrderedMap.IOrderedMap;
 #if js
 import js.lib.Map in JsMap;
-import extype.iterator.js.IteratorAdapter;
-import extype.iterator.js.KeyValueIteratorAdapter;
 #else
 import extype.LinkedList;
-import extype.iterator.TransformIterator;
 import haxe.ds.StringMap in StdMap;
 #end
 
