@@ -8,7 +8,7 @@ abstract Nullable<T>(Null<T>) {
     }
 
     @:from
-    public static inline function of<T>(x:T):Nullable<T> {
+    public static inline function of<T>(x:Null<T>):Nullable<T> {
         return new Nullable(x);
     }
 
