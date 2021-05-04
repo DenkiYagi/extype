@@ -108,6 +108,16 @@ class OrderedEnumValueMap<K:EnumValue, V> implements IOrderedMap<K, V> {
         return '[${buff.join(",")}]';
     }
 
+    /**
+        Removes all keys from this Map.
+    **/
+    public inline function clear():Void {
+        map.clear();
+        #if !js
+        list.clear();
+        #end
+    }
+
     inline function get_length():Int {
         return list.length;
     }

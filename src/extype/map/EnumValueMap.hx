@@ -16,8 +16,8 @@ class EnumValueMap<K:EnumValue, V> implements IMap<K, V> {
     public var length(get, never):Int;
 
     public inline function new() {
-        this.map = new StdMap();
-        this._length = 0;
+        map = new StdMap();
+        _length = 0;
     }
 
     /**
@@ -96,6 +96,14 @@ class EnumValueMap<K:EnumValue, V> implements IMap<K, V> {
         final buff = [];
         for (k => v in map) buff.push('${k}=>${v}');
         return '[${buff.join(",")}]';
+    }
+
+    /**
+        Removes all keys from this Map.
+    **/
+    public inline function clear():Void {
+        map.clear();
+        _length = 0;
     }
 
     inline function get_length():Int {

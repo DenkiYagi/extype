@@ -19,9 +19,12 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     #if js
     final map:JsMap<K, V>;
     #elseif neko
-	final hash:Dynamic;
-    #else
+	var hash:Dynamic;
+    #elseif (haxe >= version("4.2.0"))
     final map:StdMap<K, V>;
+    var _length:Int;
+    #else
+    var map:StdMap<K, V>;
     var _length:Int;
     #end
 
@@ -32,12 +35,12 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
 
     public inline function new() {
         #if js
-        this.map = new JsMap();
+        map = new JsMap();
         #elseif neko
-        this.hash = untyped __dollar__hnew(0);
+        hash = untyped __dollar__hnew(0);
         #else
-        this.map = new StdMap();
-        this._length = 0;
+        map = new StdMap();
+        _length = 0;
         #end
     }
 
@@ -182,6 +185,23 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
         for (k => v in map) buff.push('${k}=>${v}');
         #end
         return '[${buff.join(",")}]';
+    }
+
+    /**
+        Removes all keys from this Map.
+    **/
+    public inline function clear():Void {
+        #if js
+        map.clear();
+        #elseif neko
+        hash = untyped __dollar__hnew(0);
+        #elseif (haxe >= version("4.2.0"))
+        map.clear();
+        _length = 0;
+        #else
+        map = new StdMap();
+        _length = 0;
+        #end
     }
 
     inline function get_length():Int {

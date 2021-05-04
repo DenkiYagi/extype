@@ -115,6 +115,13 @@ abstract Map<K, V>(IMap<K, V>) {
         return this.toString();
     }
 
+    /**
+        Removes all keys from this Map.
+    **/
+    public inline function clear():Void {
+        this.clear();
+    }
+
     @:to static inline function toStringMap<K:String, V>(t:IMap<K, V>):StringMap<V> {
         return new StringMap<V>();
     }
@@ -171,7 +178,6 @@ abstract Map<K, V>(IMap<K, V>) {
 
 interface IMap<K, V> {
     var length(get, never):Int;
-
     function get(k:K):Null<V>;
     function set(k:K, v:V):Void;
     function exists(k:K):Bool;
@@ -181,4 +187,5 @@ interface IMap<K, V> {
     function keyValueIterator():KeyValueIterator<K, V>;
     function copy():IMap<K, V>;
     function toString():String;
+    function clear():Void;
 }

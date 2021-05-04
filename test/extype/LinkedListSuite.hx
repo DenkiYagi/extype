@@ -259,6 +259,39 @@ class LinkedListSuite extends BuddySuite {
                 Assert.isTrue(list1.exists(node1));
                 Assert.isTrue(list2.exists(node2));
             });
+
+
+            it("should pass : new -> clear()", {
+                final list = new LinkedList();
+                list.clear();
+
+                Assert.equals(list.first.isEmpty(), true);
+                Assert.equals(list.last.isEmpty(), true);
+                Assert.equals(0, list.length);
+            });
+
+            it("should pass : new -> set(A) -> clear()", {
+                final list = new LinkedList();
+                list.add(10);
+                list.clear();
+
+                Assert.equals(list.first.isEmpty(), true);
+                Assert.equals(list.last.isEmpty(), true);
+                Assert.equals(0, list.length);
+            });
+
+            it("should pass : new -> set(A) -> clear() -> set(B)", {
+                final list = new LinkedList();
+                list.add(10);
+                list.clear();
+                list.add(20);
+
+                Assert.equals(list.first.isEmpty(), false);
+                Assert.equals(list.first.get().value, 20);
+                Assert.equals(list.last.isEmpty(), false);
+                Assert.equals(list.last.get().value, 20);
+                Assert.equals(1, list.length);
+            });
         });
     }
 }

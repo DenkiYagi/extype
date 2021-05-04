@@ -116,6 +116,13 @@ abstract OrderedMap<K, V>(IOrderedMap<K, V>) {
         return this.toString();
     }
 
+    /**
+        Removes all keys from this Map.
+    **/
+    public inline function clear():Void {
+        this.clear();
+    }
+
     @:to static inline function toStringMap<K:String, V>(t:IOrderedMap<K, V>):OrderedStringMap<V> {
         return new OrderedStringMap<V>();
     }

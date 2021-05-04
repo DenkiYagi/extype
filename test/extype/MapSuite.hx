@@ -218,6 +218,54 @@ class MapSuite extends BuddySuite {
                 Assert.isTrue(ret1);
                 Assert.isFalse(ret2);
             });
+
+            it("should pass : new -> clear()", {
+                final map = create();
+                map.clear();
+
+                Assert.equals(0, map.length);
+                Assert.isFalse(map.exists(invalid.value1));
+                Assert.same([], [for (x in map.keys()) x]);
+                Assert.same([], [for (x in map) x]);
+                Assert.same([], [for (k => v in map) k]);
+                Assert.same([], [for (k => v in map) v]);
+                Assert.equals(0, map.copy().length);
+                Assert.equals("[]", map.toString());
+            });
+
+            it("should pass : new -> set(A) -> clear()", {
+                final map = create();
+                map.set(a.value1, a.value2);
+                map.clear();
+
+                Assert.equals(0, map.length);
+                Assert.isFalse(map.exists(invalid.value1));
+                Assert.same([], [for (x in map.keys()) x]);
+                Assert.same([], [for (x in map) x]);
+                Assert.same([], [for (k => v in map) k]);
+                Assert.same([], [for (k => v in map) v]);
+                Assert.equals(0, map.copy().length);
+                Assert.equals("[]", map.toString());
+            });
+
+            it("should pass : new -> set(A) -> clear() -> set(B)", {
+                final map = create();
+                map.set(a.value1, a.value2);
+                map.clear();
+                map.set(b.value1, b.value2);
+
+                Assert.equals(1, map.length);
+                Assert.isFalse(map.exists(a.value1));
+                Assert.isTrue(map.exists(b.value1));
+                Assert.isFalse(map.exists(invalid.value1));
+                [for (x in map.keys()) x].should.containAll([b.value1]);
+                [for (x in map) x].should.containAll([b.value2]);
+                [for (k => v in map) k].should.containAll([b.value1]);
+                [for (k => v in map) v].should.containAll([b.value2]);
+                Assert.equals(1, map.copy().length);
+                Assert.isTrue(map.copy().exists(b.value1));
+                Assert.equals('[${b.value1}=>${b.value2}]', map.toString());
+            });
         }
 
         describe("Map", {

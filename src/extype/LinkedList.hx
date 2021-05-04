@@ -51,6 +51,12 @@ class LinkedList<T> {
         }
     }
 
+    public function clear():Void {
+        this.first = Nullable.empty();
+        this.last = Nullable.empty();
+        this.length = 0;
+    }
+
     public function iterator():LinkedListIterator<T> {
         return new LinkedListIterator(first);
     }
