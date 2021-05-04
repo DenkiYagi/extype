@@ -186,11 +186,8 @@ class StringMap<V> implements IMap<String, V> {
         map.clear();
         #elseif neko
         hash = untyped __dollar__hnew(0);
-        #elseif (haxe >= version("4.2.0"))
-        map.clear();
-        _length = 0;
         #else
-        map = new StdMap();
+        map.clear();
         _length = 0;
         #end
     }
