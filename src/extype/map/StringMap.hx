@@ -20,11 +20,8 @@ class StringMap<V> implements IMap<String, V> {
     final map:JsMap<String, V>;
     #elseif neko
     var hash:Dynamic;
-    #elseif (haxe >= version("4.2.0"))
-    final map:StdMap<V>;
-    var _length:Int;
     #else
-    var map:StdMap<V>;
+    final map:StdMap<V>;
     var _length:Int;
     #end
 

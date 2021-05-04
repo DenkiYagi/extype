@@ -20,11 +20,8 @@ class ObjectMap<K:{}, V> implements IMap<K, V> {
     final map:JsMap<K, V>;
     #elseif neko
 	var hash:Dynamic;
-    #elseif (haxe >= version("4.2.0"))
-    final map:StdMap<K, V>;
-    var _length:Int;
     #else
-    var map:StdMap<K, V>;
+    final map:StdMap<K, V>;
     var _length:Int;
     #end
 

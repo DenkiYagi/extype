@@ -20,11 +20,8 @@ class IntMap<V> implements IMap<Int, V> {
     final map:JsMap<Int, V>;
     #elseif neko
     var hash:Dynamic;
-    #elseif (haxe >= version("4.2.0"))
-    final map:StdMap<V>;
-    var _length:Int;
     #else
-    var map:StdMap<V>;
+    final map:StdMap<V>;
     var _length:Int;
     #end
 
@@ -194,11 +191,8 @@ class IntMap<V> implements IMap<Int, V> {
         map.clear();
         #elseif neko
         hash = untyped __dollar__hnew(0);
-        #elseif (haxe >= version("4.2.0"))
-        map.clear();
-        _length = 0;
         #else
-        map = new StdMap();
+        map.clear();
         _length = 0;
         #end
     }
