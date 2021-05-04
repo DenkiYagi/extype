@@ -2,11 +2,11 @@
     "name": "extype",
     "url": "https://github.com/DenkiYagi/extype",
     "license": "Apache",
-    "tags": ["haxe", "extern", "type"],
+    "tags": ["haxe", "type", "collection"],
     "description": "Enhanced standard types for Haxe",
-    "version": "3.0.3",
+    "version": "3.1.0",
     "classPath": "src/",
-    "releasenote": "Fix some functions that are different with Lambda. And see https://github.com/DenkiYagi/extype#breaking-changes-from-v2x",
+    "releasenote": "Add support for Haxe 4.2",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
