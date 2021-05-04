@@ -94,6 +94,13 @@ abstract OrderedSet<T>(IOrderedSet<T>) {
         return this.toString();
     }
 
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        this.clear();
+    }
+
     @:to static inline function toStringSet<T:String>(x:IOrderedSet<T>):OrderedStringSet {
         return new OrderedStringSet();
     }

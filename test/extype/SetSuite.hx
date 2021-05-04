@@ -198,6 +198,45 @@ class SetSuite extends BuddySuite {
                 Assert.isTrue(ret1);
                 Assert.isFalse(ret2);
             });
+
+            it("should pass : new -> clear()", {
+                final set = create();
+                set.clear();
+
+                Assert.equals(0, set.length);
+                Assert.isFalse(set.exists(invalid));
+                Assert.same([], [for (x in set) x]);
+                Assert.equals(0, set.copy().length);
+                Assert.equals("{}", set.toString());
+            });
+
+            it("should pass : new -> set(A) -> clear()", {
+                final set = create();
+                set.add(a);
+                set.clear();
+
+                Assert.equals(0, set.length);
+                Assert.isFalse(set.exists(invalid));
+                Assert.same([], [for (x in set) x]);
+                Assert.equals(0, set.copy().length);
+                Assert.equals("{}", set.toString());
+            });
+
+            it("should pass : new -> set(A) -> clear() -> set(B)", {
+                final set = create();
+                set.add(a);
+                set.clear();
+                set.add(b);
+
+                Assert.equals(1, set.length);
+                Assert.isFalse(set.exists(a));
+                Assert.isTrue(set.exists(b));
+                Assert.isFalse(set.exists(invalid));
+                [for (x in set) x].should.containAll([b]);
+                Assert.equals(1, set.copy().length);
+                Assert.isTrue(set.copy().exists(b));
+                Assert.equals('{${b}}', set.toString());
+            });
         }
 
         describe("Set", {

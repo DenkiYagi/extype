@@ -4,7 +4,6 @@ import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
-import extype.iterator.js.IteratorAdapter;
 #else
 import haxe.ds.StringMap;
 import extype.LinkedList;
@@ -122,6 +121,18 @@ class OrderedStringSet implements IOrderedSet<String> {
     **/
     public function toString():String {
         return '{${array().join(",")}}';
+    }
+
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        #if js
+        set.clear();
+        #else
+        map.clear();
+        list.clear();
+        #end
     }
 
     inline function iter(fn:(value:String) -> Void):Void {

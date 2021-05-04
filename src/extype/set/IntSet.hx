@@ -4,7 +4,6 @@ import extype.Set.ISet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
-import extype.iterator.js.IteratorAdapter;
 #else
 import extype.Unit;
 import extype.map.IntMap;
@@ -110,6 +109,17 @@ class IntSet implements ISet<Int> {
     **/
     public inline function toString():String {
         return '{${array().join(",")}}';
+    }
+
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        #if js
+        set.clear();
+        #else
+        map.clear();
+        #end
     }
 
     inline function get_length():Int {

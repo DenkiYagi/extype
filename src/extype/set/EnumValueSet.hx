@@ -1,7 +1,6 @@
 package extype.set;
 
 import extype.Set.ISet;
-import extype.Unit;
 import extype.map.EnumValueMap;
 
 /**
@@ -78,6 +77,13 @@ class EnumValueSet<T:EnumValue> implements ISet<T> {
             buff.push(Std.string(x));
         }
         return '{${buff.join(",")}}';
+    }
+
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        map.clear();
     }
 
     inline function get_length():Int {

@@ -85,6 +85,14 @@ class OrderedEnumValueSet<T:EnumValue> implements IOrderedSet<T> {
         return '{${array().join(",")}}';
     }
 
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        map.clear();
+        list.clear();
+    }
+
     inline function iter(fn:(value:T) -> Void):Void {
         list.iter(fn);
     }

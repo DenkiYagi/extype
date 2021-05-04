@@ -4,7 +4,6 @@ import extype.OrderedSet.IOrderedSet;
 #if js
 import js.Syntax;
 import js.lib.Set in JsSet;
-import extype.iterator.js.IteratorAdapter;
 #else
 import haxe.ds.ObjectMap;
 import extype.LinkedList;
@@ -125,6 +124,18 @@ class OrderedObjectSet<T:{}> implements IOrderedSet<T> {
         final buff = [];
         iter(x -> buff.push(Std.string(x)));
         return '{${buff.join(",")}}';
+    }
+
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        #if js
+        set.clear();
+        #else
+        map.clear();
+        list.clear();
+        #end
     }
 
     inline function iter(fn:(value:T) -> Void):Void {

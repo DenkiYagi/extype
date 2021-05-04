@@ -92,6 +92,13 @@ abstract Set<T>(ISet<T>) {
         return this.toString();
     }
 
+    /**
+        Removes all values from this set.
+    **/
+    public inline function clear():Void {
+        this.clear();
+    }
+
     @:to static inline function toStringSet<T:String>(x:ISet<T>):StringSet {
         return new StringSet();
     }
@@ -151,4 +158,5 @@ interface ISet<T> {
     function copy():ISet<T>;
     function array():Array<T>;
     function toString():String;
+    function clear():Void;
 }
