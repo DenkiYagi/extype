@@ -5,6 +5,9 @@ on: [push]
 jobs:
   test-linux:
     runs-on: ubuntu-latest
+    env:
+      NEKO_VERSION: 2.3.0
+      HAXE_VERSION: 4.1.5
 
     steps:
     - name: Install Neko
@@ -15,8 +18,6 @@ jobs:
         mv neko-${NEKO_VERSION}-linux64 $HOME/neko
         echo "$HOME/neko" >> $GITHUB_PATH
         echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/neko" >> $GITHUB_ENV
-      env:
-        NEKO_VERSION: 2.3.0
     - name: Install Haxe
       run: |
         wget https://github.com/HaxeFoundation/haxe/releases/download/${HAXE_VERSION}/haxe-${HAXE_VERSION}-linux64.tar.gz
@@ -25,8 +26,6 @@ jobs:
         mv haxe $HOME/haxe
         echo "$HOME/haxe" >> $GITHUB_PATH
         echo "HAXE_STD_PATH=$HOME/haxe/std" >> $GITHUB_ENV
-      env:
-        HAXE_VERSION: 4.1.5
     - uses: actions/checkout@v2
     - name: Install Haxelib
       run: |
