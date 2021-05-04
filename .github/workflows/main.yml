@@ -3,7 +3,35 @@ name: Test
 on: [push]
 
 jobs:
-  test-linux:
+  test-haxe42-linux:
+    name: test haxe-4.2 on linux
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: krdlab/setup-haxe@v1
+      with:
+        haxe-version: 4.2.1
+    - run: |
+        haxelib install buddy
+        haxelib install utest
+        haxelib install hxnodejs
+        haxelib install hxcpp
+        haxelib install hxjava
+    - name: Run test - JS
+      run: haxe test-js.hxml
+    - name: Run test - eval
+      run: haxe test-eval.hxml
+    - name: Run test - Neko
+      run: haxe test-neko.hxml
+    - name: Run test - C++
+      run: haxe test-cpp.hxml
+    - name: Run test - Java
+      run: haxe test-java.hxml
+    - name: Run test - jvm
+      run: haxe test-jvm.hxml
+
+  test-haxe41-linux:
+    name: test haxe-4.1 on linux
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
