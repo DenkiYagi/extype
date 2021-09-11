@@ -6,6 +6,7 @@ class Main implements Buddy<[
     extype.NullableSuite,
     extype.MaybeSuite,
     extype.ResultSuite,
+    extype.LazySuite,
     extype.LinkedListSuite,
     extype.MapSuite,
     extype.SetSuite,

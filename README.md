@@ -33,6 +33,9 @@ haxelib install extype
 ### Result
 `Result<T, E>` is a wrapper type that can either have a value or an error. `Result<T, E>` looks like `haxe.ds.Either<A,B>`, but be annotatted the Default Static Extension (`@:using(extype.tools.ResultTools)`).
 
+### Lazy
+`Lazy<T>` is a type thas indicates the lazy initialization.
+
 ### Tuple2 - Tuple10
 `Tuple[2-10]` can hold any values of several different types.
 
