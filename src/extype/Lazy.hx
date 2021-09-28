@@ -1,11 +1,23 @@
 package extype;
 
 /**
-    Represents a lazy value.
+    Represents a value with lazy initialization.
 **/
 abstract Lazy<T>(LazyInternal<T>) {
+    /**
+        Gets a value that indicates whether a value has been initialized.
+    **/
+    public var isInitialized(get, never):Bool;
+
+    inline function get_isInitialized():Bool {
+        return switch (this) {
+            case Uninitialized(_): false;
+            case Initialized(_): true;
+        }
+    }
+
     public inline function new(fn:()->T) {
-        this = Init(fn);
+        this = Uninitialized(fn);
     }
 
     /**
@@ -13,17 +25,17 @@ abstract Lazy<T>(LazyInternal<T>) {
     **/
     public inline function get():T {
         return switch (this) {
-            case Init(fn):
+            case Uninitialized(fn):
                 final value = fn();
-                this = Created(value);
+                this = Initialized(value);
                 value;
-            case Created(value):
+            case Initialized(value):
                 value;
         }
     }
 }
 
 private enum LazyInternal<T> {
-    Init(fn:()->T);
-    Created(value:T);
+    Uninitialized(fn:()->T);
+    Initialized(value:T);
 }
