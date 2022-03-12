@@ -24,4 +24,11 @@ abstract ReadOnlyDynamic<T>(Dynamic<T>) {
     static inline function fromObject<T:{}>(x:T):ReadOnlyDynamic<Dynamic> {
         return new ReadOnlyDynamic(x);
     }
+
+    /**
+        Casts `this` Dynamic to mutable `Dynamic`.
+    **/
+    public inline function toDynamicUnsafe():Dynamic<T> {
+        return this;
+    }
 }
