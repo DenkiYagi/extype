@@ -9,4 +9,13 @@ abstract ValueOrArray<T>(Dynamic) from T from Array<T> {
             [this];
         }
     }
+
+    @:to
+    public inline function toValue():T {
+        return if (Std.isOfType(this, Array)) {
+            (this : Array<T>)[0];
+        } else {
+            this;
+        }
+    }
 }
