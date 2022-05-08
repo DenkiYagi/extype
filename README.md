@@ -106,13 +106,13 @@ This is a multi-type abstract, it is instantiated as one of its specialization t
 ## extype.extern
 ### Mixed2 - Mixed10
 `Mixed[2-10]` can have a value of several different types.
-`Mixed2` is the same as `haxe.extern.EitherType`.
+`Mixed2` is a type that likes as `haxe.extern.EitherType`.
 
 ### ValueOrArray
-`ValueOrArray<T>` is a type that likes as `haxe.extern.EitherType<T, Array<T>>`.
+`ValueOrArray<T>` is a type that likes as `extype.extern.Mixed.Mixed2<T, Array<T>>`.
 
 ### ValueOrFunction
-`ValueOrFunction<T>` is the same as `haxe.extern.EitherType<T, Void -> T>`.
+`ValueOrFunction<T>` is the same as `extype.extern.Mixed.Mixed2<T, Void->T>`.
 
 ### **{{ Experimental }}** Extern&lt;T&gt;
 `Extern<T>` is a generic-build macro type that can use `@:native` metadata to the anonymous structure.
