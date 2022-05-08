@@ -1,5 +1,6 @@
 package extype.extern;
 
+@:transitive
 abstract ValueOrArray<T>(Dynamic) from T from Array<T> {
     @:to
     public inline function toArray():Array<T> {

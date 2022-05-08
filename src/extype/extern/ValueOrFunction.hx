@@ -1,3 +1,5 @@
 package extype.extern;
 
-typedef ValueOrFunction<T> = haxe.extern.EitherType<T, Void->T>;
+import extype.extern.Mixed;
+
+typedef ValueOrFunction<T> = Mixed2<T, Void->T>;
