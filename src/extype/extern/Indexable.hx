@@ -3,7 +3,7 @@ package extype.extern;
 @:forward
 abstract Indexable<TObject:{}, TValue>(TObject) from TObject to TObject {
     @:arrayAccess
-    inline function get(field:String):Nullable<TValue> {
+    public inline function get(field:String):Nullable<TValue> {
         #if js
         return js.Syntax.code("{0}[{1}]", this, field);
         #else
@@ -17,7 +17,7 @@ abstract Indexable<TObject:{}, TValue>(TObject) from TObject to TObject {
     }
 
     @:arrayAccess
-    inline function set(field:String, value:TValue):TValue {
+    public inline function set(field:String, value:TValue):TValue {
         #if js
         return js.Syntax.code("{0}[{1}] = {2}", this, field, value);
         #else
