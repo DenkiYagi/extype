@@ -4,9 +4,9 @@
     "license": "Apache",
     "tags": ["haxe", "type", "collection"],
     "description": "Enhanced standard types for Haxe",
-    "version": "3.1.4",
+    "version": "3.1.5",
     "classPath": "src/",
-    "releasenote": "Use `@:transitive` in `extype.extern`",
+    "releasenote": "Support for Haxe 4.3.0",
     "contributors": ["denkiyagi"],
     "dependencies": {}
 }
