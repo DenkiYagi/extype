@@ -3,14 +3,14 @@ name: Test
 on: [push]
 
 jobs:
-  test-haxe42-linux:
-    name: test haxe-4.2 on linux
+  test-haxe43-linux:
+    name: test haxe-4.3 on linux
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: krdlab/setup-haxe@v1
       with:
-        haxe-version: 4.2.1
+        haxe-version: 4.3.0
     - run: |
         haxelib install buddy
         haxelib install utest
@@ -30,14 +30,14 @@ jobs:
     - name: Run test - jvm
       run: haxe test-jvm.hxml
 
-  test-haxe41-linux:
-    name: test haxe-4.1 on linux
+  test-haxe42-linux:
+    name: test haxe-4.2 on linux
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: krdlab/setup-haxe@v1
       with:
-        haxe-version: 4.1.5
+        haxe-version: 4.2.5
     - run: |
         haxelib install buddy
         haxelib install utest
